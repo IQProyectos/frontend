@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000/",
+  "proxy": "https://iq-proyecto-api.herokuapp.com/",
   "jest": {
     "moduleNameMapper": {
       "\\.(css|scss)$": "identity-obj-proxy"

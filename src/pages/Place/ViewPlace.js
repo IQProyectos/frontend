@@ -152,7 +152,7 @@ export default function ViewPlace() {
     async function getAllPlaces() {
         try {
             const places = await axios.get(
-                "http://localhost:5000/api/private/place",
+                "https://iq-proyecto-api.herokuapp.com/api/private/place",
                 config
             );
             wrapValues(places.data.places);

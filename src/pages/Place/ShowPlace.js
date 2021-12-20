@@ -104,7 +104,7 @@ export default function ShowBioprocesses() {
     const getPlace = async () => {
         try {
             setLoading(true);
-            let response = await axios.get(`http://localhost:5000/api/private/place/${id}`, config);
+            let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/place/${id}`, config);
             setPlace(response.data.place);
             let data = response.data.place;
             setExport([

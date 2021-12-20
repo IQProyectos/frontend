@@ -117,7 +117,7 @@ export default function PlaceSelector({id, setPlace, setPlaceName}) {
     try {
       setLoading(true);
       let response = await axios.get(
-        `http://localhost:5000/api/private/placebioprocess/${id}`,
+        `https://iq-proyecto-api.herokuapp.com/api/private/placebioprocess/${id}`,
         config
       );
       setPlacesBio(response.data.places);

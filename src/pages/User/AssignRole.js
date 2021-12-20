@@ -59,7 +59,7 @@ const AssignRole = ({ }) => {
             setLoading(true);
             setSelectedUser(false);
             const bioprocesses = await axios.get(
-                `http://localhost:5000/api/private/filteredbioprocess/${userValue.id}`,
+                `https://iq-proyecto-api.herokuapp.com/api/private/filteredbioprocess/${userValue.id}`,
                 config
             );
             wrapBioprocesses(bioprocesses.data.bioprocesses);
@@ -79,7 +79,7 @@ const AssignRole = ({ }) => {
         async function getUsers() {
             try {
                 const users = await axios.get(
-                    "http://localhost:5000/api/private/users/",
+                    "https://iq-proyecto-api.herokuapp.com/api/private/users/",
                     config
                 );
                 wrapUsers(users.data.users);
@@ -132,7 +132,7 @@ const AssignRole = ({ }) => {
             }
             userValue.roles.push(role);
             const { data } = await axios.patch(
-                `http://localhost:5000/api/private/users/${userValue.id}`,
+                `https://iq-proyecto-api.herokuapp.com/api/private/users/${userValue.id}`,
                 {
                     username: userValue.username,
                     email: userValue.email,

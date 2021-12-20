@@ -6,7 +6,7 @@ const config = {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     }
 };
-const bioprocessURL = 'http://localhost:5000/api/private/bioprocess';
+const bioprocessURL = 'https://iq-proyecto-api.herokuapp.com/api/private/bioprocess';
 
 
 export const getBioprocesses = async (id) => {
@@ -28,7 +28,7 @@ export const addBioprocess = async (bioprocess) => {
 
 export const deleteBioprocess = async (id) => {
     try {
-        return await axios.delete(`http://localhost:5000/api/private/bioprocess/${id}`, config);
+        return await axios.delete(`https://iq-proyecto-api.herokuapp.com/api/private/bioprocess/${id}`, config);
     } catch (error) {
         throw Error(error?.response?.data?.error);
     }

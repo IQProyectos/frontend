@@ -106,7 +106,7 @@ export default function BioprocessSelector({setBioprocess, setBioprocessName}) {
         try {
             setLoading(true);
             const bioprocesses = await axios.get(
-                "http://localhost:5000/api/private/bioprocess",
+                "https://iq-proyecto-api.herokuapp.com/api/private/bioprocess",
                 config
             );
             wrapValues(bioprocesses.data.bioprocesses);

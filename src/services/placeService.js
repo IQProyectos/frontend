@@ -6,7 +6,7 @@ const config = {
       Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     }
   };
-const placesURL = 'http://localhost:5000/api/private/place';
+const placesURL = 'https://iq-proyecto-api.herokuapp.com/api/private/place';
 
 
 export const getPlaces = async (id) => {

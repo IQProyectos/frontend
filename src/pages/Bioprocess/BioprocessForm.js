@@ -90,7 +90,7 @@ export default function BioprocessForm() {
     const getBioprocess = async () => {
         setLoading(true);
         try {
-            let response = await axios.get(`http://localhost:5000/api/private/bioprocess/${id}`, {
+            let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/bioprocess/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -145,11 +145,11 @@ export default function BioprocessForm() {
                 console.log(values);
                 if (id) {
                     await axios
-                        .patch(`http://localhost:5000/api/private/bioprocess/${id}`, values, config)
+                        .patch(`https://iq-proyecto-api.herokuapp.com/api/private/bioprocess/${id}`, values, config)
                         .then(confirmPost)
                 } else {
                     await axios
-                        .post("http://localhost:5000/api/private/bioprocess/", values, config)
+                        .post("https://iq-proyecto-api.herokuapp.com/api/private/bioprocess/", values, config)
                         .then(confirmPost)
                 }
             }

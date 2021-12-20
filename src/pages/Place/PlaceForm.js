@@ -89,7 +89,7 @@ export default function PlaceForm() {
     const getPlace = async () => {
         setLoading(true);
         try {
-            let response = await axios.get(`http://localhost:5000/api/private/place/${id}`, {
+            let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/place/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -143,11 +143,11 @@ export default function PlaceForm() {
             try {
                 if (id) {
                     await axios
-                        .patch(`http://localhost:5000/api/private/place/${id}`, values, config)
+                        .patch(`https://iq-proyecto-api.herokuapp.com/api/private/place/${id}`, values, config)
                         .then(confirmPost)
                 } else {
                     await axios
-                        .post("http://localhost:5000/api/private/place/", values, config)
+                        .post("https://iq-proyecto-api.herokuapp.com/api/private/place/", values, config)
                         .then(confirmPost)
                 }
 

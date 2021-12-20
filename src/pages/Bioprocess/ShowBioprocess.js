@@ -171,7 +171,7 @@ export default function ShowBioprocesses() {
 
   async function beautifyFactors(){
     const response = await axios.get(
-      `http://localhost:5000/api/private/factorbioprocess/${id}`,
+      `https://iq-proyecto-api.herokuapp.com/api/private/factorbioprocess/${id}`,
       config
     );
     let factorsExport = {};
@@ -215,7 +215,7 @@ export default function ShowBioprocesses() {
   const getBioprocess = async () => {
     try {
       
-      let response = await axios.get(`http://localhost:5000/api/private/bioprocess/${id}`, config);
+      let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/bioprocess/${id}`, config);
       setBioprocess(response.data.bioprocess);
       let data = response.data.bioprocess;
       
@@ -235,7 +235,7 @@ export default function ShowBioprocesses() {
 
   const getPlacesBio = async () => {
     try {
-      let response = await axios.get(`http://localhost:5000/api/private/placebioprocess/${id}`, config);
+      let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/placebioprocess/${id}`, config);
       setPlacesBio(response.data.places);
       setLoading(false);
       if (response.data.places.length > 0)
@@ -255,7 +255,7 @@ export default function ShowBioprocesses() {
 
   const getFilteredPlaces = async () => {
     try {
-      let response = await axios.get(`http://localhost:5000/api/private/filteredplace/${id}`, config);
+      let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/filteredplace/${id}`, config);
       setFilteredPlaces(response.data.places);
     } catch (error) {
       setTimeout(() => {
@@ -275,7 +275,7 @@ export default function ShowBioprocesses() {
   const getPicturePlace = async (place) => {
     try {
       if (place) {
-        let response = await axios.get(`http://localhost:5000/api/private/placePicture/${place.id}`, config);
+        let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/placePicture/${place.id}`, config);
         setImage(response.data.place.image);
       } else {
         setImage("");
@@ -307,7 +307,7 @@ export default function ShowBioprocesses() {
     try {
       setLoadingAso(true);
       values.bioprocesses.push(id);
-      return await axios.post(`http://localhost:5000/api/private/place/`, values, config);
+      return await axios.post(`https://iq-proyecto-api.herokuapp.com/api/private/place/`, values, config);
     } catch (error) {
       setTimeout(() => {
         setOpen(false);
@@ -326,7 +326,7 @@ export default function ShowBioprocesses() {
     try {
       setLoadingAso(true);
       placeValue.bioprocesses.push(id);
-      return await axios.patch(`http://localhost:5000/api/private/place/${placeValue.id}`, placeValue, config);
+      return await axios.patch(`https://iq-proyecto-api.herokuapp.com/api/private/place/${placeValue.id}`, placeValue, config);
     } catch (error) {
       setTimeout(() => {
         setOpen(false);
@@ -345,7 +345,7 @@ export default function ShowBioprocesses() {
     try {
       setLoadingAso(true);
       bioprocess.places.push(place._id);
-      axios.patch(`http://localhost:5000/api/private/bioprocess/${id}`, bioprocess, config);
+      axios.patch(`https://iq-proyecto-api.herokuapp.com/api/private/bioprocess/${id}`, bioprocess, config);
       setLoadingAso(false);
     } catch (error) {
       setTimeout(() => {

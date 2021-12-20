@@ -138,7 +138,7 @@ function CreateData() {
     async function getAllFactors() {
         try {
             const response = await axios.get(
-                `http://localhost:5000/api/private/factorbioprocess/${bid}`,
+                `https://iq-proyecto-api.herokuapp.com/api/private/factorbioprocess/${bid}`,
                 config
             );
             let facObj = { "fecha": "", "hora": "" };

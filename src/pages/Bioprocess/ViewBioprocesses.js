@@ -169,7 +169,7 @@ export default function ViewBioprocess() {
     async function getAllBioprocesses() {
         try {
             const bioprocesses = await axios.get(
-                "http://localhost:5000/api/private/bioprocess",
+                "https://iq-proyecto-api.herokuapp.com/api/private/bioprocess",
                 config
             );
             
