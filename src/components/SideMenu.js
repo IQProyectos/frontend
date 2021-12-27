@@ -141,14 +141,6 @@ export default function SideMenu() {
             </ListItem>
           </List>
           <Divider />
-          
-          <List>
-            <ListItem button key={'predictor'} onClick={() => moveRoute('/predictor')}>
-              <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <BiotechIcon />}</ListItemIcon>
-              <ListItemText primary={'Hacer predicción'}/>
-            </ListItem>
-          </List>
-          <Divider />
         </div>
       </Drawer>
       
