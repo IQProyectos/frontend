@@ -113,7 +113,6 @@ const Login = ({ history }) => {
           justifyContent="center"
           alignItems="center"
         >
-          <img className="login-image" src={logo}></img>
         </Grid>
 
       <div className="login-screen">       
