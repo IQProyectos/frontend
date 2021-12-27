@@ -163,7 +163,7 @@ function ViewData() {
     async function getAllFactors() {
         try {
             const response = await axios.get(
-                `https://iq-proyecto-api.herokuapp.com/api/private/factorbioprocess/${bid}`,
+                `http://localhost:5000/api/private/factorproject/${bid}`,
                 config
             );
 
@@ -185,7 +185,7 @@ function ViewData() {
     async function getAllData() {
         try {
             const response = await axios.get(
-                `https://iq-proyecto-api.herokuapp.com/api/private/record/${bid}/${pid}`,
+                `http://localhost:5000/api/private/record/${bid}/${pid}`,
                 config
             );
 
@@ -209,7 +209,7 @@ function ViewData() {
 
     const deleteRecord = async rid => {
         try {
-            return await axios.delete(`https://iq-proyecto-api.herokuapp.com/api/private/record/${rid}`, config);
+            return await axios.delete(`http://localhost:5000/api/private/record/${rid}`, config);
         } catch (error) {
             throw Error(error?.response?.data?.error);
         }
@@ -238,7 +238,7 @@ function ViewData() {
     const updateRecord = async _ => {
         let data = await getEditor();
         try {
-            return await axios.patch(`https://iq-proyecto-api.herokuapp.com/api/private/record/${inputEdit.id}`, data, config);
+            return await axios.patch(`http://localhost:5000/api/private/record/${inputEdit.id}`, data, config);
         } catch (error) {
             throw Error(error?.response?.data?.error);
         }
@@ -434,8 +434,8 @@ function ViewData() {
     return (
         <Container>
             <PageHeader
-                title="Datos incluidos en el lugar"
-                subTitle="Se muestran todos los datos asociados a este lugar y bioproceso"
+                title="Datos incluidos en el programa"
+                subTitle="Se muestran todos los datos asociados a este programa y proyecto"
                 icon={<InfoIcon fontSize="Large"
                 />}
             />
@@ -457,7 +457,7 @@ function ViewData() {
                     </Tooltip>
                 </Grid>
             </div>
-            <div className={classes.placeholder} hidden={!loading}>
+            <div className={classes.programholder} hidden={!loading}>
                 <Fade
                     in={loading}
                     style={{

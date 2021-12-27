@@ -138,7 +138,7 @@ function CreateData() {
     async function getAllFactors() {
         try {
             const response = await axios.get(
-                `https://iq-proyecto-api.herokuapp.com/api/private/factorbioprocess/${bid}`,
+                `http://localhost:5000/api/private/factorproject/${bid}`,
                 config
             );
             let facObj = { "fecha": "", "hora": "" };
@@ -199,8 +199,8 @@ function CreateData() {
 
         if (canProceed) {
             let data = {
-                "bioprocessID": bid,
-                "placeID": pid,
+                "projectID": bid,
+                "programID": pid,
                 "values": []
             };
 
@@ -240,8 +240,8 @@ function CreateData() {
 
         return new Promise(resolve => {
             let data = {
-                "bioprocessID": bid,
-                "placeID": pid,
+                "projectID": bid,
+                "programID": pid,
                 "values": []
             };
 
@@ -387,12 +387,12 @@ function CreateData() {
     return (
         <Container>
             <PageHeader
-                title="Añadir datos al lugar"
-                subTitle="Al crear los datos, se podrá realizar la predicción"
+                title="Añadir datos al programa"
+                subTitle="Se guardarán los datos del proyecto"
                 icon={<InfoIcon fontSize="Large"
                 />}
             />
-            <div className={classes.placeholder} hidden={!loading}>
+            <div className={classes.programholder} hidden={!loading}>
                 <Fade
                     in={loading}
                     style={{

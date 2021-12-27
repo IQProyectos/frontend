@@ -25,7 +25,7 @@ const initialValues = {
   description: "",
   isDependent: false,
   type: "value",
-  bioprocessID: "",
+  projectID: "",
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     width: '90%',
     padding: theme.spacing(3)
   },
-  placeholder: {
+  programholder: {
     height: 40,
     textAlign: "center",
     width: '90%'
@@ -87,7 +87,7 @@ export default function CreateFactor() {
     if (validate()) {
       setLoading(true);
       try {
-        values.bioprocessID = id;
+        values.projectID = id;
         await addFactor(values).then(confirmPost).catch(console.log);
         
         
@@ -107,10 +107,10 @@ export default function CreateFactor() {
     <div>
       <PageHeader
         title="Añadir nuevo factor"   
-        subTitle="El factor creado va a estar ligado a este bioproceso"     
+        subTitle="El factor creado va a estar ligado a este proyecto"     
         icon={<EcoIcon fontSize="large" color="primary" />}
       />
-      <div className={classes.placeholder} hidden={!loading}>
+      <div className={classes.programholder} hidden={!loading}>
         <Fade
           in={loading}
           style={{

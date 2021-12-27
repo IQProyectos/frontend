@@ -6,7 +6,7 @@ const config = {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     }
 };
-const dataURL = 'https://iq-proyecto-api.herokuapp.com/api/private/record';
+const dataURL = 'http://localhost:5000/api/private/record';
 
 
 export const getData = async (pid, bid) => {

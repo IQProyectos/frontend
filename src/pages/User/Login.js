@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     marginBottom: "20px"
   },
-  placeholder: {
+  programholder: {
     height: 40,
     textAlign: 'center'
   },
@@ -54,7 +54,7 @@ const Login = ({ history }) => {
 
     try {
       const { data } = await axios.post(
-        "https://iq-proyecto-api.herokuapp.com/api/auth/login", values, config
+        "http://localhost:5000/api/auth/login", values, config
       );
 
       localStorage.setItem("authToken", data.token);
@@ -120,7 +120,7 @@ const Login = ({ history }) => {
 
         {/* <form onSubmit={loginHandler} className="login-screen__form"> */}
         <Form onSubmit={loginHandler} className="login-screen__form">
-          <div className={classes.placeholder} hidden={!loading}>
+          <div className={classes.programholder} hidden={!loading}>
             <Fade
               in={loading}
               style={{

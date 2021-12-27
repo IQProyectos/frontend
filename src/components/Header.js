@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
+        
     },
     toolbarButtons: {
         marginLeft: 'auto',
@@ -77,7 +78,7 @@ export default function Header() {
                             color="inherit"    
                         >
                             <Typography variant="h6" noWrap >
-                                Biopredictor
+                                Gestor de proyectos de investigación
                             </Typography>
                         </IconButton>
                         

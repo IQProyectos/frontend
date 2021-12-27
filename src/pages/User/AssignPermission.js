@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
         transform: 'translate(-50%, -50%)',
         minWidth: 400,
     },
-    placeholder: {
+    programholder: {
         height: 40,
         textAlign: 'center',
         width: '90%'
@@ -80,7 +80,7 @@ export default function AssignPermission(props) {
 
     function fixRoles (role){
         for (const roleIndex in values) {
-            if (values[roleIndex].bioprocessId === role.bioprocessId){
+            if (values[roleIndex].projectId === role.projectId){
                 let temp = values;
                 temp[roleIndex] = role;   
                 return temp;             
@@ -99,12 +99,12 @@ export default function AssignPermission(props) {
         
         try{
             if(isEmpty){
-                throw new Error("Por favor seleccione un bioproceso");
+                throw new Error("Por favor seleccione un proyecto");
             }else{
                 setOpen(true);
                 const newRoles = fixRoles(roleValue);
                 const response = await axios.post(
-                    `https://iq-proyecto-api.herokuapp.com/api/private/userRole/${userId}`, {roles: newRoles}, config
+                    `http://localhost:5000/api/private/userRole/${userId}`, {roles: newRoles}, config
                 );
                 let responseGet = await getUsers(userId);
                 setValues(responseGet.data.user.roles);
@@ -160,11 +160,11 @@ export default function AssignPermission(props) {
                                     }
                                 }}
                                 className={classes.center}
-                                id="combo-box-places"
+                                id="combo-box-programs"
                                 options={values}
-                                getOptionLabel={(option) => option.bioprocessName}
+                                getOptionLabel={(option) => option.projectName}
                                 style={{ width: 300, justifyContent: "center" }}
-                                renderInput={(params) => <TextField {...params} label="Bioprocesos" variant="outlined" />}
+                                renderInput={(params) => <TextField {...params} label="Proyectos" variant="outlined" />}
                                 inputValue={inputValue}
                                 onInputChange={(event, newInputValue) => {
                                     setInputValue(newInputValue);

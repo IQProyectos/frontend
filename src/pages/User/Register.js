@@ -26,7 +26,7 @@ const useStyles = makeStyles(({
     width:"100%",
     marginBottom: "20px"
   },
-  placeholder: {
+  programholder: {
     height: 40,
     textAlign: 'center'
   }
@@ -40,7 +40,7 @@ const Register = ({ }) => {
   const [open, setOpen] = React.useState(false);
   // const [items, setItems] = React.useState([{ name: "" }]);
   // const [selected, setSelected] = React.useState(false);  
-  // const [inputBioprocess, setInputBioprocess] = React.useState('');
+  // const [inputProject, setInputProject] = React.useState('');
 
   const config = {
     headers: {
@@ -48,8 +48,8 @@ const Register = ({ }) => {
       Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     },
   };
-  // function wrapValues(bioprocesses) {
-  //   setItems(bioprocesses);
+  // function wrapValues(projects) {
+  //   setItems(projects);
   //   setLoading(false);
 
   // }
@@ -57,11 +57,11 @@ const Register = ({ }) => {
     let unmounted = false;
     // async function getBio() {
     //   try {
-    //     const bioprocesses = await axios.get(
-    //       "https://iq-proyecto-api.herokuapp.com/api/private/bioprocess",
+    //     const projects = await axios.get(
+    //       "http://localhost:5000/api/private/project",
     //       config
     //     );
-    //     wrapValues(bioprocesses.data.bioprocesses);
+    //     wrapValues(projects.data.projects);
 
 
     //   } catch (error) {
@@ -106,18 +106,18 @@ const Register = ({ }) => {
     //     setError("");
     //   }, 5000);
     //   setLoading(false);
-    //   return setError("Seleccione un bioproceso");
+    //   return setError("Seleccione un proyecto");
     // }
 
 
       try {
         // const role = {
-        //   bioprocessId: value.id,
+        //   projectId: value.id,
         //   role: roleType
         // }
         console.log(values);
         const { data } = await axios.post(
-          "https://iq-proyecto-api.herokuapp.com/api/private/register",values,config
+          "http://localhost:5000/api/private/register",values,config
         );
         setLoading(false);
         setOpen(true);
@@ -168,7 +168,7 @@ const Register = ({ }) => {
     <div className="register-screen" style={{width:'90%'}}>
       {/* <form onSubmit={registerHandler} className="register-screen__form"> */}
       <Form onSubmit={registerHandler} className="register-screen__form">
-        <div className={classes.placeholder} hidden={!loading}>
+        <div className={classes.programholder} hidden={!loading}>
           <Fade
             in={loading}
             style={{
@@ -239,7 +239,7 @@ const Register = ({ }) => {
             />
           </Grid>
           <Grid item>
-            <Tooltip title="El administrador tiene acceso a todas las funcionalidades del sistema, mientras un usuario tiene acceso limitado asociado a un bioproceso.">
+            <Tooltip title="El administrador tiene acceso a todas las funcionalidades del sistema, mientras un usuario tiene acceso limitado asociado a un proyecto.">
               <HelpIcon color={"success"} />
             </Tooltip>
 
@@ -261,12 +261,12 @@ const Register = ({ }) => {
             options={items}
             getOptionLabel={(option) => option.name}
             style={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Bioprocesos" variant="outlined" />}
+            renderInput={(params) => <TextField {...params} label="Proyectos" variant="outlined" />}
             disabled={loading}
             disableClearable
-            inputValue={inputBioprocess}
+            inputValue={inputProject}
             onInputChange={(event, newInputValue) => {
-              setInputBioprocess(newInputValue);
+              setInputProject(newInputValue);
             }}
           />
           <br />

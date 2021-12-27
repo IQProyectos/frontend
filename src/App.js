@@ -9,17 +9,20 @@ import Home from './pages/Home'
 import RequireAuth from './components/routing/RequireAuth';
 import Register from './pages/User/Register'
 import AssignRole from './pages/User/AssignRole';
-import ViewBioprocesses from './pages/Bioprocess/ViewBioprocesses'
-import ShowBioprocess from './pages/Bioprocess/ShowBioprocess';
+import ViewProjects from './pages/Project/ViewProjects'
+import ShowProject from './pages/Project/ShowProject';
 import UpdateFactor from './pages/Factors/UpdateFactor';
 import CreateFactor from './pages/Factors/CreateFactor';
-import ShowPlace from './pages/Place/ShowPlace';
-import ViewPlace from './pages/Place/ViewPlace';
-import PlaceForm from './pages/Place/PlaceForm';
+import ShowProgram from './pages/Program/ShowProgram';
+import ViewProgram from './pages/Program/ViewProgram';
+import ProgramForm from './pages/Program/ProgramForm';
+import ShowBlog from './pages/Blog/ShowBlog';
+import ViewBlog from './pages/Blog/ViewBlog';
+import BlogForm from './pages/Blog/BlogForm';
 import CreateData from './pages/Data/CreateData';
 import ViewData from './pages/Data/ViewData';
 import { esES } from '@mui/material/locale';
-import BioprocessForm from './pages/Bioprocess/BioprocessForm';
+import ProjectForm from './pages/Project/ProjectForm';
 import ViewUsers from './pages/User/ViewUsers';
 import Profile from './pages/User/Profile'
 import Predictor from './pages/Predictor/Predictor';
@@ -86,10 +89,10 @@ function App() {
               <Home />           
             </RequireAuth>
             
-            <RequireAuth exact path='/bioprocess/create'>
+            <RequireAuth exact path='/project/create'>
               <Header />
               <SideMenu />
-              <BioprocessForm />
+              <ProjectForm />
             </RequireAuth>
 
             <RequireAuth exact path='/factor/create/:id'>
@@ -98,22 +101,22 @@ function App() {
               <CreateFactor />
             </RequireAuth>
 
-            <RequireAuth exact path='/bioprocess/'>
+            <RequireAuth exact path='/project/'>
               <Header />
               <SideMenu />
-              <ViewBioprocesses />
+              <ViewProjects />
             </RequireAuth>
 
-            <RequireAuth exact path='/bioprocess/show/:id'>
+            <RequireAuth exact path='/project/show/:id'>
               <Header />
               <SideMenu />
-              <ShowBioprocess />
+              <ShowProject />
             </RequireAuth>
 
-            <RequireAuth exact path='/bioprocess/update/:id'>
+            <RequireAuth exact path='/project/update/:id'>
               <Header />
               <SideMenu />
-              <BioprocessForm />
+              <ProjectForm />
             </RequireAuth>
 
             <RequireAuth exact path='/register'>
@@ -144,29 +147,55 @@ function App() {
               <UpdateFactor />
             </RequireAuth>
 
-            <RequireAuth exact path='/place/show/:id'>
+            <RequireAuth exact path='/program/show/:id'>
               <Header />
               <SideMenu />
-              <ShowPlace />
+              <ShowProgram />
             </RequireAuth>
 
-            <RequireAuth exact path='/place/create'>
+            <RequireAuth exact path='/program/create'>
               <Header />
               <SideMenu />
-              <PlaceForm />
+              <ProgramForm />
             </RequireAuth>
 
-            <RequireAuth exact path='/place/update/:id'>
+            <RequireAuth exact path='/program/update/:id'>
               <Header />
               <SideMenu />
-              <PlaceForm />
+              <ProgramForm />
             </RequireAuth>
 
 
-            <RequireAuth exact path='/place/'>
+            <RequireAuth exact path='/program/'>
               <Header />
               <SideMenu />
-              <ViewPlace />
+              <ViewProgram />
+            </RequireAuth>
+
+
+            <RequireAuth exact path='/blog/show/:id'>
+              <Header />
+              <SideMenu />
+              <ShowBlog />
+            </RequireAuth>
+
+            <RequireAuth exact path='/blog/create'>
+              <Header />
+              <SideMenu />
+              <BlogForm />
+            </RequireAuth>
+
+            <RequireAuth exact path='/blog/update/:id'>
+              <Header />
+              <SideMenu />
+              <BlogForm />
+            </RequireAuth>
+
+
+            <RequireAuth exact path='/blog/'>
+              <Header />
+              <SideMenu />
+              <ViewBlog />
             </RequireAuth>
 
             <RequireAuth exact path='/data/add/:bid/:pid'>

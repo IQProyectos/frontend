@@ -3,7 +3,7 @@ import { Paper, Card, Typography, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     pageForm: {
-        backgroundColor: '#fdfdff',
+        backgroundColor: '#17c6f6',
         width: '90%'
     },
     pageHeader:{

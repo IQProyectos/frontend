@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { Grid, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-  placeholder: {
+  programholder: {
     height: 40,
     textAlign: 'center',
     width: '90%',
@@ -23,7 +23,7 @@ function CircularProgressWithLabel(props) {
         direction="row"
         justifyContent="center"
         alignItems="center"
-        className={classes.placeholder}
+        className={classes.programholder}
       >
         <Box sx={{ position: 'relative', display: 'inline-flex' }}>
           <CircularProgress variant="determinate" {...props} />

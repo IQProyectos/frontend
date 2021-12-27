@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PageHeader from "../../components/PageHeader";
 import BiotechIcon from '@mui/icons-material/Biotech';
 import { Paper, Grid, makeStyles } from '@material-ui/core'
-import BioprocessSelector from './BioprocessSelector';
-import PlaceSelector from './PlaceSelector';
+import ProjectSelector from './ProjectSelector';
+import ProgramSelector from './ProgramSelector';
 import DateRangeSelector from './DateRangeSelector';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -41,11 +41,11 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex'
 
     },
-    placeholder: {
+    programholder: {
         height: 40,
         textAlign: 'center'
     },
-    placeholderLoading: {
+    programholderLoading: {
         height: 40,
         textAlign: 'center',
         width: '90%'
@@ -66,25 +66,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Predictor() {
     const classes = useStyles();
-    const [bioprocess, setBioprocess] = useState("");
-    const [place, setPlace] = useState("");
+    const [project, setProject] = useState("");
+    const [program, setProgram] = useState("");
     const [initialDate, setInitialDate] = useState("");
     const [finalDate, setFinalDate] = useState("");
 
-    const [bioprocessName, setBioprocessName] = useState("");
-    const [placeName, setPlaceName] = useState("");
+    const [projectName, setProjectName] = useState("");
+    const [programName, setProgramName] = useState("");
 
     useEffect(() => {
-        setPlace("");
-        setPlaceName("");
-    }, [bioprocess]);
+        setProgram("");
+        setProgramName("");
+    }, [project]);
 
     const handleSubmit = async e => {
         e.preventDefault()
-        if(initialDate !== "" && finalDate !== "" && bioprocess !== "" && place !== ""){
+        if(initialDate !== "" && finalDate !== "" && project !== "" && program !== ""){
             let values = {
-                bioprocessID: bioprocess,
-                placeID: place,
+                projectID: project,
+                programID: program,
                 initialDate: initialDate,
                 finalDate: finalDate
             }
@@ -106,12 +106,12 @@ export default function Predictor() {
             />
             <br />
              <PageHeader
-                title="Elija un bioproceso"
+                title="Elija un proyecto"
                 subTitle="Elija el bióproceso al que le desea hacer una predicción."
                 icon={<EcoIcon fontSize="large"
                 />}
             />
-            <BioprocessSelector setBioprocess={setBioprocess} setBioprocessName={setBioprocessName}/>
+            <ProjectSelector setProject={setProject} setProjectName={setProjectName}/>
             <Grid
                 container
                 direction="row"
@@ -121,20 +121,20 @@ export default function Predictor() {
             >
                 <Paper className={classes.paper} elevation={3}>
                     <Box sx={{ width: 'auto' }} padding>
-                        <Typography variant="h5" align="center">Bioproceso Seleccionado:</Typography>
-                        <Typography variant="h6" align="center">{bioprocessName}</Typography>
+                        <Typography variant="h5" align="center">proyecto Seleccionado:</Typography>
+                        <Typography variant="h6" align="center">{projectName}</Typography>
                     </Box>
                 </Paper>
 
             </Grid>
             <br />
             <PageHeader
-                title="Elija un lugar"
-                subTitle="Elija el lugar realacionado al bioproceso seleccionado al que le desea hacer una predicción."
+                title="Elija un programa"
+                subTitle="Elija el programa realacionado al proyecto seleccionado al que le desea hacer una predicción."
                 icon={<LocationOnIcon fontSize="large"
                 />}
             />
-            <PlaceSelector id={bioprocess} setPlace={setPlace} setPlaceName={setPlaceName}/>
+            <ProgramSelector id={project} setProgram={setProgram} setProgramName={setProgramName}/>
             <Grid
                 container
                 direction="row"
@@ -144,8 +144,8 @@ export default function Predictor() {
             >
                 <Paper className={classes.paper} elevation={3}>
                     <Box sx={{ width: 'auto' }} padding>
-                        <Typography variant="h5" align="center">Lugar Seleccionado:</Typography>
-                        <Typography variant="h6" align="center">{placeName}</Typography>
+                        <Typography variant="h5" align="center">Programa Seleccionado:</Typography>
+                        <Typography variant="h6" align="center">{programName}</Typography>
                     </Box>
                 </Paper>
 
@@ -169,8 +169,8 @@ export default function Predictor() {
                 <Paper className={classes.paper} elevation={3}>
                     <Box sx={{ width: 'auto' }} padding>
                         <Typography variant="h5" align="center">Datos a utilizar para la predicción:</Typography>
-                        <Typography variant="h6" align="center">Bioproceso: {bioprocessName}</Typography>
-                        <Typography variant="h6" align="center">Lugar: {placeName}</Typography>
+                        <Typography variant="h6" align="center">proyecto: {projectName}</Typography>
+                        <Typography variant="h6" align="center">Programa: {programName}</Typography>
                         <Typography variant="h6" align="center">FechaInicial: {initialDate}</Typography>
                         <Typography variant="h6" align="center">FechaFinal: {finalDate}</Typography>
                     </Box>

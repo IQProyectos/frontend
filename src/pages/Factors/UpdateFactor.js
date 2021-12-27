@@ -25,7 +25,7 @@ const initialValues = {
   description: "",
   isDependent: false,
   type: "",
-  bioprocessID: "",
+  projectID: "",
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     width: '90%',
     padding: theme.spacing(3)
   },
-  placeholder: {
+  programholder: {
     height: 40,
     textAlign: "center",
     width: '90%'
@@ -82,7 +82,7 @@ export default function Updatefactor() {
 
   const getFactor = async () => {
     try {
-        let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/factor/${id}`, config);
+        let response = await axios.get(`http://localhost:5000/api/private/factor/${id}`, config);
         setValues(response.data.factor);
         setLoading(false);        
     } catch (error) {
@@ -133,7 +133,7 @@ export default function Updatefactor() {
         title="Editar Factor"        
         icon={<EcoIcon fontSize="large" color="primary" />}
       />
-      <div className={classes.placeholder} hidden={!loading}>
+      <div className={classes.programholder} hidden={!loading}>
         <Fade
           in={loading}
           style={{

@@ -38,13 +38,13 @@ const useStyles = makeStyles((theme) => ({
     thead: {
         '& > *': {
             fontSize: 20,
-            background: '#8ade8f',
+            background: '#17c6f6',
             color: '#FFFFFF'
         }
     },
     head: {
         fontSize: 20,
-        background: '#8ade8f',
+        background: '#17c6f6',
         color: '#FFFFFF'
 
     },
@@ -57,12 +57,12 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex'
 
     },
-    placeholder: {
+    programholder: {
         height: 40,
         textAlign: 'center'
     },
     button: {
-        background: '#4287f5',
+        background: '#17c6f6',
         color: '#FFFFFF',
         justifyContent: 'center'
     },
@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
     },
     csvContainer: {
         fontSize: 20,
-        background: '#8ade8f',
+        background: '#108EB0',
 
     },
     iconContainer: {
@@ -137,7 +137,7 @@ export default function ViewFactors(props) {
     async function getAllFactors() {
         try {
             const factors = await axios.get(
-                `https://iq-proyecto-api.herokuapp.com/api/private/factorbioprocess/${id}`,
+                `http://localhost:5000/api/private/factorproject/${id}`,
                 config
             );
             wrapValues(factors.data.factors);
@@ -204,31 +204,10 @@ export default function ViewFactors(props) {
             </Dialog>
 
 
-            <PageHeader
-                title="Información sobre los factores"
-                subTitle="Factores asociados a este bioproceso, necesarios para la predicción"
-                icon={<InfoIcon fontSize="large"
-                />}
-            />
+            
 
-            <Grid
-                container
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                className={classes.table}
-            >
-                <Paper className={classes.paper} elevation={3}>
-                    <Box sx={{ width: 'auto' }} padding>
-                        <Typography variant="h6" align="center">¿Se necesita un nuevo factor?</Typography>
-
-                    </Box>
-                    <Box textAlign='center'>
-                        <Button color="primary" variant="contained" component={Link} to={`/factor/create/${id}`}>Crear factor</Button>
-                    </Box>
-                </Paper>
-            </Grid>
-            <div className={classes.placeholder} hidden={!loading}>
+           
+            <div className={classes.programholder} hidden={!loading}>
                 <Fade
                     in={loading}
                     style={{
@@ -261,79 +240,6 @@ export default function ViewFactors(props) {
                     {error}
                 </Alert>
             </Collapse>
-            <Paper className={classes.table}>
-                <TableContainer >
-                    <div hidden={role? !role.export : false}>
-                        <Grid
-                            container
-                            direction="row"
-                            className={classes.csvContainer}
-                        >
-                            <Tooltip title="Exportar factores">
-                                <div className={classes.iconContainer}>
-                                    <CSVLink {...csvReport} style={{ color: 'white', marginLeft: '10px' }}>
-                                        <DownloadIcon fontSize={'large'} />
-                                    </CSVLink>
-                                </div>
-                            </Tooltip>
-                        </Grid>
-                    </div>
-                    <Table stickyHeader aria-label="sticky table" className={classes.container}>
-                        <TableHead>
-                            <TableRow className={classes.thead}>
-                                <TableCell>Nombre</TableCell>
-                                <TableCell>¿Es valor dependiente?</TableCell>
-                                <TableCell>Tipo</TableCell>
-                                <TableCell className={classes.placeholder}>Acciones</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {factors.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((factor) => (
-                                <TableRow hover className={classes.row} key={factor.id}>
-                                    <TableCell>{factor.name}</TableCell>
-                                    <TableCell>
-                                        <Controls.Checkbox
-                                            name="isDependent"
-                                            label=""
-                                            value={factor.isDependent}
-                                            disabled={true}
-                                        />
-                                    </TableCell>
-                                    <TableCell>{factor.type === 'value' ? 'Valor' : 'Imagen'}</TableCell>
-                                    <TableCell >
-                                        <div hidden={role? !role.editFactor : false}>
-                                            <Grid
-                                                container
-                                                direction="row"
-                                                justifyContent="center"
-                                                alignItems="center"
-                                            >
-                                                <Tooltip title="Editar">
-                                                    <Button color="primary" variant="contained" style={{ marginRight: 10 }} component={Link} to={`/factor/update/${factor._id}`}><ModeEditIcon /></Button>
-                                                </Tooltip>
-                                                <Tooltip title="Eliminar">
-                                                    <Button color="secondary" variant="contained" onClick={() => {
-                                                        setOpenDialog(true); setFactorId(factor._id); console.log(factor._id);
-                                                    }}><DeleteIcon /></Button>
-                                                </Tooltip>
-                                            </Grid>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[10, 25, 100]}
-                    component="div"
-                    count={factors.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-            </Paper>
         </div>
     )
 }

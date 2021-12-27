@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     thead: {
         '& > *': {
             fontSize: 20,
-            background: '#8ade8f',
+            background: '#17c6f6',
             color: '#FFFFFF'
         }
     },
@@ -53,11 +53,11 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex'
 
     },
-    placeholder: {
+    programholder: {
         height: 40,
         textAlign: 'center'
     },
-    placeholderLoading: {
+    programholderLoading: {
         height: 40,
         textAlign: 'center',
         width: '90%'
@@ -132,7 +132,7 @@ export default function ViewUsers() {
     async function getAllUsers() {
         try {
             const users = await axios.get(
-                `https://iq-proyecto-api.herokuapp.com/api/private/allUsers/${uid}`,
+                `http://localhost:5000/api/private/allUsers/${uid}`,
                 config
             );
             wrapValues(users.data.users);
@@ -228,7 +228,7 @@ export default function ViewUsers() {
 
             </Grid>
 
-            <div className={classes.placeholderLoading} hidden={!loading}>
+            <div className={classes.programholderLoading} hidden={!loading}>
                 <br />
                 <Fade
                     in={loading}
@@ -251,7 +251,7 @@ export default function ViewUsers() {
                                 <TableCell>Usuario</TableCell>
                                 <TableCell>Email</TableCell>
                                 <TableCell>Tipo</TableCell>
-                                <TableCell className={classes.placeholder}>Acciones</TableCell>
+                                <TableCell className={classes.programholder}>Acciones</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

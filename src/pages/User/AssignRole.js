@@ -19,14 +19,14 @@ const AssignRole = ({ }) => {
     const history = useHistory();
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = useState("");
-    const [bioprocesses, setBioprocesses] = React.useState([{ name: "" }]);
+    const [projects, setProjects] = React.useState([{ name: "" }]);
     const [users, setUsers] = React.useState([{ username: " " }]);
     const [selectedUser, setSelectedUser] = React.useState(false);
-    const [selectedBioprocess, setSelectedBioprocess] = React.useState(false);
+    const [selectedProject, setSelectedProject] = React.useState(false);
     const [roleType, setRole] = useState("investigador");
     const [open, setOpen] = React.useState(false);
     const [inputUser, setInputUser] = React.useState('');
-    const [inputBioprocess, setInputBioprocess] = React.useState('');
+    const [inputProject, setInputProject] = React.useState('');
     const config = {
         headers: {
             "Content-Type": "application/json",
@@ -40,17 +40,17 @@ const AssignRole = ({ }) => {
         setLoading(false);
     }
 
-    function wrapBioprocesses(bioprocesses) {
-        setBioprocesses(bioprocesses);
+    function wrapProjects(projects) {
+        setProjects(projects);
         setLoading(false);
         setSelectedUser(true);
 
     }
 
     function cleanForm() {
-        setSelectedBioprocess(false);
+        setSelectedProject(false);
         setRole("investigador");
-        setInputBioprocess("");
+        setInputProject("");
         
     }
 
@@ -58,11 +58,11 @@ const AssignRole = ({ }) => {
         try {
             setLoading(true);
             setSelectedUser(false);
-            const bioprocesses = await axios.get(
-                `https://iq-proyecto-api.herokuapp.com/api/private/filteredbioprocess/${userValue.id}`,
+            const projects = await axios.get(
+                `http://localhost:5000/api/private/filteredproject/${userValue.id}`,
                 config
             );
-            wrapBioprocesses(bioprocesses.data.bioprocesses);
+            wrapProjects(projects.data.projects);
 
 
         } catch (error) {
@@ -79,7 +79,7 @@ const AssignRole = ({ }) => {
         async function getUsers() {
             try {
                 const users = await axios.get(
-                    "https://iq-proyecto-api.herokuapp.com/api/private/users/",
+                    "http://localhost:5000/api/private/users/",
                     config
                 );
                 wrapUsers(users.data.users);
@@ -99,7 +99,7 @@ const AssignRole = ({ }) => {
         return () => { unmounted = true; };
     }, []);
 
-    const [bioprocessValue, setbioprocessValue] = React.useState(bioprocesses[0]);
+    const [projectValue, setprojectValue] = React.useState(projects[0]);
     const [userValue, setuserValue] = React.useState(users[0]);
 
     const roleItems = [
@@ -111,20 +111,20 @@ const AssignRole = ({ }) => {
     const registerHandler = async (e) => {
         e.preventDefault();
         setLoading(true);
-        if (selectedUser === false || selectedBioprocess === false) {
+        if (selectedUser === false || selectedProject === false) {
 
             setTimeout(() => {
                 setError("");
             }, 5000);
             setLoading(false)
-            return setError("Seleccione un bioproceso");
+            return setError("Seleccione un proyecto");
         }
 
 
         try {
             const role = {
-                bioprocessId: bioprocessValue.id,
-                bioprocessName: bioprocessValue.name,
+                projectId: projectValue.id,
+                projectName: projectValue.name,
                 role: roleType,
                 editFactor: true,
                 editData: true,
@@ -132,7 +132,7 @@ const AssignRole = ({ }) => {
             }
             userValue.roles.push(role);
             const { data } = await axios.patch(
-                `https://iq-proyecto-api.herokuapp.com/api/private/users/${userValue.id}`,
+                `http://localhost:5000/api/private/users/${userValue.id}`,
                 {
                     username: userValue.username,
                     email: userValue.email,
@@ -158,7 +158,7 @@ const AssignRole = ({ }) => {
     };
 
     const useStyles = makeStyles(() => ({
-        placeholder: {
+        programholder: {
             height: 40,
             textAlign: 'center'
         },
@@ -169,7 +169,7 @@ const AssignRole = ({ }) => {
         <div className="register-screen">
 
             <form onSubmit={registerHandler} className="register-screen__form">
-                <div className={classes.placeholder} hidden={!loading}>
+                <div className={classes.programholder} hidden={!loading}>
                     <Fade
                         in={loading}
                         style={{
@@ -211,7 +211,7 @@ const AssignRole = ({ }) => {
                         onChange={(event, newValue) => {
                             setuserValue(newValue);
                             setSelectedUser(true);
-                            setSelectedBioprocess(false);
+                            setSelectedProject(false);
                             console.log(newValue);
                             getBio(newValue);
                         }}
@@ -229,21 +229,21 @@ const AssignRole = ({ }) => {
                     />
                     <br />
                     <Autocomplete
-                        value={bioprocessValue}
+                        value={projectValue}
                         onChange={(event, newValue) => {
-                            setbioprocessValue(newValue);
-                            setSelectedBioprocess(true);
+                            setprojectValue(newValue);
+                            setSelectedProject(true);
                         }}
                         id="combo-box-assign"
-                        options={bioprocesses}
+                        options={projects}
                         getOptionLabel={(option) => option.name}
                         style={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="Bioprocesos" variant="outlined" />}
+                        renderInput={(params) => <TextField {...params} label="Proyectos" variant="outlined" />}
                         disabled={!selectedUser}
                         disableClearable
-                        inputValue={inputBioprocess}
+                        inputValue={inputProject}
                         onInputChange={(event, newInputValue) => {
-                            setInputBioprocess(newInputValue);
+                            setInputProject(newInputValue);
                         }}
                     />
                     <br />

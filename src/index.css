@@ -32,7 +32,7 @@ body {
 }
 
 .form-group input:focus {
-  border-bottom: 3px solid #33963a;
+  border-bottom: 3px solid #11b4dd;
 }
 
 .btn {
@@ -48,7 +48,7 @@ body {
 }
 
 .btn-primary {
-  background-color: #33963a;
+  background-color: #338296;
   color: #fff;
 }
 

@@ -18,7 +18,9 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useHistory } from "react-router-dom";
 import PersonIcon from '@mui/icons-material/Person';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import BiotechIcon from '@mui/icons-material/Biotech';
+import BeenhereIcon from '@mui/icons-material/Beenhere';
 
 const drawerWidth = 240;
 
@@ -92,9 +94,9 @@ export default function SideMenu() {
           </List>
           <Divider />
           <List>
-            <ListItem button key={'bioproceso'} onClick={() => moveRoute('/bioprocess/')}>
+            <ListItem button key={'proyecto'} onClick={() => moveRoute('/project/')}>
               <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <EcoIcon />}</ListItemIcon>
-              <ListItemText primary={'Bioprocesos'}/>
+              <ListItemText primary={'Proyectos'}/>
             </ListItem>
           </List>
           <Divider />
@@ -125,9 +127,17 @@ export default function SideMenu() {
           }
           
           <List>
-            <ListItem button key={'lugar'} onClick={() => moveRoute('/place')}>
-              <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <LocationOnIcon />}</ListItemIcon>
-              <ListItemText primary={'Lugares'}/>
+            <ListItem button key={'programa'} onClick={() => moveRoute('/program')}>
+              <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <BeenhereIcon />}</ListItemIcon>
+              <ListItemText primary={'Programas'}/>
+            </ListItem>
+          </List>
+          <Divider />
+
+          <List>
+            <ListItem button key={'programa'} onClick={() => moveRoute('/blog')}>
+              <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <NoteAddIcon/>}</ListItemIcon>
+              <ListItemText primary={'Blog'}/>
             </ListItem>
           </List>
           <Divider />
