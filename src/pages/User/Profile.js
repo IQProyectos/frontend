@@ -117,7 +117,7 @@ export default function Profile() {
     const getUser = async () => {
         setLoading(true);
         try {
-            let response = await axios.get(`http://iq-proyecto-api.herokuapp.com/api/private/users/${id}`, {
+            let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/users/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -171,7 +171,7 @@ export default function Profile() {
             setLoading(true);
             try {
                 await axios
-                    .patch(`http://iq-proyecto-api.herokuapp.com/api/private/users/${id}`, values, config)
+                    .patch(`https://iq-proyecto-api.herokuapp.com/api/private/users/${id}`, values, config)
                     .then(confirmPost)
 
             }

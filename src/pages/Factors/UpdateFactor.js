@@ -82,7 +82,7 @@ export default function Updatefactor() {
 
   const getFactor = async () => {
     try {
-        let response = await axios.get(`http://iq-proyecto-api.herokuapp.com/api/private/factor/${id}`, config);
+        let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/factor/${id}`, config);
         setValues(response.data.factor);
         setLoading(false);        
     } catch (error) {

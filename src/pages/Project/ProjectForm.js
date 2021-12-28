@@ -109,7 +109,7 @@ export default function ProjectForm() {
     const getProject = async () => {
         setLoading(true);
         try {
-            let response = await axios.get(`http://iq-proyecto-api.herokuapp.com/api/private/project/${id}`, {
+            let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/project/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -164,11 +164,11 @@ export default function ProjectForm() {
                 console.log(values);
                 if (id) {
                     await axios
-                        .patch(`http://iq-proyecto-api.herokuapp.com/api/private/project/${id}`, values, config)
+                        .patch(`https://iq-proyecto-api.herokuapp.com/api/private/project/${id}`, values, config)
                         .then(confirmPost)
                 } else {
                     await axios
-                        .post("http://iq-proyecto-api.herokuapp.com/api/private/project/", values, config)
+                        .post("https://iq-proyecto-api.herokuapp.com/api/private/project/", values, config)
                         .then(confirmPost)
                 }
             }

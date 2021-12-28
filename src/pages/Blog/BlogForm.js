@@ -83,7 +83,7 @@ export default function BlogForm() {
     const getBlog = async () => {
         setLoading(true);
         try {
-            let response = await axios.get(`http://iq-proyecto-api.herokuapp.com/api/private/blog/${id}`, {
+            let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/blog/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -137,11 +137,11 @@ export default function BlogForm() {
             try {
                 if (id) {
                     await axios
-                        .patch(`http://iq-proyecto-api.herokuapp.com/api/private/blog/${id}`, values, config)
+                        .patch(`https://iq-proyecto-api.herokuapp.com/api/private/blog/${id}`, values, config)
                         .then(confirmPost)
                 } else {
                     await axios
-                        .post("http://iq-proyecto-api.herokuapp.com/api/private/blog/", values, config)
+                        .post("https://iq-proyecto-api.herokuapp.com/api/private/blog/", values, config)
                         .then(confirmPost)
                 }
 

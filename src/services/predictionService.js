@@ -6,7 +6,7 @@ const config = {
       Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     }
   };
-const predictionsURL = 'http://iq-proyecto-api.herokuapp.com/api/private/prediction';
+const predictionsURL = 'https://iq-proyecto-api.herokuapp.com/api/private/prediction';
 
 export const getPredictions = async (id) => {
     id = id || '';

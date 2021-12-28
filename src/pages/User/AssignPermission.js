@@ -104,7 +104,7 @@ export default function AssignPermission(props) {
                 setOpen(true);
                 const newRoles = fixRoles(roleValue);
                 const response = await axios.post(
-                    `http://iq-proyecto-api.herokuapp.com/api/private/userRole/${userId}`, {roles: newRoles}, config
+                    `https://iq-proyecto-api.herokuapp.com/api/private/userRole/${userId}`, {roles: newRoles}, config
                 );
                 let responseGet = await getUsers(userId);
                 setValues(responseGet.data.user.roles);
