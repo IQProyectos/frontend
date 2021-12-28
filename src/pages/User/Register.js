@@ -58,7 +58,7 @@ const Register = ({ }) => {
     // async function getBio() {
     //   try {
     //     const projects = await axios.get(
-    //       "http://localhost:5000/api/private/project",
+    //       "http://iq-proyecto-api.herokuapp.com/api/private/project",
     //       config
     //     );
     //     wrapValues(projects.data.projects);
@@ -117,7 +117,7 @@ const Register = ({ }) => {
         // }
         console.log(values);
         const { data } = await axios.post(
-          "http://localhost:5000/api/private/register",values,config
+          "http://iq-proyecto-api.herokuapp.com/api/private/register",values,config
         );
         setLoading(false);
         setOpen(true);

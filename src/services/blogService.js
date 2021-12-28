@@ -6,7 +6,7 @@ const config = {
       Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     }
   };
-const blogsURL = 'http://localhost:5000/api/private/blog';
+const blogsURL = 'http://iq-proyecto-api.herokuapp.com/api/private/blog';
 
 
 export const getBlogs = async (id) => {

@@ -102,7 +102,7 @@ export default function ShowProjects() {
     const getBlog = async () => {
         try {
             setLoading(true);
-            let response = await axios.get(`http://localhost:5000/api/private/blog/${id}`, config);
+            let response = await axios.get(`http://iq-proyecto-api.herokuapp.com/api/private/blog/${id}`, config);
             setBlog(response.data.blog);
             let data = response.data.blog;
             setExport([

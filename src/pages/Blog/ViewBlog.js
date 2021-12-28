@@ -151,7 +151,7 @@ export default function ViewBlog() {
     async function getAllBlogs() {
         try {
             const blogs = await axios.get(
-                "http://localhost:5000/api/private/blog",
+                "http://iq-proyecto-api.herokuapp.com/api/private/blog",
                 config
             );
             wrapValues(blogs.data.blogs);
