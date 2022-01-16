@@ -117,7 +117,7 @@ export default function ProgramSelector({id, setProgram, setProgramName}) {
     try {
       setLoading(true);
       let response = await axios.get(
-        `http://localhost:5000/api/private/programproject/${id}`,
+        `https://iq-proyecto-api.herokuapp.com/api/private/programproject/${id}`,
         config
       );
       setProgramsBio(response.data.programs);

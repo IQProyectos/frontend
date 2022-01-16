@@ -30,15 +30,10 @@ export default function AboutUs() {
                     <h1>Acerca del equipo:</h1>
                     <br/>
                     <h2>Desarrolladores:</h2>
-                    <p>Erick Elizondo Ramirez</p>
-                    <p>Mauricio Gamboa Godinez</p>
-                    <p>Daniel Macías Reynaud</p>
+                    <p>Erick Blanco</p>
+                    <p>Luis Castillo</p>
+                    <p>Luis Ortiz</p>
                     <br/>
-                    <h2>Diseñadora:</h2>
-                    <p>Karina Perez Gonzalez</p>
-                </Grid>
-                <Grid item xs={6}>
-                <img className="login-image" src={logo}></img>
                 </Grid>
                 
             </Grid>

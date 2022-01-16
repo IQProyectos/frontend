@@ -6,7 +6,7 @@ const config = {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     }
 };
-const userURL = 'http://localhost:5000/api/private/users';
+const userURL = 'https://iq-proyecto-api.herokuapp.com/api/private/users';
 
 
 export const getUsers = async (id) => {
@@ -21,7 +21,7 @@ export const getUsers = async (id) => {
 export const getAllUsers = async (id) => {
     try {
         id = id || '';
-        return await axios.get('http://localhost:5000/api/private/allUsers', config);
+        return await axios.get('https://iq-proyecto-api.herokuapp.com/api/private/allUsers', config);
     } catch (error) {
         return new TypeError("Authentication failed!");
     }
@@ -53,7 +53,7 @@ export const editUser = async (id, user) => {
 
 export const getPermissions = async (uid, bid) => {
     try{
-        return await axios.get(`http://localhost:5000/api/private/permissions/${uid}/${bid}`,config);
+        return await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/permissions/${uid}/${bid}`,config);
     }catch(error) {
         return new TypeError("Authentication failed!");
     }
@@ -61,7 +61,7 @@ export const getPermissions = async (uid, bid) => {
 
 export const editRoles = async (uid, newRoles) => {
     try{
-        return await axios.post(`http://localhost:5000/api/private/userRole/${uid}`, {"roles": newRoles}, config);
+        return await axios.post(`https://iq-proyecto-api.herokuapp.com/api/private/userRole/${uid}`, {"roles": newRoles}, config);
     }catch(error) {
         return new TypeError("Authentication failed!");
     }

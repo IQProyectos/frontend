@@ -152,7 +152,7 @@ export default function ViewProgram() {
     async function getAllPrograms() {
         try {
             const programs = await axios.get(
-                "http://localhost:5000/api/private/program",
+                "https://iq-proyecto-api.herokuapp.com/api/private/program",
                 config
             );
             wrapValues(programs.data.programs);

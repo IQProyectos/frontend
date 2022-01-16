@@ -137,7 +137,7 @@ export default function ViewFactors(props) {
     async function getAllFactors() {
         try {
             const factors = await axios.get(
-                `http://localhost:5000/api/private/factorproject/${id}`,
+                `https://iq-proyecto-api.herokuapp.com/api/private/factorproject/${id}`,
                 config
             );
             wrapValues(factors.data.factors);

@@ -132,7 +132,7 @@ export default function ViewUsers() {
     async function getAllUsers() {
         try {
             const users = await axios.get(
-                `http://localhost:5000/api/private/allUsers/${uid}`,
+                `https://iq-proyecto-api.herokuapp.com/api/private/allUsers/${uid}`,
                 config
             );
             wrapValues(users.data.users);
