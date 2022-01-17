@@ -89,7 +89,7 @@ export default function ProgramForm() {
     const getProgram = async () => {
         setLoading(true);
         try {
-            let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/program/${id}`, {
+            let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/program/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -143,11 +143,11 @@ export default function ProgramForm() {
             try {
                 if (id) {
                     await axios
-                        .patch(`https://iq-proyecto-api.herokuapp.com/api/private/program/${id}`, values, config)
+                        .patch(`${process.env.REACT_APP_API_URL}/api/private/program/${id}`, values, config)
                         .then(confirmPost)
                 } else {
                     await axios
-                        .post("https://iq-proyecto-api.herokuapp.com/api/private/program/", values, config)
+                        .post(process.env.REACT_APP_API_URL + "/api/private/program/", values, config)
                         .then(confirmPost)
                 }
 

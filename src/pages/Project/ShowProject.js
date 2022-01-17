@@ -176,7 +176,7 @@ export default function ShowProjects() {
 
   async function beautifyFactors(){
     const response = await axios.get(
-      `https://iq-proyecto-api.herokuapp.com/api/private/factorproject/${id}`,
+      `${process.env.REACT_APP_API_URL}/api/private/factorproject/${id}`,
       config
     );
     let factorsExport = {};
@@ -225,7 +225,7 @@ export default function ShowProjects() {
   const getProject = async () => {
     try {
       
-      let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/project/${id}`, config);
+      let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/project/${id}`, config);
       setProject(response.data.project);
       let data = response.data.project;
       
@@ -245,7 +245,7 @@ export default function ShowProjects() {
 
   const getProgramsBio = async () => {
     try {
-      let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/programproject/${id}`, config);
+      let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/programproject/${id}`, config);
       setProgramsBio(response.data.programs);
       setLoading(false);
       if (response.data.programs.length > 0)
@@ -265,7 +265,7 @@ export default function ShowProjects() {
 
   const getFilteredPrograms = async () => {
     try {
-      let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/filteredprogram/${id}`, config);
+      let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/filteredprogram/${id}`, config);
       setFilteredPrograms(response.data.programs);
     } catch (error) {
       setTimeout(() => {
@@ -285,7 +285,7 @@ export default function ShowProjects() {
   const getPictureProgram = async (program) => {
     try {
       if (program) {
-        let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/programPicture/${program.id}`, config);
+        let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/programPicture/${program.id}`, config);
         setImage(response.data.program.image);
       } else {
         setImage("");
@@ -317,7 +317,7 @@ export default function ShowProjects() {
     try {
       setLoadingAso(true);
       values.projects.push(id);
-      return await axios.post(`https://iq-proyecto-api.herokuapp.com/api/private/program/`, values, config);
+      return await axios.post(`${process.env.REACT_APP_API_URL}/api/private/program/`, values, config);
     } catch (error) {
       setTimeout(() => {
         setOpen(false);
@@ -336,7 +336,7 @@ export default function ShowProjects() {
     try {
       setLoadingAso(true);
       programValue.projects.push(id);
-      return await axios.patch(`https://iq-proyecto-api.herokuapp.com/api/private/program/${programValue.id}`, programValue, config);
+      return await axios.patch(`${process.env.REACT_APP_API_URL}/api/private/program/${programValue.id}`, programValue, config);
     } catch (error) {
       setTimeout(() => {
         setOpen(false);
@@ -355,7 +355,7 @@ export default function ShowProjects() {
     try {
       setLoadingAso(true);
       project.programs.push(program._id);
-      axios.patch(`https://iq-proyecto-api.herokuapp.com/api/private/project/${id}`, project, config);
+      axios.patch(`${process.env.REACT_APP_API_URL}/api/private/project/${id}`, project, config);
       setLoadingAso(false);
     } catch (error) {
       setTimeout(() => {

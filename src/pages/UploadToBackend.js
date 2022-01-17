@@ -7,7 +7,7 @@ import {getLocalFile} from '../services/getFileService'
 // EJEMPLO PARA SUBIR EN BACKEND
 export default function UploadToBackend() {
   const [screenShot, setScreenshot] = useState(undefined)
-  const url = "https://iq-proyecto-api.herokuapp.com/api/private/fetchImage/"
+  const url = process.env.REACT_APP_API_URL + "/api/private/fetchImage/"
   async function fetchData(url) {
     // You can await here
     try{
@@ -30,7 +30,7 @@ export default function UploadToBackend() {
     //Clear the error message
     setError("");
     axios
-      .post("https://iq-proyecto-api.herokuapp.com/api/private/upload_file/", formData, {
+      .post(process.env.REACT_APP_API_URL + "/api/private/upload_file/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,

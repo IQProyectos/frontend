@@ -6,7 +6,7 @@ const config = {
       Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     }
   };
-const programsURL = 'https://iq-proyecto-api.herokuapp.com/api/private/program';
+const programsURL = process.env.REACT_APP_API_URL + '/api/private/program';
 
 
 export const getPrograms = async (id) => {

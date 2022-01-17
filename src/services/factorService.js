@@ -6,7 +6,7 @@ const config = {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     }
 };
-const FactorURL = 'https://iq-proyecto-api.herokuapp.com/api/private/factor';
+const FactorURL = process.env.REACT_APP_API_URL + '/api/private/factor';
 
 
 export const getFactor = async (id) => {

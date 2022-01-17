@@ -59,7 +59,7 @@ const AssignRole = ({ }) => {
             setLoading(true);
             setSelectedUser(false);
             const projects = await axios.get(
-                `https://iq-proyecto-api.herokuapp.com/api/private/filteredproject/${userValue.id}`,
+                `${process.env.REACT_APP_API_URL}/api/private/filteredproject/${userValue.id}`,
                 config
             );
             wrapProjects(projects.data.projects);
@@ -79,7 +79,7 @@ const AssignRole = ({ }) => {
         async function getUsers() {
             try {
                 const users = await axios.get(
-                    "https://iq-proyecto-api.herokuapp.com/api/private/users/",
+                    process.env.REACT_APP_API_URL + "/api/private/users/",
                     config
                 );
                 wrapUsers(users.data.users);
@@ -132,7 +132,7 @@ const AssignRole = ({ }) => {
             }
             userValue.roles.push(role);
             const { data } = await axios.patch(
-                `https://iq-proyecto-api.herokuapp.com/api/private/users/${userValue.id}`,
+                `${process.env.REACT_APP_API_URL}/api/private/users/${userValue.id}`,
                 {
                     username: userValue.username,
                     email: userValue.email,

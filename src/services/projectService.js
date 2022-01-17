@@ -6,7 +6,7 @@ const config = {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     }
 };
-const projectURL = 'https://iq-proyecto-api.herokuapp.com/api/private/project';
+const projectURL = process.env.REACT_APP_API_URL + '/api/private/project';
 
 
 export const getProjects = async (id) => {
@@ -28,7 +28,7 @@ export const addProject = async (project) => {
 
 export const deleteProject = async (id) => {
     try {
-        return await axios.delete(`https://iq-proyecto-api.herokuapp.com/api/private/project/${id}`, config);
+        return await axios.delete(`${process.env.REACT_APP_API_URL}/api/private/project/${id}`, config);
     } catch (error) {
         throw Error(error?.response?.data?.error);
     }

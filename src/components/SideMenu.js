@@ -86,10 +86,10 @@ export default function SideMenu() {
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
-          <List>
-            <ListItem button key={'principal'} onClick={() => moveRoute('/')}>
-              <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <HomeIcon />}</ListItemIcon>
-              <ListItemText primary={'Página Principal'}/>
+        <List>
+            <ListItem button key={'programa'} onClick={() => moveRoute('/program')}>
+              <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <BeenhereIcon />}</ListItemIcon>
+              <ListItemText primary={'Programas'}/>
             </ListItem>
           </List>
           <Divider />
@@ -125,15 +125,6 @@ export default function SideMenu() {
           <Divider />
             </div>
           }
-          
-          <List>
-            <ListItem button key={'programa'} onClick={() => moveRoute('/program')}>
-              <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <BeenhereIcon />}</ListItemIcon>
-              <ListItemText primary={'Programas'}/>
-            </ListItem>
-          </List>
-          <Divider />
-
           <List>
             <ListItem button key={'programa'} onClick={() => moveRoute('/blog')}>
               <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <NoteAddIcon/>}</ListItemIcon>

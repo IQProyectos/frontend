@@ -104,7 +104,7 @@ export default function ShowProjects() {
     const getProgram = async () => {
         try {
             setLoading(true);
-            let response = await axios.get(`https://iq-proyecto-api.herokuapp.com/api/private/program/${id}`, config);
+            let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/program/${id}`, config);
             setProgram(response.data.program);
             let data = response.data.program;
             setExport([

@@ -163,7 +163,7 @@ function ViewData() {
     async function getAllFactors() {
         try {
             const response = await axios.get(
-                `https://iq-proyecto-api.herokuapp.com/api/private/factorproject/${bid}`,
+                `${process.env.REACT_APP_API_URL}/api/private/factorproject/${bid}`,
                 config
             );
 
@@ -185,7 +185,7 @@ function ViewData() {
     async function getAllData() {
         try {
             const response = await axios.get(
-                `https://iq-proyecto-api.herokuapp.com/api/private/record/${bid}/${pid}`,
+                `${process.env.REACT_APP_API_URL}/api/private/record/${bid}/${pid}`,
                 config
             );
 
@@ -209,7 +209,7 @@ function ViewData() {
 
     const deleteRecord = async rid => {
         try {
-            return await axios.delete(`https://iq-proyecto-api.herokuapp.com/api/private/record/${rid}`, config);
+            return await axios.delete(`${process.env.REACT_APP_API_URL}/api/private/record/${rid}`, config);
         } catch (error) {
             throw Error(error?.response?.data?.error);
         }
@@ -238,7 +238,7 @@ function ViewData() {
     const updateRecord = async _ => {
         let data = await getEditor();
         try {
-            return await axios.patch(`https://iq-proyecto-api.herokuapp.com/api/private/record/${inputEdit.id}`, data, config);
+            return await axios.patch(`${process.env.REACT_APP_API_URL}/api/private/record/${inputEdit.id}`, data, config);
         } catch (error) {
             throw Error(error?.response?.data?.error);
         }

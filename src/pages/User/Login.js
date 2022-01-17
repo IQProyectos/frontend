@@ -54,7 +54,7 @@ const Login = ({ history }) => {
 
     try {
       const { data } = await axios.post(
-        "https://iq-proyecto-api.herokuapp.com/api/auth/login", values, config
+        process.env.REACT_APP_API_URL + "/api/auth/login", values, config
       );
 
       localStorage.setItem("authToken", data.token);

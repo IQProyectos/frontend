@@ -174,7 +174,7 @@ export default function ViewProject() {
     async function getAllProjects() {
         try {
             const projects = await axios.get(
-                "https://iq-proyecto-api.herokuapp.com/api/private/project",
+                process.env.REACT_APP_API_URL + "/api/private/project",
                 config
             );
             

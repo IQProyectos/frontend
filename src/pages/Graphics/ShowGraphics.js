@@ -24,7 +24,7 @@ function ShowGraphics() {
     async function getData() {
         try {
             const result = await axios.get(
-                `https://iq-proyecto-api.herokuapp.com/api/private/record/num/${bid}/${pid}`,
+                `${process.env.REACT_APP_API_URL}/api/private/record/num/${bid}/${pid}`,
                 config
             );
             setData(result.data);

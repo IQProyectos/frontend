@@ -106,7 +106,7 @@ export default function ProjectSelector({setProject, setProjectName}) {
         try {
             setLoading(true);
             const projects = await axios.get(
-                "https://iq-proyecto-api.herokuapp.com/api/private/project",
+                process.env.REACT_APP_API_URL + "/api/private/project",
                 config
             );
             wrapValues(projects.data.projects);
