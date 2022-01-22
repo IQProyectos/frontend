@@ -187,8 +187,8 @@ export default function BlogForm() {
                                 error={errors.name}
                             />
                         </Grid>
-                        <Grid item xs={6}>
-                            <Controls.Input
+                        <Grid item xs={9}>
+                            <Controls.TextArea
                                 name="entrada"
                                 label="Entrada del blog"
                                 value={values.entrada}
@@ -196,7 +196,11 @@ export default function BlogForm() {
                                 error={errors.entrada}
                             />
                         </Grid>
+                        
 
+
+
+                        
                         <Grid
                             container
                             direction="row"

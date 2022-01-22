@@ -5,6 +5,7 @@ import Checkbox from "./Checkbox";
 import DatePicker from "./DatePicker";
 import Button from "./Button";
 import InputButton from "./InputButton";
+import TextArea from "./TextArea";
 
 const Controls = {
     Input,
@@ -13,7 +14,8 @@ const Controls = {
     Checkbox,
     DatePicker,
     Button,
-    InputButton
+    InputButton,
+    TextArea
 
 }
 

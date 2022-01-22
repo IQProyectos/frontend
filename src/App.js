@@ -9,8 +9,6 @@ import Home from './pages/Home'
 import RequireAuth from './components/routing/RequireAuth';
 import Register from './pages/User/Register'
 import AssignRole from './pages/User/AssignRole';
-import ViewProjects from './pages/Project/ViewProjects'
-import ShowProject from './pages/Project/ShowProject';
 import UpdateFactor from './pages/Factors/UpdateFactor';
 import CreateFactor from './pages/Factors/CreateFactor';
 import ShowProgram from './pages/Program/ShowProgram';
@@ -23,6 +21,11 @@ import CreateData from './pages/Data/CreateData';
 import ViewData from './pages/Data/ViewData';
 import { esES } from '@mui/material/locale';
 import ProjectForm from './pages/Project/ProjectForm';
+import ViewProjects from './pages/Project/ViewProjects'
+import ShowProject from './pages/Project/ShowProject';
+import ReportForm from './pages/Report/ReportForm';
+import ViewReports from './pages/Report/ViewReports'
+import ShowReport from './pages/Report/ShowReport';
 import ViewUsers from './pages/User/ViewUsers';
 import Profile from './pages/User/Profile'
 import Predictor from './pages/Predictor/Predictor';
@@ -95,6 +98,12 @@ function App() {
               <ProjectForm />
             </RequireAuth>
 
+            <RequireAuth exact path='/report/create'>
+              <Header />
+              <SideMenu />
+              <ReportForm />
+            </RequireAuth>
+
             <RequireAuth exact path='/factor/create/:id'>
               <Header />
               <SideMenu />
@@ -107,6 +116,13 @@ function App() {
               <ViewProjects />
             </RequireAuth>
 
+
+            <RequireAuth exact path='/report/'>
+              <Header />
+              <SideMenu />
+              <ViewReports />
+            </RequireAuth>
+
             <RequireAuth exact path='/project/show/:id'>
               <Header />
               <SideMenu />
@@ -117,6 +133,19 @@ function App() {
               <Header />
               <SideMenu />
               <ProjectForm />
+            </RequireAuth>
+
+
+            <RequireAuth exact path='/report/show/:id'>
+              <Header />
+              <SideMenu />
+              <ShowReport />
+            </RequireAuth>
+
+            <RequireAuth exact path='/report/update/:id'>
+              <Header />
+              <SideMenu />
+              <ReportForm />
             </RequireAuth>
 
             <RequireAuth exact path='/register'>

@@ -19,7 +19,7 @@ const Home = ({ history }) => {
                 justifyContent="center"
                 alignItems="center"
             >
-                <h2>Prototipo: Sprint 1</h2>
+                <h2>Prototipo: Sprint 3</h2>
             </Grid>
         </div>
     )

@@ -19,7 +19,6 @@ const initialBValues = {
     description: '',
     objetives: '',
     justification: '',
-    country: '',
     department: '',
     district: '',
     definition: '',
@@ -50,15 +49,15 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-export default function ProjectForm() {
+export default function ReportForm() {
     const { id } = useParams();
     const classes = useStyles();
     const [loading, setLoading] = React.useState(false);
     const [open, setOpen] = React.useState(false);
     const [error, setError] = useState('');
     const [progress, setProgress] = useState(0);
-    const message = id ? "Se ha actualizado el proyecto!" : "Se ha guardado el proyecto!"
-    const title = id ? "Actualizar proyecto" : "Añadir nuevo proyecto";
+    const message = id ? "Se ha actualizado el reporte!" : "Se ha guardado el reporte!"
+    const title = id ? "Actualizar reporte" : "Añadir nuevo reporte";
     const type = id ? "actualizar" : "agregar";
     const options = [
         { value: "Costa Rica", label: "Costa Rica" },
@@ -75,8 +74,6 @@ export default function ProjectForm() {
             temp.objetives = fieldValues.objetives ? "" : "Este campo es obligatorio."
         if ('justification' in fieldValues)
             temp.justification = fieldValues.justification ? "" : "Este campo es obligatorio."
-        if ('country' in fieldValues)
-            temp.country = fieldValues.country ? "" : "Este campo es obligatorio."
         if ('department' in fieldValues)
             temp.department = fieldValues.department ? "" : "Este campo es obligatorio."
         if ('district' in fieldValues)
@@ -95,7 +92,7 @@ export default function ProjectForm() {
     useEffect(() => {
         let unmounted = false;
         if (id)
-            getProject();
+            getReport();
         return () => { unmounted = true; };
     }, []);
 
@@ -108,10 +105,10 @@ export default function ProjectForm() {
             setProgress(Math.round((100 * data.loaded) / data.total));
         },
     };
-    const getProject = async () => {
+    const getReport = async () => {
         setLoading(true);
         try {
-            let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/project/${id}`, {
+            let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/report/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -121,7 +118,7 @@ export default function ProjectForm() {
                     setProgress(Math.round((100 * data.loaded) / data.total));
                 },
             });
-            setValues(response.data.project);
+            setValues(response.data.report);
             setLoading(false);
         } catch (error) {
             setTimeout(() => {
@@ -166,11 +163,11 @@ export default function ProjectForm() {
                 console.log(values);
                 if (id) {
                     await axios
-                        .patch(`${process.env.REACT_APP_API_URL}/api/private/project/${id}`, values, config)
+                        .patch(`${process.env.REACT_APP_API_URL}/api/private/report/${id}`, values, config)
                         .then(confirmPost)
                 } else {
                     await axios
-                        .post(process.env.REACT_APP_API_URL + "/api/private/project/", values, config)
+                        .post(process.env.REACT_APP_API_URL + "/api/private/report/", values, config)
                         .then(confirmPost)
                 }
             }
@@ -194,7 +191,7 @@ export default function ProjectForm() {
         <div>
             <PageHeader
                 title={title}
-                subTitle={`Formulario para ${type} un proyecto`}
+                subTitle={`Formulario para ${type} un reporte`}
                 icon={<EcoIcon fontSize="large" color='primary'
                 />}
             />
@@ -234,17 +231,7 @@ export default function ProjectForm() {
                                 onChange={handleInputChange}
                                 error={errors.justification}
                             />
-                            <Controls.Select
-                                label="País"
-                                options={options}
-                                name="country"
-                                value={options}
-                                onChange={handleInputChange}
-                                error={errors.country}
-                                closeMenuOnSelect={false}
-                                defaultValue={options[0]}
-                                
-                            />
+                            
                             
 
                             <Controls.Input
@@ -275,10 +262,10 @@ export default function ProjectForm() {
                         <Grid item xs={6}>
                             <Controls.Checkbox
                                 name="isTimeSeries"
-                                label="Activar proyecto"
+                                label="Activar reporte"
                                 value={values.isTimeSeries}
                                 onChange={handleInputChange}
-                                title="Se presentará como proyecto activo al marcar la casilla, de lo contrario se presentará como proyecto inactivo."
+                                title="Se presentará como reporte activo al marcar la casilla, de lo contrario se presentará como reporte inactivo."
                             />
                             
                         </Grid>

@@ -21,6 +21,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import BiotechIcon from '@mui/icons-material/Biotech';
 import BeenhereIcon from '@mui/icons-material/Beenhere';
+import SummarizeIcon from '@mui/icons-material/Summarize';
 
 const drawerWidth = 240;
 
@@ -100,6 +101,13 @@ export default function SideMenu() {
             </ListItem>
           </List>
           <Divider />
+          <List>
+            <ListItem button key={'report'} onClick={() => moveRoute('/report')}>
+              <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <SummarizeIcon/>}</ListItemIcon>
+              <ListItemText primary={'Reportes'}/>
+            </ListItem>
+          </List>
+          <Divider />
           {value === 'admin' &&
             <div> 
               <List>
@@ -126,13 +134,14 @@ export default function SideMenu() {
             </div>
           }
           <List>
-            <ListItem button key={'programa'} onClick={() => moveRoute('/blog')}>
+            <ListItem button key={'blog'} onClick={() => moveRoute('/blog')}>
               <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <NoteAddIcon/>}</ListItemIcon>
               <ListItemText primary={'Blog'}/>
             </ListItem>
           </List>
           <Divider />
         </div>
+        
       </Drawer>
       
     </div>
