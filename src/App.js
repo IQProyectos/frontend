@@ -101,7 +101,7 @@ function App() {
               <ProjectForm />
             </RequireAuth>
 
-            <RequireAuth exact path='/report/create/:id'>
+            <RequireAuth exact path='/report/create/:tid'>
               <Header />
               <SideMenu />
               <ReportForm />
@@ -120,7 +120,7 @@ function App() {
             </RequireAuth>
 
 
-            <RequireAuth exact path='/report/'>
+            <RequireAuth exact path='/report/:id'>
               <Header />
               <SideMenu />
               <ViewReports />
@@ -145,7 +145,7 @@ function App() {
               <ShowReport />
             </RequireAuth>
 
-            <RequireAuth exact path='/report/update/:id'>
+            <RequireAuth exact path='/report/update/:id/:tid'>
               <Header />
               <SideMenu />
               <ReportForm />

@@ -202,6 +202,7 @@ function CreateData() {
                 "projectID": bid,
                 "programID": pid,
                 "taskID": did,
+                "reportID": did,
                 "values": []
             };
 
@@ -244,6 +245,7 @@ function CreateData() {
                 "projectID": bid,
                 "programID": pid,
                 "taskID": did,
+                "reportID":did,
                 "values": []
             };
 

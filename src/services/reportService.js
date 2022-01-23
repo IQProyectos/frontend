@@ -28,6 +28,7 @@ export const addReport = async (report) => {
 
 export const deleteReport = async (id) => {
     try {
+        console.log(id)
         return await axios.delete(`${process.env.REACT_APP_API_URL}/api/private/report/${id}`, config);
     } catch (error) {
         throw Error(error?.response?.data?.error);

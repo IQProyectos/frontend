@@ -427,7 +427,7 @@ export default function ViewProject() {
                                             alignItems="center"
                                         >
                                             <Tooltip title="Reportes">
-                                                <Button color="tertiary" variant="contained" style={{ marginRight: 10 }} component={Link} to={`/report/`}><AddIcon /></Button>
+                                                <Button color="tertiary" variant="contained" style={{ marginRight: 10 }} component={Link} to={`/report/${project._id}`}><AddIcon /></Button>
                                             </Tooltip>
                                         </Grid>
                                     </TableCell>

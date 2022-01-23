@@ -177,7 +177,7 @@ export default function ViewReport() {
                 config
                 
             );
-                    
+            
             const currentUser = await getUsers(localStorage.getItem("uid"));
             if(currentUser.data.user.type === "admin"){
                 
@@ -221,8 +221,8 @@ export default function ViewReport() {
     useEffect(() => {
         let unmounted = false;
         getAllReports();
-        
-        
+
+
         
         return () => { unmounted = true; };
         
