@@ -12,6 +12,9 @@ import AssignRole from './pages/User/AssignRole';
 import UpdateFactor from './pages/Factors/UpdateFactor';
 import CreateFactor from './pages/Factors/CreateFactor';
 import ShowProgram from './pages/Program/ShowProgram';
+import ShowTask from './pages/Task/ShowTask';
+import TaskView from './pages/Task/TaskView';
+import TaskForm from './pages/Task/TaskForm';
 import ViewProgram from './pages/Program/ViewProgram';
 import ProgramForm from './pages/Program/ProgramForm';
 import ShowBlog from './pages/Blog/ShowBlog';
@@ -147,6 +150,29 @@ function App() {
               <SideMenu />
               <ReportForm />
             </RequireAuth>
+            <RequireAuth exact path='/task/:id'>
+              <Header />
+              <SideMenu />
+              <TaskView />
+            </RequireAuth>
+            
+            <RequireAuth exact path='/task/create/:tid'>
+              <Header />
+              <SideMenu />
+              <TaskForm />
+            </RequireAuth>
+
+            <RequireAuth exact path='/task/update/:id/:tid'>
+              <Header />
+              <SideMenu />
+              <TaskForm />
+            </RequireAuth>
+
+            <RequireAuth exact path='/task/show/:id'>
+              <Header />
+              <SideMenu />
+              <ShowTask />
+            </RequireAuth>
 
             <RequireAuth exact path='/register'>
               <Header />
@@ -194,7 +220,6 @@ function App() {
               <ProgramForm />
             </RequireAuth>
 
-
             <RequireAuth exact path='/program/'>
               <Header />
               <SideMenu />
@@ -227,13 +252,13 @@ function App() {
               <ViewBlog />
             </RequireAuth>
 
-            <RequireAuth exact path='/data/add/:bid/:pid'>
+            <RequireAuth exact path='/data/add/:bid/:pid/:did'>
               <Header />
               <SideMenu />
               <CreateData />
             </RequireAuth>
 
-            <RequireAuth exact path='/data/show/:bid/:pid'>
+            <RequireAuth exact path='/data/show/:bid/:pid/:did'>
               <Header />
               <SideMenu />
               <ViewData />
@@ -251,7 +276,7 @@ function App() {
               <UploadCSV />
             </RequireAuth>
 
-            <RequireAuth exact path='/graphics/:bid/:pid'>
+            <RequireAuth exact path='/graphics/:bid/:pid/:did'>
               <Header />
               <SideMenu />
               <ShowGraphics />

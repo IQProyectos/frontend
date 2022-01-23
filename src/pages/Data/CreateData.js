@@ -88,7 +88,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function CreateData() {
-    const { pid, bid } = useParams();
+    const { pid, bid, did } = useParams();
     const [factors, setFactors] = useState([]);
     const [factorsObj, setFactorsObj] = useState({});
     const [open, setOpen] = useState(false);
@@ -201,6 +201,7 @@ function CreateData() {
             let data = {
                 "projectID": bid,
                 "programID": pid,
+                "taskID": did,
                 "values": []
             };
 
@@ -242,6 +243,7 @@ function CreateData() {
             let data = {
                 "projectID": bid,
                 "programID": pid,
+                "taskID": did,
                 "values": []
             };
 

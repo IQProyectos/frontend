@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Table, TableHead, TableCell, Paper, TableRow, TableBody, Button, makeStyles, CssBaseline, Grid } from '@material-ui/core'
 import { Link } from 'react-router-dom';
-import { deleteProject } from '../../services/projectService';
+import { deleteTask } from '../../services/taskService';
 import Controls from "../../components/controls/Controls";
 import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add'
+import TaskIcon from '@material-ui/icons/'
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fade from '@material-ui/core/Fade';
@@ -30,7 +30,10 @@ import Download from '@mui/icons-material/Download';
 import { jsonToCSV, CSVDownloader } from 'react-papaparse';
 import {getUsers, editRoles} from '../../services/userService';
 import { version } from 'react-dom/cjs/react-dom.development';
-import { render } from "react-dom";
+
+import { useParams } from 'react-router-dom';
+
+
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -39,14 +42,14 @@ const useStyles = makeStyles((theme) => ({
     },
     thead: {
         '& > *': {
-            fontSize: 20,
-            background: '#17c6f6',
-            color: '#FFFFFF'
+          fontSize: 20,
+          background: '#8ade8f',
+          color: '#FFFFFF'
         }
     },
     head: {
         fontSize: 20,
-        background: '#17c6f6',
+        background: '#8ade8f',
         color: '#FFFFFF'
 
     },
@@ -84,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
     },
     csvContainer: {
         fontSize: 20,
-        background: '#108EB0',
+        background: '#8ade8f',
 
     },
     iconContainer: {
@@ -101,7 +104,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 
-export default function ViewProject() {
+export default function ViewTask() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -113,20 +116,21 @@ export default function ViewProject() {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-    const [projects, setProjects] = useState([]);
+    const { id } = useParams();
+    const [tasks, setTasks] = useState([]);
     const [open, setOpen] = React.useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = React.useState(true);
-    const [projectId, setProjectId] = React.useState('');
+    const [taskId, setTaskId] = React.useState('');
     const [openDialogAbandon, setOpenDialogAbandon] = useState(false);
     const [currentUserRoles, setCurrentUserRoles] = useState({});
     const [isAdmin, setIsAdmin] = useState(false);
 
     const classes = useStyles();
 
-    function wrapValues(projects) {
-        setProjects(projects);
+    function wrapValues(tasks) {
+        setTasks(tasks);
         setLoading(false);
     }
 
@@ -135,7 +139,7 @@ export default function ViewProject() {
     };
 
     const handleAccept = () => {
-        deleteProjectData()
+        deleteTaskData();
         setOpenDialog(false);
     }
 
@@ -144,27 +148,19 @@ export default function ViewProject() {
     };
 
     const handleAcceptAbandon = () => {
-        abandonProject();
+        abandonTask();
         setOpenDialogAbandon(false);
     };
 
     const headers = [
         { label: 'id', key: 'id' },
-        { label: 'Descripción', key: 'description' },
-        { label: 'Objetivos', key: 'objetives' },
-        { label: 'Justificación', key: 'justification' },
-        { label: 'País', key: 'country' },
-        { label: 'Departamento', key:'department' },
-        { label: 'Distrito', key:'district' },
-        { label: 'Definición', key:'definition' },
-        { label: 'Nombre', key: 'name' },
-        { label: 'Percentage', key: 'percentage' }
+        { label: 'Descripción', key: 'description' }
     ]
 
     const csvReport = {
-        filename: 'Projects.csv',
+        filename: 'Tasks.csv',
         headers: headers,
-        data: projects
+        data: tasks
     }
 
     const config = {
@@ -174,36 +170,37 @@ export default function ViewProject() {
         },
     };
 
-    async function getAllProjects() {
+    async function getAllTasks() {
         try {
-            const projects = await axios.get(
-                process.env.REACT_APP_API_URL + "/api/private/project",
+            const tasks = await axios.get(
+                process.env.REACT_APP_API_URL + `/api/private/filteredtask/${id}`,
                 config
+                
             );
-            
+                    
             const currentUser = await getUsers(localStorage.getItem("uid"));
             if(currentUser.data.user.type === "admin"){
-                wrapValues(projects.data.projects);
+                
+                wrapValues(tasks.data.tasks);
                 setIsAdmin(true);
 
             }else{
                 setCurrentUserRoles(currentUser.data.user.roles);
-                let permittedProjects = [];
-
+                let permittedTasks = [];
+                
                 currentUser.data.user.roles.forEach(element => {
-                    permittedProjects.push(element.projectId);
+                    permittedTasks.push(element.taskId);
                 });
 
-                console.log(permittedProjects);
+                console.log(permittedTasks);
 
                 let valuesToWrap = [];
 
-                projects.data.projects.forEach(element => {
-                    if(permittedProjects.includes(element._id)){
+                tasks.data.tasks.forEach(element => {
+                    if(permittedTasks.includes(element._id)){
                         valuesToWrap.push(element);
                     }
                 });
-
                 wrapValues(valuesToWrap);
             }
             
@@ -216,16 +213,14 @@ export default function ViewProject() {
                     setError("");
                 }, 2000);
             }, 5000);
-            return setError("Authenticatin failed!");
+            return setError("Authentication failed!");
         }
-        
-
         
 
     }
     useEffect(() => {
         let unmounted = false;
-        getAllProjects();
+        getAllTasks();
         
         
         
@@ -234,10 +229,10 @@ export default function ViewProject() {
 
     }, []);
 
-    const deleteProjectData = async () => {
+    const deleteTaskData = async () => {
         try {
-            let response = await deleteProject(projectId);
-            getAllProjects();
+            let response = deleteTask(taskId);
+            getAllTasks();
         } catch (error) {
             setOpen(true);
             setError(error.message);
@@ -247,25 +242,21 @@ export default function ViewProject() {
             }, 3000);
         }
 
-
     }
 
-    const abandonProject = async () => {
+    const abandonTask = async () => {
         let newRoles = []
         currentUserRoles.forEach(element => {
-            if(element.projectId !== projectId){
+            if(element.taskId !== taskId){
                 newRoles.push(element);
             }
         });
 
         editRoles(localStorage.getItem("uid"), newRoles);
-        getAllProjects();
+        getAllTasks();
     }
 
-    
-    
     return (
-        
         <div className={classes.root}>
             <CssBaseline />
             <Dialog
@@ -300,7 +291,7 @@ export default function ViewProject() {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">{"¿Desea abandonar este proyecto?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-slide-title">{"¿Desea abandonar este tarea?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         Esta decisión no es reversible.
@@ -316,33 +307,16 @@ export default function ViewProject() {
                 </DialogActions>
             </Dialog>
 
-
             <PageHeader
-                title="Información sobre los proyectos"
-                subTitle="Acá se muestran todos los proyectos en el sistema"
+                title="Gestión de tareas"
+                subTitle="Sección para la administración de tareas de una tarea"
                 icon={<InfoIcon fontSize="large"
+                
                 />}
             />
 
 
-            <Grid
-                container
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                className={classes.table}
-            >
-                <Paper className={classes.paper} elevation={3}>
-                    <Box sx={{ width: 'auto' }} padding>
-                        <Typography variant="h6" align="center">¿Se necesita un nuevo proyecto?</Typography>
-                    </Box>
-                    <Box textAlign='center'>
-                        <Controls.Button color="primary" variant="contained" component={Link} to={`/project/create/`} text="Crear proyecto" />
-                    </Box>
-
-                </Paper>
-
-            </Grid>
+            
 
             <div className={classes.programholderLoading} hidden={!loading}>
                 <br />
@@ -363,8 +337,8 @@ export default function ViewProject() {
                 <TableContainer >
                     {/* <div className={classes.test}>
                     <CSVDownloader
-                        data= {projects}
-                        filename={'projects'}
+                        data= {tasks}
+                        filename={'tasks'}
                         config={{}}
                     > Download</CSVDownloader>
                     </div> */}
@@ -376,7 +350,7 @@ export default function ViewProject() {
                         <Tooltip title="Exportar proyectos">
                             <div className={classes.iconContainer}>
                                 <CSVLink {...csvReport} style={{color:'white', marginLeft: '10px'}}> 
-                                    <DownloadIcon fontSize={'large'} />
+                                    
                                 </CSVLink>
                             </div>
                         </Tooltip>
@@ -386,26 +360,23 @@ export default function ViewProject() {
                         <TableHead>
                             <TableRow className={classes.thead}>
                                 <TableCell className={classes.cell}>Nombre</TableCell>
-                                <TableCell className={classes.cell}>¿Activo?</TableCell>
-                                <TableCell className={classes.cell}>Avance</TableCell>
-                                <TableCell className={classes.cell}>Tareas</TableCell>
+                                <TableCell className={classes.cell}>¿Completada?</TableCell>
+                                <TableCell className={classes.cell}></TableCell>
                                 <TableCell className={classes.programholder} style={{paddingTop: '0px'}}>Acciones</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {projects.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((project) => (
-                                <TableRow hover className={classes.row} key={project.id}>
-                                    <TableCell>{project.name}</TableCell>
-                                    
+                            {tasks.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((task) => (
+                                <TableRow hover className={classes.row} key={task.id}>
+                                    <TableCell>{task.name}</TableCell>
                                     <TableCell>
                                         <Controls.Checkbox
                                             name="isTimeSeries"
                                             label=""
-                                            value={project.isTimeSeries}
+                                            value={task.isTimeSeries}
                                             disabled={true}
                                         />
                                     </TableCell>
-                                    <TableCell>{project.percentage}%</TableCell>
                                     <TableCell>
                                         <Grid
                                             container
@@ -413,9 +384,6 @@ export default function ViewProject() {
                                             justifyContent="center"
                                             alignItems="center"
                                         >
-                                            <Tooltip title="Tareas">
-                                                <Button color="tertiary" variant="contained" style={{ marginRight: 10 }} component={Link} to={`/task/${project._id}`}><AddIcon /></Button>
-                                            </Tooltip>
                                         </Grid>
                                     </TableCell>
 
@@ -427,20 +395,21 @@ export default function ViewProject() {
                                             alignItems="center"
                                         >
                                             <Tooltip title="Editar">
-                                                <Button color="primary" variant="contained" style={{ marginRight: 10 }} component={Link} to={`/project/update/${project._id}`}><ModeEditIcon /></Button>
+                    
+                                                <Button color="primary" variant="contained" style={{ marginRight: 10 }} component={Link} to={`/task/update/${task._id}/${id}`}><ModeEditIcon /></Button>
                                             </Tooltip>
                                             <Tooltip title="Información">
-                                                <Button className={classes.button} variant="contained" style={{ marginRight: 10 }} component={Link} to={`/project/show/${project._id}`}><InfoIcon /></Button>
+                                                <Button className={classes.button} variant="contained" style={{ marginRight: 10 }} component={Link} to={`/task/show/${task._id}`}><InfoIcon /></Button>
                                             </Tooltip>
                                             <Tooltip title="Eliminar">
                                                 <Button color="secondary" variant="contained" style={{ marginRight: 10 }}  onClick={() => {
-                                                    setOpenDialog(true); setProjectId(project._id);
+                                                    setOpenDialog(true); setTaskId(task._id);
                                                 }}><DeleteIcon /></Button>
                                             </Tooltip>
                                             {!isAdmin &&
                                                 <Tooltip title="Abandonar proyecto">
                                                     <Button color="warning" variant="contained" onClick={() => {
-                                                        setOpenDialogAbandon(true); setProjectId(project._id);
+                                                        setOpenDialogAbandon(true); setTaskId(task._id);
                                                     }}><LogoutIcon /></Button>
                                                 </Tooltip>
                                             }
@@ -455,13 +424,24 @@ export default function ViewProject() {
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    count={projects.length}
+                    count={tasks.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper>
+            <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                className={classes.table}
+
+            >
+                <Controls.Button color="primary" variant="contained" component={Link} to={`/task/create/${id}`} text="Crear Tarea" />
+            
+            </Grid>
         </div>
     )
 }

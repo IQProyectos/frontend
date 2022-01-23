@@ -8,25 +8,22 @@ import PageHeader from "../../components/PageHeader";
 import CircularStatic from '../../components/CircularStatic'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+
+import Alert from '../../components/AlertMessage';
 import AlertMessage from '../../components/AlertMessage';
-import ImageComponent from '../../components/ImageComponent';
-import MenuItem from '@mui/material/MenuItem';
+import { getTasks } from '../../services/taskService';
 
 
+const predictionItems = [
+    { id: 'regresion', title: 'Regresión lineal' },
+    { id: 'clasificacion', title: 'Clasificación' },
+]
 
 const initialBValues = {
     name: '',
     description: '',
-    objetives: '',
-    justification: '',
-    country: '',
-    department: '',
-    district: '',
-    definition: '',
     isTimeSeries: false,
-    image: '',
-    programs: [],
-    factors: []
+    projects: ''
 }
 
 const useStyles = makeStyles(theme => ({
@@ -50,40 +47,23 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-export default function ProjectForm() {
-    const { id } = useParams();
+export default function TaskForm() {
+    
+    const { tid,id } = useParams();
     const classes = useStyles();
     const [loading, setLoading] = React.useState(false);
     const [open, setOpen] = React.useState(false);
     const [error, setError] = useState('');
     const [progress, setProgress] = useState(0);
     const message = id ? "Se ha actualizado el proyecto!" : "Se ha guardado el proyecto!"
-    const title = id ? "Actualizar proyecto" : "Añadir nuevo proyecto";
+    const title = id ? "Actualizar tarea" : "Añadir nueva tarea";
     const type = id ? "actualizar" : "agregar";
-    const options = [
-        { value: "Costa Rica", label: "Costa Rica" },
-        { value: "Panamá", label: "Panamá" },
-        { value: "Nicaragua", label: "Nicaragua" }
-        ]
     const validate = (fieldValues = values) => {
         let temp = { ...errors }        
         if ('name' in fieldValues)
             temp.name = fieldValues.name ? "" : "Este campo es obligatorio."
         if ('description' in fieldValues)
             temp.description = fieldValues.description ? "" : "Este campo es obligatorio."
-        if ('objetives' in fieldValues)
-            temp.objetives = fieldValues.objetives ? "" : "Este campo es obligatorio."
-        if ('justification' in fieldValues)
-            temp.justification = fieldValues.justification ? "" : "Este campo es obligatorio."
-        if ('country' in fieldValues)
-            temp.country = fieldValues.country ? "" : "Este campo es obligatorio."
-        if ('department' in fieldValues)
-            temp.department = fieldValues.department ? "" : "Este campo es obligatorio."
-        if ('district' in fieldValues)
-            temp.district = fieldValues.district ? "" : "Este campo es obligatorio." 
-        if ('definition' in fieldValues)
-            temp.definition = fieldValues.definition ? "" : "Este campo es obligatorio."    
-           
             
         setErrors({
             ...temp
@@ -95,9 +75,12 @@ export default function ProjectForm() {
     useEffect(() => {
         let unmounted = false;
         if (id)
-            getProject();
+            getTask();
         return () => { unmounted = true; };
     }, []);
+
+
+
 
     const config = {
         headers: {
@@ -108,10 +91,12 @@ export default function ProjectForm() {
             setProgress(Math.round((100 * data.loaded) / data.total));
         },
     };
-    const getProject = async () => {
+
+
+    const getTask = async () => {
         setLoading(true);
         try {
-            let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/project/${id}`, {
+            let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/showtask/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("authToken")}`,
@@ -121,7 +106,7 @@ export default function ProjectForm() {
                     setProgress(Math.round((100 * data.loaded) / data.total));
                 },
             });
-            setValues(response.data.project);
+            setValues(response.data.task);
             setLoading(false);
         } catch (error) {
             setTimeout(() => {
@@ -163,15 +148,17 @@ export default function ProjectForm() {
         if (validate()) {
             setLoading(true);
             try {
-                console.log(values);
                 if (id) {
                     await axios
-                        .patch(`${process.env.REACT_APP_API_URL}/api/private/project/${id}`, values, config)
+                        .patch(`${process.env.REACT_APP_API_URL}/api/private/task/${id}/${tid}`, values, config)
                         .then(confirmPost)
+                    await axios.patch(`${process.env.REACT_APP_API_URL}/api/private/updatePercentage/${tid}`, values, config)
                 } else {
                     await axios
-                        .post(process.env.REACT_APP_API_URL + "/api/private/project/", values, config)
+                        .post(process.env.REACT_APP_API_URL + `/api/private/task/${tid}`, values, config)
                         .then(confirmPost)
+                    await axios.patch(`${process.env.REACT_APP_API_URL}/api/private/updatePercentage/${tid}`, values, config)
+                        
                 }
             }
 
@@ -186,21 +173,18 @@ export default function ProjectForm() {
             }
 
         }
-
-        
     }
     return (
         
         <div>
             <PageHeader
                 title={title}
-                subTitle={`Formulario para ${type} un proyecto`}
+                subTitle={`Formulario para ${type} una tarea`}
                 icon={<EcoIcon fontSize="large" color='primary'
                 />}
             />
             <CircularStatic progress={progress} hidden={!loading} />
             <Paper className={classes.pageContent}>                
-                <ImageComponent initialValues={values} onChange={handleInputChange}/>
                 <Form onSubmit={handleSubmit}>
                     <AlertMessage errorMessage={error} successMessage={message} openMessage={open}/>
                     <Grid container>
@@ -219,64 +203,12 @@ export default function ProjectForm() {
                                 onChange={handleInputChange}
                                 error={errors.description}
                             />
-                            <Controls.TextArea
-                                label="Objetivos"
-                                name="objetives"
-                                value={values.objetives}
-                                onChange={handleInputChange}
-                                error={errors.objetives}
-                            />
-
-                            <Controls.TextArea
-                                label="Justificación"
-                                name="justification"
-                                value={values.justification}
-                                onChange={handleInputChange}
-                                error={errors.justification}
-                            />
-                            <Controls.TextArea 
-                                label="País"
-                                //options={options}
-                                name="country"
-                                //value={options}
-                                value={values.country}
-                                onChange={handleInputChange}
-                                //error={errors.country}
-                                //closeMenuOnSelect={false}
-                                //defaultValue={options[0]}
-                                
-                            />
-                            
-
-                            <Controls.Input
-                                label="Departamento"
-                                name="department"
-                                value={values.department}
-                                onChange={handleInputChange}
-                                error={errors.department}
-                            />
-
-                            <Controls.Input
-                                label="Distrito"
-                                name="district"
-                                value={values.district}
-                                onChange={handleInputChange}
-                                error={errors.district}
-                            />
-                            <Controls.TextArea
-                                label="Definición general"
-                                name="definition"
-                                value={values.definition}
-                                onChange={handleInputChange}
-                                error={errors.definition}
-                            />
-
 
                         </Grid>
                         <Grid item xs={6}>
                             <Controls.Checkbox
                                 name="isTimeSeries"
-                                label="Activar proyecto"
+                                label="Tarea activa"
                                 value={values.isTimeSeries}
                                 onChange={handleInputChange}
                                 title="Se presentará como proyecto activo al marcar la casilla, de lo contrario se presentará como proyecto inactivo."
