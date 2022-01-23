@@ -389,6 +389,7 @@ export default function ViewProject() {
                                 <TableCell className={classes.cell}>¿Activo?</TableCell>
                                 <TableCell className={classes.cell}>Avance</TableCell>
                                 <TableCell className={classes.cell}>Tareas</TableCell>
+                                <TableCell className={classes.cell}>Reportes</TableCell>
                                 <TableCell className={classes.programholder} style={{paddingTop: '0px'}}>Acciones</TableCell>
                             </TableRow>
                         </TableHead>
@@ -415,6 +416,18 @@ export default function ViewProject() {
                                         >
                                             <Tooltip title="Tareas">
                                                 <Button color="tertiary" variant="contained" style={{ marginRight: 10 }} component={Link} to={`/task/${project._id}`}><AddIcon /></Button>
+                                            </Tooltip>
+                                        </Grid>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Grid
+                                            container
+                                            direction="row"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                        >
+                                            <Tooltip title="Reportes">
+                                                <Button color="tertiary" variant="contained" style={{ marginRight: 10 }} component={Link} to={`/report/`}><AddIcon /></Button>
                                             </Tooltip>
                                         </Grid>
                                     </TableCell>

@@ -101,7 +101,7 @@ function App() {
               <ProjectForm />
             </RequireAuth>
 
-            <RequireAuth exact path='/report/create'>
+            <RequireAuth exact path='/report/create/:id'>
               <Header />
               <SideMenu />
               <ReportForm />

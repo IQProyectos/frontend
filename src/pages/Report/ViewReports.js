@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { deleteReport } from '../../services/reportService';
 import Controls from "../../components/controls/Controls";
 import DeleteIcon from '@material-ui/icons/Delete';
+import ReportIcon from '@material-ui/icons/'
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fade from '@material-ui/core/Fade';
@@ -30,6 +31,10 @@ import { jsonToCSV, CSVDownloader } from 'react-papaparse';
 import {getUsers, editRoles} from '../../services/userService';
 import { version } from 'react-dom/cjs/react-dom.development';
 
+import { useParams } from 'react-router-dom';
+
+
+
 const useStyles = makeStyles((theme) => ({
     table: {
         width: '90%',
@@ -37,14 +42,14 @@ const useStyles = makeStyles((theme) => ({
     },
     thead: {
         '& > *': {
-            fontSize: 20,
-            background: '#17c6f6',
-            color: '#FFFFFF'
+          fontSize: 20,
+          background: '#8ade8f',
+          color: '#FFFFFF'
         }
     },
     head: {
         fontSize: 20,
-        background: '#17c6f6',
+        background: '#8ade8f',
         color: '#FFFFFF'
 
     },
@@ -82,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
     },
     csvContainer: {
         fontSize: 20,
-        background: '#108EB0',
+        background: '#8ade8f',
 
     },
     iconContainer: {
@@ -111,6 +116,7 @@ export default function ViewReport() {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+    const { id } = useParams();
     const [reports, setReports] = useState([]);
     const [open, setOpen] = React.useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
@@ -133,7 +139,7 @@ export default function ViewReport() {
     };
 
     const handleAccept = () => {
-        deleteReportData()
+        deleteReportData();
         setOpenDialog(false);
     }
 
@@ -148,13 +154,7 @@ export default function ViewReport() {
 
     const headers = [
         { label: 'id', key: 'id' },
-        { label: 'Descripción', key: 'description' },
-        { label: 'Objetivos', key: 'objetives' },
-        { label: 'Justificación', key: 'justification' },
-        { label: 'Departamento', key:'department' },
-        { label: 'Distrito', key:'district' },
-        { label: 'Definición', key:'definition' },
-        { label: 'Nombre', key: 'name' }
+        { label: 'Descripción', key: 'description' }
     ]
 
     const csvReport = {
@@ -173,19 +173,21 @@ export default function ViewReport() {
     async function getAllReports() {
         try {
             const reports = await axios.get(
-                process.env.REACT_APP_API_URL + "/api/private/report",
+                process.env.REACT_APP_API_URL + `/api/private/filteredreport/${id}`,
                 config
+                
             );
-            
+                    
             const currentUser = await getUsers(localStorage.getItem("uid"));
             if(currentUser.data.user.type === "admin"){
+                
                 wrapValues(reports.data.reports);
                 setIsAdmin(true);
 
             }else{
                 setCurrentUserRoles(currentUser.data.user.roles);
                 let permittedReports = [];
-
+                
                 currentUser.data.user.roles.forEach(element => {
                     permittedReports.push(element.reportId);
                 });
@@ -199,7 +201,6 @@ export default function ViewReport() {
                         valuesToWrap.push(element);
                     }
                 });
-
                 wrapValues(valuesToWrap);
             }
             
@@ -216,8 +217,6 @@ export default function ViewReport() {
         }
         
 
-        
-
     }
     useEffect(() => {
         let unmounted = false;
@@ -232,7 +231,7 @@ export default function ViewReport() {
 
     const deleteReportData = async () => {
         try {
-            let response = await deleteReport(reportId);
+            let response = deleteReport(reportId);
             getAllReports();
         } catch (error) {
             setOpen(true);
@@ -242,7 +241,6 @@ export default function ViewReport() {
                 setError("");
             }, 3000);
         }
-
 
     }
 
@@ -269,7 +267,7 @@ export default function ViewReport() {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">{"¿Desea borrar este reporte?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-slide-title">{"¿Desea borrar este proyecto?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         Esta decisión no es reversible.
@@ -293,7 +291,7 @@ export default function ViewReport() {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">{"¿Desea abandonar este reporte?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-slide-title">{"¿Desea abandonar este tarea?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         Esta decisión no es reversible.
@@ -309,33 +307,16 @@ export default function ViewReport() {
                 </DialogActions>
             </Dialog>
 
-
             <PageHeader
-                title="Información sobre los reportes"
-                subTitle="Acá se muestran todos los reportes en el sistema"
+                title="Gestión de tareas"
+                subTitle="Sección para la administración de tareas de una tarea"
                 icon={<InfoIcon fontSize="large"
+                
                 />}
             />
 
 
-            <Grid
-                container
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                className={classes.table}
-            >
-                <Paper className={classes.paper} elevation={3}>
-                    <Box sx={{ width: 'auto' }} padding>
-                        <Typography variant="h6" align="center">¿Se necesita un nuevo reporte?</Typography>
-                    </Box>
-                    <Box textAlign='center'>
-                        <Controls.Button color="primary" variant="contained" component={Link} to={`/report/create/`} text="Crear reporte" />
-                    </Box>
-
-                </Paper>
-
-            </Grid>
+            
 
             <div className={classes.programholderLoading} hidden={!loading}>
                 <br />
@@ -366,10 +347,10 @@ export default function ViewReport() {
                         direction="row"
                         className={classes.csvContainer}
                     >
-                        <Tooltip title="Exportar reportes">
+                        <Tooltip title="Exportar proyectos">
                             <div className={classes.iconContainer}>
                                 <CSVLink {...csvReport} style={{color:'white', marginLeft: '10px'}}> 
-                                    <DownloadIcon fontSize={'large'} />
+                                    
                                 </CSVLink>
                             </div>
                         </Tooltip>
@@ -379,10 +360,10 @@ export default function ViewReport() {
                         <TableHead>
                             <TableRow className={classes.thead}>
                                 <TableCell className={classes.cell}>Nombre</TableCell>
-                                <TableCell className={classes.cell}>Activo</TableCell>
+                                <TableCell className={classes.cell}>¿Completada?</TableCell>
+                                <TableCell className={classes.cell}></TableCell>
                                 <TableCell className={classes.programholder} style={{paddingTop: '0px'}}>Acciones</TableCell>
                             </TableRow>
-                            
                         </TableHead>
                         <TableBody>
                             {reports.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((report) => (
@@ -396,6 +377,15 @@ export default function ViewReport() {
                                             disabled={true}
                                         />
                                     </TableCell>
+                                    <TableCell>
+                                        <Grid
+                                            container
+                                            direction="row"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                        >
+                                        </Grid>
+                                    </TableCell>
 
                                     <TableCell>
                                         <Grid
@@ -405,7 +395,8 @@ export default function ViewReport() {
                                             alignItems="center"
                                         >
                                             <Tooltip title="Editar">
-                                                <Button color="primary" variant="contained" style={{ marginRight: 10 }} component={Link} to={`/report/update/${report._id}`}><ModeEditIcon /></Button>
+                    
+                                                <Button color="primary" variant="contained" style={{ marginRight: 10 }} component={Link} to={`/report/update/${report._id}/${id}`}><ModeEditIcon /></Button>
                                             </Tooltip>
                                             <Tooltip title="Información">
                                                 <Button className={classes.button} variant="contained" style={{ marginRight: 10 }} component={Link} to={`/report/show/${report._id}`}><InfoIcon /></Button>
@@ -416,7 +407,7 @@ export default function ViewReport() {
                                                 }}><DeleteIcon /></Button>
                                             </Tooltip>
                                             {!isAdmin &&
-                                                <Tooltip title="Abandonar reporte">
+                                                <Tooltip title="Abandonar proyecto">
                                                     <Button color="warning" variant="contained" onClick={() => {
                                                         setOpenDialogAbandon(true); setReportId(report._id);
                                                     }}><LogoutIcon /></Button>
@@ -440,6 +431,17 @@ export default function ViewReport() {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper>
+            <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                className={classes.table}
+
+            >
+                <Controls.Button color="primary" variant="contained" component={Link} to={`/report/create/${id}`} text="Crear Tarea" />
+            
+            </Grid>
         </div>
     )
 }

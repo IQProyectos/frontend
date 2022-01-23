@@ -292,6 +292,7 @@ export default function ViewBlog() {
                         <TableHead>
                             <TableRow className={classes.thead}>
                                 <TableCell>Nombre del blog</TableCell>
+                                <TableCell>Fecha</TableCell>
                                 <TableCell className={classes.blogholder}>Acciones</TableCell>
                             </TableRow>
                         </TableHead>
@@ -299,6 +300,7 @@ export default function ViewBlog() {
                             {blogs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((blog) => (
                                 <TableRow hover className={classes.row} key={blog.id}>
                                     <TableCell>{blog.name}</TableCell>
+                                    <TableCell>{blog.date}</TableCell>
                                     <TableCell>
                                         <Grid
                                             container

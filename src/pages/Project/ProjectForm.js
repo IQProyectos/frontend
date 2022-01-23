@@ -234,7 +234,7 @@ export default function ProjectForm() {
                                 onChange={handleInputChange}
                                 error={errors.justification}
                             />
-                            <Controls.TextArea 
+                            <Controls.Input
                                 label="País"
                                 //options={options}
                                 name="country"

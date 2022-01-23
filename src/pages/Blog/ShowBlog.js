@@ -72,12 +72,13 @@ const initialValue = {
     entrada: '',
     image: '',
     projects: [],
+    date: '',
 }
 
 
 export default function ShowProjects() {
     const [blog, setBlog] = useState(initialValue);
-    const { name, entrada, image } = blog;
+    const { name, entrada, image,date } = blog;
     const [toExport, setExport] = useState([]);
 
     const [open, setOpen] = React.useState(false);
@@ -109,6 +110,7 @@ export default function ShowProjects() {
                 {id: data.id,
                 name: data.name,
                 entrada: data.entrada,
+                date: date.datae,
             }])
             
             setLoading(false);
@@ -160,7 +162,7 @@ export default function ShowProjects() {
                     <CardMedia
                         className={classes.media}
                         image={image ? image : defaultImg}
-                        title="Contemplative Reptile"
+                        title="Blog"
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
@@ -172,6 +174,13 @@ export default function ShowProjects() {
                         <Typography variant="subtitle1" color="primary" component="p">
                             <span>Entrada: </span>
                             {entrada ? entrada : ''}
+                        </Typography>
+                    </CardActions>
+
+                    <CardActions>
+                        <Typography variant="subtitle1" color="primary" component="p">
+                            <span>Fecha: </span>
+                            {date ? date : 'No hay información'}
                         </Typography>
                     </CardActions>
                     <CardActions>
