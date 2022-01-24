@@ -76,6 +76,7 @@ export default function ReportForm() {
             temp.valuesReport = fieldValues.valuesReport ? "" : "Este campo es obligatorio."
         if ('data ' in fieldValues)
             temp.data  = fieldValues.data  ? "" : "Este campo es obligatorio."
+            
         setErrors({
             ...temp
         })        
@@ -213,6 +214,7 @@ export default function ReportForm() {
                             />
 
                         </Grid>
+
                         <Grid item xs={6}>
                         <Controls.Input
                                 name="cost"
