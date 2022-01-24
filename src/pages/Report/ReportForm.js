@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-export default function ReportForm() {
+export default function TaskForm() {
     
     const { tid,id } = useParams();
     const classes = useStyles();
@@ -75,7 +75,7 @@ export default function ReportForm() {
     useEffect(() => {
         let unmounted = false;
         if (id)
-            getReport();
+            getTask();
         return () => { unmounted = true; };
     }, []);
 
@@ -93,7 +93,7 @@ export default function ReportForm() {
     };
 
 
-    const getReport = async () => {
+    const getTask = async () => {
         setLoading(true);
         try {
             let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/showreport/${id}`, {

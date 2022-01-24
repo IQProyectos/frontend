@@ -18,6 +18,17 @@ export const getReports = async (id) => {
     }
 }
 
+export const getReportsDeadline = async (id) => {
+    id = id || '';
+    try{
+        return await axios.get(`${reportURL}/${id}`, config);
+    }    
+    catch(error){
+        return new TypeError("Authentication failed!");
+    }
+}
+
+
 export const addReport = async (report) => {
     try {
         return await axios.post(`${reportURL}/`, report, config);

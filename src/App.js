@@ -16,6 +16,7 @@ import ShowTask from './pages/Task/ShowTask';
 import TaskView from './pages/Task/TaskView';
 import TaskForm from './pages/Task/TaskForm';
 import ViewProgram from './pages/Program/ViewProgram';
+import ViewReportsDeadlines from './pages/Report/ViewReportsDeadlines';
 import ProgramForm from './pages/Program/ProgramForm';
 import ShowBlog from './pages/Blog/ShowBlog';
 import ViewBlog from './pages/Blog/ViewBlog';
@@ -119,6 +120,12 @@ function App() {
               <ViewProjects />
             </RequireAuth>
 
+            <RequireAuth exact path='/report/'>
+              <Header />
+              <SideMenu />
+              <ViewReportsDeadlines/>
+            </RequireAuth>
+
 
             <RequireAuth exact path='/report/:id'>
               <Header />
@@ -144,6 +151,8 @@ function App() {
               <SideMenu />
               <ShowReport />
             </RequireAuth>
+
+            
 
             <RequireAuth exact path='/report/update/:id/:tid'>
               <Header />

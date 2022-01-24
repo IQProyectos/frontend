@@ -102,7 +102,7 @@ export default function SideMenu() {
           </List>
           <Divider />
           <List>
-            <ListItem button key={'report'} onClick={() => moveRoute('/report')}>
+            <ListItem button key={'report'} onClick={() => moveRoute('/report/')}>
               <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <SummarizeIcon/>}</ListItemIcon>
               <ListItemText primary={'Reportes'}/>
             </ListItem>
