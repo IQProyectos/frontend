@@ -72,13 +72,17 @@ const useStyles = makeStyles(theme => ({
 const initialValue = {
     name: '',
     description: '',
-    isTimeSeries: true
+    isTimeSeries: true,
+    notesReport: '',
+    cost:0,
+    valuesReport: '',
+    data: ''
 }
 
 
 export default function ShowReports() {
     const [report, setReport] = useState(initialValue);
-    const { name, description,isTimeSeries, projects} = report;
+    const { name, description,isTimeSeries, projects,notesReport, cost, valuesReport,data } = report;
     const [toExport, setExport] = useState([]);
 
     const [open, setOpen] = React.useState(false);
@@ -111,7 +115,11 @@ export default function ShowReports() {
                 {id: data.id,
                 name: data.name,
                 description: data.description,
-                isTimeSeries: data.isTimeSeries
+                isTimeSeries: data.isTimeSeries,
+                notesReport: data.notesReport,
+                cost: data.cost,
+                valuesReport: data.valuesReport,
+                data: data.data
             }])
             
             setLoading(false);
@@ -145,7 +153,7 @@ export default function ShowReports() {
             </div>
 
             <PageHeader
-                title="Información detallada sobre un tarea"
+                title="Información detallada sobre un reporte"
                 icon={<InfoIcon fontSize="large"
                 />}
             />
@@ -166,18 +174,19 @@ export default function ShowReports() {
                         <Typography variant="subtitle1" color="textSecondary" component="p">
                             {description ? description : ''}
                         </Typography>
-                    </CardContent>
-                    <CardActions disableSpacing>
                         <Typography variant="subtitle1" color="textSecondary" component="p">
-                        ¿Completado?
+                            {cost ? cost : '0'}
                         </Typography>
-                        <Controls.Checkbox
-                        name="isTimeSeries"
-                        label=""
-                        value={isTimeSeries}
-                        disabled={true}
-                        />
-                    </CardActions>
+                        <Typography variant="subtitle1" color="textSecondary" component="p">
+                            {valuesReport ? valuesReport : 'No hay valores'}
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary" component="p">
+                            {data ? data : 'No hay datos'}
+                        </Typography>
+
+
+
+                    </CardContent>
                     <CardActions>
                         {/* <Tooltip title="Exportar programa">
                             <div className={classes.iconContainer}>

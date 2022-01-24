@@ -78,7 +78,7 @@ const initialValue = {
 
 export default function ShowTasks() {
     const [task, setTask] = useState(initialValue);
-    const { name, description,isTimeSeries, projects} = task;
+    const { name, description,diasNecesarios,diasCompletados,isTimeSeries, projects} = task;
     const [toExport, setExport] = useState([]);
 
     const [open, setOpen] = React.useState(false);
@@ -111,6 +111,8 @@ export default function ShowTasks() {
                 {id: data.id,
                 name: data.name,
                 description: data.description,
+                diasNecesarios: data.diasNecesarios,
+                diasCompetados: data.diasCompletados,
                 isTimeSeries: data.isTimeSeries
             }])
             
@@ -145,7 +147,7 @@ export default function ShowTasks() {
             </div>
 
             <PageHeader
-                title="Información detallada sobre un tarea"
+                title="Información detallada sobre una tarea"
                 icon={<InfoIcon fontSize="large"
                 />}
             />
@@ -160,16 +162,22 @@ export default function ShowTasks() {
                 <Card className={classes.cardContainer}>
 
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography gutterBottom variant="h2" component="h2">
                             {name ? name : ''}
                         </Typography>
                         <Typography variant="subtitle1" color="textSecondary" component="p">
-                            {description ? description : ''}
+                            <b>Descripción:</b> {description ? description : ''}
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary" component="p">
+                            <b>Dias Necesarios:</b> {diasNecesarios ? diasNecesarios : ''}
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary" component="p">
+                            <b>Dias trabajados:</b> {diasCompletados ? diasCompletados : ''}
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
                         <Typography variant="subtitle1" color="textSecondary" component="p">
-                        ¿Completado?
+                        <b>¿Completado?</b>
                         </Typography>
                         <Controls.Checkbox
                         name="isTimeSeries"

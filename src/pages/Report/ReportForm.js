@@ -23,7 +23,11 @@ const initialBValues = {
     name: '',
     description: '',
     isTimeSeries: false,
-    projects: ''
+    projects: '',
+    notesReport: '',
+    cost: '',
+    valuesReport: '',
+    data: ''
 }
 
 const useStyles = makeStyles(theme => ({
@@ -56,7 +60,7 @@ export default function ReportForm() {
     const [error, setError] = useState('');
     const [progress, setProgress] = useState(0);
     const message = id ? "Se ha actualizado el proyecto!" : "Se ha guardado el proyecto!"
-    const title = id ? "Actualizar tarea" : "Añadir nueva tarea";
+    const title = id ? "Actualizar reporte" : "Añadir nueva reporte";
     const type = id ? "actualizar" : "agregar";
     const validate = (fieldValues = values) => {
         let temp = { ...errors }        
@@ -64,7 +68,14 @@ export default function ReportForm() {
             temp.name = fieldValues.name ? "" : "Este campo es obligatorio."
         if ('description' in fieldValues)
             temp.description = fieldValues.description ? "" : "Este campo es obligatorio."
-            
+        if ('notesReport' in fieldValues)
+            temp.notesReport = fieldValues.notesReport ? "" : "Este campo es obligatorio."
+        if ('cost' in fieldValues)
+            temp.cost = fieldValues.cost ? "" : "Este campo es obligatorio."
+        if ('valuesReport' in fieldValues)
+            temp.valuesReport = fieldValues.valuesReport ? "" : "Este campo es obligatorio."
+        if ('data ' in fieldValues)
+            temp.data  = fieldValues.data  ? "" : "Este campo es obligatorio."
         setErrors({
             ...temp
         })        
@@ -176,7 +187,7 @@ export default function ReportForm() {
         <div>
             <PageHeader
                 title={title}
-                subTitle={`Formulario para ${type} una tarea`}
+                subTitle={`Formulario para ${type} un reporte`}
                 icon={<EcoIcon fontSize="large" color='primary'
                 />}
             />
@@ -193,8 +204,8 @@ export default function ReportForm() {
                                 onChange={handleInputChange}
                                 error={errors.name}
                             />
-                            <Controls.Input
-                                label="Descripción"
+                            <Controls.TextArea
+                                label="Análisis"
                                 name="description"
                                 value={values.description}
                                 onChange={handleInputChange}
@@ -203,15 +214,40 @@ export default function ReportForm() {
 
                         </Grid>
                         <Grid item xs={6}>
-                            <Controls.Checkbox
-                                name="isTimeSeries"
-                                label="Tarea activa"
-                                value={values.isTimeSeries}
+                        <Controls.Input
+                                name="cost"
+                                label="Costo"
+                                value={values.cost}
                                 onChange={handleInputChange}
-                                title="Se presentará como proyecto activo al marcar la casilla, de lo contrario se presentará como proyecto inactivo."
-                            />
+                                error={errors.cost}
+                                />
                             
                         </Grid>
+                        <Controls.TextArea
+                                label="Notas"
+                                name="notesReport"
+                                value={values.notesReport}
+                                onChange={handleInputChange}
+                                error={errors.notesReport}
+                            />
+
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Controls.TextArea
+                                name="data"
+                                label="Datos"
+                                value={values.data}
+                                onChange={handleInputChange}
+                                error={errors.data}
+                            />
+                            <Controls.TextArea
+                                label="Valores obtenidos"
+                                name="valuesReport"
+                                value={values.valuesReport}
+                                onChange={handleInputChange}
+                                error={errors.valuesReport}
+                            />
+
                         <Grid
                             container
                             direction="row"

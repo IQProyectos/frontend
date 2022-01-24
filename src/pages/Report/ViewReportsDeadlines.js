@@ -150,7 +150,7 @@ export default function ViewReport() {
 
     const headers = [
         { label: 'id', key: 'id' },
-        { label: 'Descripción', key: 'description' },
+        { label: 'Descripción', key: 'analysis' },
         { label: 'Objetivos', key: 'objetives' },
         { label: 'Justificación', key: 'justification' },
         { label: 'País', key: 'country' },
@@ -276,7 +276,7 @@ export default function ViewReport() {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">{"¿Desea borrar este proyecto?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-slide-title">{"¿Desea borrar este reporte?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         Esta decisión no es reversible.
@@ -300,7 +300,7 @@ export default function ViewReport() {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">{"¿Desea abandonar este proyecto?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-slide-title">{"¿Desea eliminar este reporte?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         Esta decisión no es reversible.
@@ -318,8 +318,8 @@ export default function ViewReport() {
 
 
             <PageHeader
-                title="Información sobre los proyectos"
-                subTitle="Acá se muestran todos los proyectos en el sistema"
+                title="Información sobre los reportes"
+                subTitle="Acá se muestran todos los reportes en el sistema"
                 icon={<InfoIcon fontSize="large"
                 />}
             />
@@ -364,7 +364,7 @@ export default function ViewReport() {
                         direction="row"
                         className={classes.csvContainer}
                     >
-                        <Tooltip title="Exportar proyectos">
+                        <Tooltip title="Exportar reportes">
                             <div className={classes.iconContainer}>
                                 <CSVLink {...csvReport} style={{color:'white', marginLeft: '10px'}}> 
                                     <DownloadIcon fontSize={'large'} />
@@ -409,7 +409,7 @@ export default function ViewReport() {
                                                 }}><DeleteIcon /></Button>
                                             </Tooltip>
                                             {!isAdmin &&
-                                                <Tooltip title="Abandonar proyecto">
+                                                <Tooltip title="Abandonar reporte">
                                                     <Button color="warning" variant="contained" onClick={() => {
                                                         setOpenDialogAbandon(true); setReportId(report._id);
                                                     }}><LogoutIcon /></Button>

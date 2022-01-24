@@ -8,7 +8,6 @@ import PageHeader from "../../components/PageHeader";
 import CircularStatic from '../../components/CircularStatic'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
 import Alert from '../../components/AlertMessage';
 import AlertMessage from '../../components/AlertMessage';
 import { getTasks } from '../../services/taskService';
@@ -22,6 +21,8 @@ const predictionItems = [
 const initialBValues = {
     name: '',
     description: '',
+    diasNecesarios: '',
+    diasCompletados: '',
     isTimeSeries: false,
     projects: ''
 }
@@ -55,7 +56,7 @@ export default function TaskForm() {
     const [open, setOpen] = React.useState(false);
     const [error, setError] = useState('');
     const [progress, setProgress] = useState(0);
-    const message = id ? "Se ha actualizado el proyecto!" : "Se ha guardado el proyecto!"
+    const message = id ? "Se ha actualizado la tarea!" : "Se ha guardado la tarea!"
     const title = id ? "Actualizar tarea" : "Añadir nueva tarea";
     const type = id ? "actualizar" : "agregar";
     const validate = (fieldValues = values) => {
@@ -64,6 +65,8 @@ export default function TaskForm() {
             temp.name = fieldValues.name ? "" : "Este campo es obligatorio."
         if ('description' in fieldValues)
             temp.description = fieldValues.description ? "" : "Este campo es obligatorio."
+        if ('diasNecesarios' in fieldValues)
+            temp.diasNecesarios = fieldValues.diasNecesarios ? "" : "Este campo es obligatorio."
             
         setErrors({
             ...temp
@@ -174,6 +177,9 @@ export default function TaskForm() {
 
         }
     }
+    
+    //ACTUALIZAR
+    if(id){
     return (
         
         <div>
@@ -203,15 +209,22 @@ export default function TaskForm() {
                                 onChange={handleInputChange}
                                 error={errors.description}
                             />
+                            <Controls.Input
+                                label="DiasCompletados"
+                                name="diasCompletados"
+                                value={values.diasCompletados}
+                                onChange={handleInputChange}
+                                error={errors.diasCompletados}
+                            />
 
                         </Grid>
                         <Grid item xs={6}>
                             <Controls.Checkbox
                                 name="isTimeSeries"
-                                label="Tarea activa"
+                                label="Tarea terminada"
                                 value={values.isTimeSeries}
                                 onChange={handleInputChange}
-                                title="Se presentará como proyecto activo al marcar la casilla, de lo contrario se presentará como proyecto inactivo."
+                                title="Se presentará como tarea terminada al marcar la casilla, de lo contrario se presentará como una tarea incompleta."
                             />
                             
                         </Grid>
@@ -239,4 +252,72 @@ export default function TaskForm() {
             </Paper>
         </div>
     )
+    }
+
+    //CREAR
+    else{
+
+        return (
+        
+            <div>
+                <PageHeader
+                    title={title}
+                    subTitle={`Formulario para ${type} una tarea`}
+                    icon={<EcoIcon fontSize="large" color='primary'
+                    />}
+                />
+                <CircularStatic progress={progress} hidden={!loading} />
+                <Paper className={classes.pageContent}>                
+                    <Form onSubmit={handleSubmit}>
+                        <AlertMessage errorMessage={error} successMessage={message} openMessage={open}/>
+                        <Grid container>
+                            <Grid item xs={6}>
+                                <Controls.Input
+                                    name="name"
+                                    label="Nombre"
+                                    value={values.name}
+                                    onChange={handleInputChange}
+                                    error={errors.name}
+                                />
+                                <Controls.Input
+                                    label="Descripción"
+                                    name="description"
+                                    value={values.description}
+                                    onChange={handleInputChange}
+                                    error={errors.description}
+                                />
+                                <Controls.Input
+                                    label="Dias necesarios"
+                                    name="diasNecesarios"
+                                    value={values.diasNecesarios}
+                                    onChange={handleInputChange}
+                                    error={errors.diasNecesarios}
+                                />
+    
+                            </Grid>
+                            <Grid
+                                container
+                                direction="row"
+                                justifyContent="center"
+                                alignItems="center"
+                                style={{ marginTop: '20px' }}
+                            >
+                                <div>
+                                    <Controls.Button
+                                        type="submit"
+                                        text="Guardar"
+                                    />
+    
+                                    <Controls.Button
+                                        text="Limpiar"
+                                        color="inherit"
+                                        onClick={resetForm} />
+                                </div>
+                            </Grid>
+                        </Grid>
+                    </Form>
+                </Paper>
+            </div>
+        )
+        }
 }

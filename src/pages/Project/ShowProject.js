@@ -138,7 +138,8 @@ export default function ShowProjects() {
     setPage(0);
   };
   const [project, setProject] = useState(initialValue);
-  const { name, description, objetives,justification, country,department,district,definition, isTimeSeries, image, programs, factors } = project;
+  const { name, description, objetives,justification, country,department,district,definition, isTimeSeries, percentage,totalDays,nowDays,totalTasks, image, programs, factors } = project;
+
   const [open, setOpen] = React.useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = React.useState(true);
@@ -216,6 +217,10 @@ export default function ShowProjects() {
       district: projectP.district,
       definition: projectP.definition,
       isTimeSeries: projectP.isTimeSeries,
+      percentage: projectP.percentage,
+      totalDays: projectP.totalDays,
+      nowDays: projectP.nowDays,
+      totalTasks: projectP.totalTasks
     }
     toExport = Object.assign(toExport,programs);
     toExport = Object.assign(toExport,factors);
@@ -242,6 +247,7 @@ export default function ShowProjects() {
       return setError("Authentication failed!");
     }
   }
+
 
   const getProgramsBio = async () => {
     try {
@@ -497,6 +503,7 @@ export default function ShowProjects() {
             <Typography gutterBottom variant="h5" component="h2">
               Nombre: {name ? name : 'Nombre'}
             </Typography>
+            
             <Typography variant="subtitle1" color="textSecondary" component="p">
               Descripción: {description ? description : 'Descripción'}
             </Typography>
@@ -534,6 +541,52 @@ export default function ShowProjects() {
           </CardActions>
         </Card>
       </Grid>
+
+      <br />
+
+      <br id="Estadisticas" />
+
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        style={{ width: "90%" }}
+      >
+        <Card className={classes.cardContainer}>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2" align='center'>
+              Estadísticas del proyecto
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary" component="p">
+            <b>Días necesarios:</b> {totalDays ? totalDays : 'Días totales'}
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary" component="p">
+            <b>Días trabajados:</b> {nowDays ? nowDays: 'Días trabajados'}
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary" component="p">
+            <b>Diferencia de días:</b> {totalDays - nowDays}
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary" component="p">
+            <b>Presupuesto ocupado hasta el momento:</b> {((100/totalDays)*nowDays).toFixed(2)}%
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary" component="p">
+              <b>Porcentaje de tareas completadas:</b> {percentage} %
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary" component="p">
+              <b>Número de tareas asociadas a este proyecto:</b> {totalTasks}
+            </Typography>
+
+          </CardContent>
+        </Card>
+      </Grid>
+
+
+
+
+
+
+
       <br />
       <PageHeader
         title="Programas asociados al proyecto"
@@ -587,7 +640,7 @@ export default function ShowProjects() {
                               <InfoIcon />
                             </Button>
                           </Tooltip>
-                          <Tooltip title="Graficar datos">
+                          {/*<Tooltip title="Graficar datos">
                             <Button color="secondary" variant="contained" style={{ marginRight: 10 }} component={Link} to={`/graphics/${id}/${program._id}`}>
                               <BarChartIcon />
                             </Button>
@@ -602,6 +655,7 @@ export default function ShowProjects() {
                               <AddIcon />
                             </Button>
                           </Tooltip>
+                          */}
 
                         </Grid>
                       </TableCell>
@@ -620,6 +674,11 @@ export default function ShowProjects() {
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </Paper>
+        
+
+
+
+
         </div>
         <div className={classes.programholder} hidden={isProgramsBio}>
           <br />
@@ -630,6 +689,8 @@ export default function ShowProjects() {
       </div>
       <br id="asociar" />
       <br />
+
+      
       <PageHeader
         title="Asociar programa a proyecto"
         subTitle="Seleccione un programa para asociarlo a este proyecto"

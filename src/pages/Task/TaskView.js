@@ -267,7 +267,7 @@ export default function ViewTask() {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">{"¿Desea borrar este proyecto?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-slide-title">{"¿Desea borrar esta tarea?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         Esta decisión no es reversible.
@@ -309,7 +309,7 @@ export default function ViewTask() {
 
             <PageHeader
                 title="Gestión de tareas"
-                subTitle="Sección para la administración de tareas de una tarea"
+                subTitle="Sección para la administración de tareas"
                 icon={<InfoIcon fontSize="large"
                 
                 />}
@@ -347,7 +347,7 @@ export default function ViewTask() {
                         direction="row"
                         className={classes.csvContainer}
                     >
-                        <Tooltip title="Exportar proyectos">
+                        <Tooltip title="Exportar tareas">
                             <div className={classes.iconContainer}>
                                 <CSVLink {...csvReport} style={{color:'white', marginLeft: '10px'}}> 
                                     
@@ -407,7 +407,7 @@ export default function ViewTask() {
                                                 }}><DeleteIcon /></Button>
                                             </Tooltip>
                                             {!isAdmin &&
-                                                <Tooltip title="Abandonar proyecto">
+                                                <Tooltip title="Eliminar esta tarea">
                                                     <Button color="warning" variant="contained" onClick={() => {
                                                         setOpenDialogAbandon(true); setTaskId(task._id);
                                                     }}><LogoutIcon /></Button>
