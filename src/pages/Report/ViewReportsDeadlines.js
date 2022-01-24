@@ -387,7 +387,7 @@ export default function ViewReport() {
                                 <TableRow hover className={classes.row} key={report.id}>
                                     <TableCell>{report.name}</TableCell>
                                     <TableCell>{report.date}</TableCell>
-                                    <TableCell>{report.name}</TableCell>
+                                    <TableCell>{report.projectName}</TableCell>
                                     
             
                                    

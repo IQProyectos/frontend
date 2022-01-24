@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-export default function TaskForm() {
+export default function ReportForm() {
     
     const { tid,id } = useParams();
     const classes = useStyles();
@@ -75,7 +75,7 @@ export default function TaskForm() {
     useEffect(() => {
         let unmounted = false;
         if (id)
-            getTask();
+            getReport();
         return () => { unmounted = true; };
     }, []);
 
@@ -93,7 +93,7 @@ export default function TaskForm() {
     };
 
 
-    const getTask = async () => {
+    const getReport = async () => {
         setLoading(true);
         try {
             let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/showreport/${id}`, {
@@ -152,16 +152,13 @@ export default function TaskForm() {
                     await axios
                         .patch(`${process.env.REACT_APP_API_URL}/api/private/report/${id}/${tid}`, values, config)
                         .then(confirmPost)
-                    await axios.patch(`${process.env.REACT_APP_API_URL}/api/private/updatePercentage/${tid}`, values, config)
                 } else {
                     await axios
                         .post(process.env.REACT_APP_API_URL + `/api/private/report/${tid}`, values, config)
                         .then(confirmPost)
-                    await axios.patch(`${process.env.REACT_APP_API_URL}/api/private/updatePercentage/${tid}`, values, config)
                         
                 }
             }
-
             catch (error) {
                 setLoading(false);
                 setTimeout(() => {

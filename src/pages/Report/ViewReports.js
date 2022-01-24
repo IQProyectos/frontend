@@ -221,9 +221,6 @@ export default function ViewReport() {
     useEffect(() => {
         let unmounted = false;
         getAllReports();
-        
-        
-        
         return () => { unmounted = true; };
         
 
@@ -231,7 +228,7 @@ export default function ViewReport() {
 
     const deleteReportData = async () => {
         try {
-            let response = deleteReport(reportId);
+            let response =  await deleteReport(reportId);
             getAllReports();
         } catch (error) {
             setOpen(true);

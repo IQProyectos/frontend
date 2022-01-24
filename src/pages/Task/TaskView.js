@@ -231,7 +231,7 @@ export default function ViewTask() {
 
     const deleteTaskData = async () => {
         try {
-            let response = deleteTask(taskId);
+            let response = await deleteTask(taskId);
             getAllTasks();
         } catch (error) {
             setOpen(true);
