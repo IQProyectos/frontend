@@ -154,7 +154,16 @@ export default function ViewReport() {
 
     const headers = [
         { label: 'id', key: 'id' },
-        { label: 'Descripción', key: 'description' }
+        { label: 'Descripción', key: 'description' },
+        { label: 'Notas', key: 'notesReport' },
+        { label: 'Costo', key: 'cost' },
+        { label: 'Valores Obtenidos', key: 'valuesReport' },
+        { label: 'Datos', key: 'data' }
+
+
+         
+
+        
     ]
 
     const csvReport = {
@@ -264,7 +273,7 @@ export default function ViewReport() {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">{"¿Desea borrar este proyecto?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-slide-title">{"¿Desea borrar este reporte?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         Esta decisión no es reversible.
@@ -288,7 +297,7 @@ export default function ViewReport() {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">{"¿Desea abandonar este tarea?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-slide-title">{"¿Desea abandonar este reporte?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         Esta decisión no es reversible.
@@ -305,8 +314,8 @@ export default function ViewReport() {
             </Dialog>
 
             <PageHeader
-                title="Gestión de tareas"
-                subTitle="Sección para la administración de tareas de una tarea"
+                title="Gestión de reportes"
+                subTitle="Sección para la administración de reportes de un reporte"
                 icon={<InfoIcon fontSize="large"
                 
                 />}
@@ -344,7 +353,7 @@ export default function ViewReport() {
                         direction="row"
                         className={classes.csvContainer}
                     >
-                        <Tooltip title="Exportar proyectos">
+                        <Tooltip title="Exportar reportes">
                             <div className={classes.iconContainer}>
                                 <CSVLink {...csvReport} style={{color:'white', marginLeft: '10px'}}> 
                                     
@@ -357,7 +366,7 @@ export default function ViewReport() {
                         <TableHead>
                             <TableRow className={classes.thead}>
                                 <TableCell className={classes.cell}>Nombre</TableCell>
-                                <TableCell className={classes.cell}>¿Completada?</TableCell>
+                                
                                 <TableCell className={classes.cell}></TableCell>
                                 <TableCell className={classes.programholder} style={{paddingTop: '0px'}}>Acciones</TableCell>
                             </TableRow>
@@ -366,14 +375,6 @@ export default function ViewReport() {
                             {reports.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((report) => (
                                 <TableRow hover className={classes.row} key={report.id}>
                                     <TableCell>{report.name}</TableCell>
-                                    <TableCell>
-                                        <Controls.Checkbox
-                                            name="isTimeSeries"
-                                            label=""
-                                            value={report.isTimeSeries}
-                                            disabled={true}
-                                        />
-                                    </TableCell>
                                     <TableCell>
                                         <Grid
                                             container
@@ -404,7 +405,7 @@ export default function ViewReport() {
                                                 }}><DeleteIcon /></Button>
                                             </Tooltip>
                                             {!isAdmin &&
-                                                <Tooltip title="Abandonar proyecto">
+                                                <Tooltip title="Abandonar reporte">
                                                     <Button color="warning" variant="contained" onClick={() => {
                                                         setOpenDialogAbandon(true); setReportId(report._id);
                                                     }}><LogoutIcon /></Button>
@@ -436,7 +437,7 @@ export default function ViewReport() {
                 className={classes.table}
 
             >
-                <Controls.Button color="primary" variant="contained" component={Link} to={`/report/create/${id}`} text="Crear Tarea" />
+                <Controls.Button color="primary" variant="contained" component={Link} to={`/report/create/${id}`} text="Crear reporte" />
             
             </Grid>
         </div>

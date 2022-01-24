@@ -101,6 +101,21 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export default function ViewReport() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -150,7 +165,7 @@ export default function ViewReport() {
 
     const headers = [
         { label: 'id', key: 'id' },
-        { label: 'Descripción', key: 'description' },
+        { label: 'Descripción', key: 'analysis' },
         { label: 'Objetivos', key: 'objetives' },
         { label: 'Justificación', key: 'justification' },
         { label: 'País', key: 'country' },
@@ -318,8 +333,8 @@ export default function ViewReport() {
 
 
             <PageHeader
-                title="Información sobre los proyectos"
-                subTitle="Acá se muestran todos los proyectos en el sistema"
+                title="Información sobre los reportes"
+                subTitle="Acá se muestran todos los reportes en el sistema"
                 icon={<InfoIcon fontSize="large"
                 />}
             />
@@ -364,7 +379,7 @@ export default function ViewReport() {
                         direction="row"
                         className={classes.csvContainer}
                     >
-                        <Tooltip title="Exportar proyectos">
+                        <Tooltip title="Exportar reportes">
                             <div className={classes.iconContainer}>
                                 <CSVLink {...csvReport} style={{color:'white', marginLeft: '10px'}}> 
                                     <DownloadIcon fontSize={'large'} />
