@@ -310,7 +310,7 @@ export default function ViewReport() {
             </Dialog>
 
             <PageHeader
-                title="Gestión de tareas"
+                title="Gestión de Reportes"
                 subTitle="Sección para la administración de reportes"
                 icon={<InfoIcon fontSize="large"
                 

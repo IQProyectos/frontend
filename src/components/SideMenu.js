@@ -16,6 +16,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import EcoIcon from '@material-ui/icons/Eco';
 import HomeIcon from '@material-ui/icons/Home';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useHistory } from "react-router-dom";
 import PersonIcon from '@mui/icons-material/Person';
@@ -23,6 +24,8 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import BiotechIcon from '@mui/icons-material/Biotech';
 import BeenhereIcon from '@mui/icons-material/Beenhere';
 import SummarizeIcon from '@mui/icons-material/Summarize';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import LinkIcon from '@mui/icons-material/Link';
 
 const drawerWidth = 240;
 
@@ -118,14 +121,14 @@ export default function SideMenu() {
           <Divider />
           <List>
             <ListItem button key={'evidence'} onClick={() => moveRoute('/evidence')}>
-              <ListItemIcon><HomeWork /></ListItemIcon>
+              <ListItemIcon><VisibilityIcon /></ListItemIcon>
               <ListItemText primary={'Evidencias'}/>
             </ListItem>
           </List>
           <Divider />
           <List>
             <ListItem button key={'resource'} onClick={() => moveRoute('/resource')}>
-              <ListItemIcon><HomeWork /></ListItemIcon>
+              <ListItemIcon><LinkIcon /></ListItemIcon>
               <ListItemText primary={'Recursos Externos'}/>
             </ListItem>
           </List>
@@ -166,7 +169,7 @@ export default function SideMenu() {
 
           <List>
             <ListItem button key={'notice'} onClick={() => moveRoute('/notice')}>
-              <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <NoteAddIcon/>}</ListItemIcon>
+              <ListItemIcon><NewspaperIcon /></ListItemIcon>
               <ListItemText primary={'Noticias'}/>
             </ListItem>
           </List>
