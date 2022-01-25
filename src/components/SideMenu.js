@@ -140,6 +140,15 @@ export default function SideMenu() {
             </ListItem>
           </List>
           <Divider />
+
+
+          <List>
+            <ListItem button key={'notice'} onClick={() => moveRoute('/notice')}>
+              <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <NoteAddIcon/>}</ListItemIcon>
+              <ListItemText primary={'Noticias'}/>
+            </ListItem>
+          </List>
+          <Divider />
         </div>
         
       </Drawer>

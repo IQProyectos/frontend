@@ -36,6 +36,10 @@ import Predictor from './pages/Predictor/Predictor';
 import UploadCSV from './pages/Data/UploadCSV';
 import ShowGraphics from './pages/Graphics/ShowGraphics';
 import AboutUs from './pages/AboutUs';
+import ShowNotice from './pages/Notice/ShowNotice';
+import ViewNotice from './pages/Notice/ViewNotice';
+import NoticeForm from './pages/Notice/NoticeForm';
+
 
 const theme = createTheme({
   palette: {
@@ -260,6 +264,44 @@ function App() {
               <SideMenu />
               <ViewBlog />
             </RequireAuth>
+
+
+            <RequireAuth exact path='/notice/show/:id'>
+              <Header />
+              <SideMenu />
+              <ShowNotice/>
+            </RequireAuth>
+
+            <RequireAuth exact path='/notice/create'>
+              <Header />
+              <SideMenu />
+              <NoticeForm />
+            </RequireAuth>
+
+            <RequireAuth exact path='/notice/update/:id'>
+              <Header />
+              <SideMenu />
+              <NoticeForm />
+            </RequireAuth>
+
+
+            <RequireAuth exact path='/notice/'>
+              <Header />
+              <SideMenu />
+              <ViewNotice />
+            </RequireAuth>
+
+
+
+
+
+
+
+
+
+
+
+
 
             <RequireAuth exact path='/data/add/:bid/:pid/:did'>
               <Header />
