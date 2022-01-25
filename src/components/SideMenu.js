@@ -26,6 +26,7 @@ import BeenhereIcon from '@mui/icons-material/Beenhere';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import LinkIcon from '@mui/icons-material/Link';
+import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
 
 const drawerWidth = 240;
 
@@ -162,6 +163,13 @@ export default function SideMenu() {
             <ListItem button key={'blog'} onClick={() => moveRoute('/blog')}>
               <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <NoteAddIcon/>}</ListItemIcon>
               <ListItemText primary={'Blog'}/>
+            </ListItem>
+          </List>
+          <Divider />
+          <List>
+            <ListItem button component="a" href="https://iq-kanban-ui.herokuapp.com/">
+              <ListItemIcon><ViewKanbanIcon /> </ListItemIcon>
+              <ListItemText primary={'Kanban Board'}/>
             </ListItem>
           </List>
           <Divider />
