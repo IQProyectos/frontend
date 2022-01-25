@@ -291,7 +291,7 @@ export default function ViewReport() {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">{"¿Desea borrar este proyecto?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-slide-title">{"¿Desea borrar este reporte?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         Esta decisión no es reversible.
@@ -315,7 +315,7 @@ export default function ViewReport() {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">{"¿Desea abandonar este proyecto?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-slide-title">{"¿Desea eliminar este reporte?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         Esta decisión no es reversible.
@@ -424,7 +424,7 @@ export default function ViewReport() {
                                                 }}><DeleteIcon /></Button>
                                             </Tooltip>
                                             {!isAdmin &&
-                                                <Tooltip title="Abandonar proyecto">
+                                                <Tooltip title="Abandonar reporte">
                                                     <Button color="warning" variant="contained" onClick={() => {
                                                         setOpenDialogAbandon(true); setReportId(report._id);
                                                     }}><LogoutIcon /></Button>

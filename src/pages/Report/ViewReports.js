@@ -160,10 +160,6 @@ export default function ViewReport() {
         { label: 'Valores Obtenidos', key: 'valuesReport' },
         { label: 'Datos', key: 'data' }
 
-
-         
-
-        
     ]
 
     const csvReport = {
@@ -314,8 +310,8 @@ export default function ViewReport() {
             </Dialog>
 
             <PageHeader
-                title="Gestión de reportes"
-                subTitle="Sección para la administración de reportes de un reporte"
+                title="Gestión de tareas"
+                subTitle="Sección para la administración de reportes"
                 icon={<InfoIcon fontSize="large"
                 
                 />}
@@ -366,7 +362,6 @@ export default function ViewReport() {
                         <TableHead>
                             <TableRow className={classes.thead}>
                                 <TableCell className={classes.cell}>Nombre</TableCell>
-                                
                                 <TableCell className={classes.cell}></TableCell>
                                 <TableCell className={classes.programholder} style={{paddingTop: '0px'}}>Acciones</TableCell>
                             </TableRow>
@@ -375,6 +370,7 @@ export default function ViewReport() {
                             {reports.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((report) => (
                                 <TableRow hover className={classes.row} key={report.id}>
                                     <TableCell>{report.name}</TableCell>
+                                    
                                     <TableCell>
                                         <Grid
                                             container

@@ -188,7 +188,7 @@ export default function ReportForm() {
         <div>
             <PageHeader
                 title={title}
-                subTitle={`Formulario para ${type} una reporte`}
+                subTitle={`Formulario para ${type} un reporte`}
                 icon={<EcoIcon fontSize="large" color='primary'
                 />}
             />
@@ -216,14 +216,16 @@ export default function ReportForm() {
                         </Grid>
 
                         <Grid item xs={6}>
-                            <Controls.Input
+                        <Controls.Input
                                 name="cost"
                                 label="Costo"
                                 value={values.cost}
                                 onChange={handleInputChange}
                                 error={errors.cost}
-                            />
-                            <Controls.TextArea
+                                />
+                            
+                        </Grid>
+                        <Controls.TextArea
                                 label="Notas"
                                 name="notesReport"
                                 value={values.notesReport}
@@ -248,7 +250,6 @@ export default function ReportForm() {
                                 error={errors.valuesReport}
                             />
 
-                        </Grid>
                         <Grid
                             container
                             direction="row"

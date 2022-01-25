@@ -175,9 +175,6 @@ export default function ShowReports() {
                             {description ? description : ''}
                         </Typography>
                         <Typography variant="subtitle1" color="textSecondary" component="p">
-                            {notesReport ? notesReport : 'No hay notas'}
-                        </Typography>
-                        <Typography variant="subtitle1" color="textSecondary" component="p">
                             {cost ? cost : '0'}
                         </Typography>
                         <Typography variant="subtitle1" color="textSecondary" component="p">
@@ -187,8 +184,8 @@ export default function ShowReports() {
                             {data ? data : 'No hay datos'}
                         </Typography>
 
-                        
-                        
+
+
                     </CardContent>
                     <CardActions>
                         {/* <Tooltip title="Exportar programa">
