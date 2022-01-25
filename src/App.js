@@ -12,12 +12,21 @@ import AssignRole from './pages/User/AssignRole';
 import UpdateFactor from './pages/Factors/UpdateFactor';
 import CreateFactor from './pages/Factors/CreateFactor';
 import ShowProgram from './pages/Program/ShowProgram';
+import ProgramForm from './pages/Program/ProgramForm';
+import ViewProgram from './pages/Program/ViewProgram';
+import ShowOrganization from './pages/Organization/ShowOrganization';
+import OrganizationForm from './pages/Organization/OrganizationForm';
+import ViewOrganization from './pages/Organization/ViewOrganization';
+import ShowEvidence from './pages/Evidence/ShowEvidence';
+import EvidenceForm from './pages/Evidence/EvidenceForm';
+import ViewEvidence from './pages/Evidence/ViewEvidence';
+import ShowResource from './pages/Resource/ShowResource';
+import ResourceForm from './pages/Resource/ResourceForm';
+import ViewResource from './pages/Resource/ViewResource';
 import ShowTask from './pages/Task/ShowTask';
 import TaskView from './pages/Task/TaskView';
 import TaskForm from './pages/Task/TaskForm';
-import ViewProgram from './pages/Program/ViewProgram';
 import ViewReportsDeadlines from './pages/Report/ViewReportsDeadlines';
-import ProgramForm from './pages/Program/ProgramForm';
 import ShowBlog from './pages/Blog/ShowBlog';
 import ViewBlog from './pages/Blog/ViewBlog';
 import BlogForm from './pages/Blog/BlogForm';
@@ -217,6 +226,24 @@ function App() {
               <ShowProgram />
             </RequireAuth>
 
+            <RequireAuth exact path='/organization/show/:id'>
+              <Header />
+              <SideMenu />
+              <ShowOrganization />
+            </RequireAuth>
+
+            <RequireAuth exact path='/evidence/show/:id'>
+              <Header />
+              <SideMenu />
+              <ShowEvidence />
+            </RequireAuth>
+
+            <RequireAuth exact path='/resource/show/:id'>
+              <Header />
+              <SideMenu />
+              <ShowResource />
+            </RequireAuth>
+
             <RequireAuth exact path='/program/create'>
               <Header />
               <SideMenu />
@@ -229,12 +256,65 @@ function App() {
               <ProgramForm />
             </RequireAuth>
 
+            <RequireAuth exact path='/organization/create'>
+              <Header />
+              <SideMenu />
+              <OrganizationForm />
+            </RequireAuth>
+
+            <RequireAuth exact path='/evidence/create'>
+              <Header />
+              <SideMenu />
+              <EvidenceForm />
+            </RequireAuth>
+
+            <RequireAuth exact path='/resource/create'>
+              <Header />
+              <SideMenu />
+              <ResourceForm />
+            </RequireAuth>
+
+            <RequireAuth exact path='/organization/update/:id'>
+              <Header />
+              <SideMenu />
+              <OrganizationForm />
+            </RequireAuth>
+
+            <RequireAuth exact path='/evidence/update/:id'>
+              <Header />
+              <SideMenu />
+              <EvidenceForm />
+            </RequireAuth>
+
+            <RequireAuth exact path='/resource/update/:id'>
+              <Header />
+              <SideMenu />
+              <ResourceForm />
+            </RequireAuth>
+
             <RequireAuth exact path='/program/'>
               <Header />
               <SideMenu />
               <ViewProgram />
             </RequireAuth>
 
+            <RequireAuth exact path='/organization/'>
+              <Header />
+              <SideMenu />
+              <ViewOrganization />
+            </RequireAuth>
+
+            <RequireAuth exact path='/evidence/'>
+              <Header />
+              <SideMenu />
+              <ViewEvidence />
+            </RequireAuth>
+
+            <RequireAuth exact path='/resource/'>
+              <Header />
+              <SideMenu />
+              <ViewResource />
+            </RequireAuth>
 
             <RequireAuth exact path='/blog/show/:id'>
               <Header />
