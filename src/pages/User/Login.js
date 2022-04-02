@@ -159,8 +159,6 @@ const Login = ({ history }) => {
           </button>
         </Form>
       </div>
-      <br/>
-      <a href="/about">Acerca de Nosotros</a>
     </div>
 
   );

@@ -92,50 +92,36 @@ export default function SideMenu() {
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
-        <List>
-            <ListItem button key={'organizacion'} onClick={() => moveRoute('/organization')}>
-              <ListItemIcon><HomeWork /></ListItemIcon>
-              <ListItemText primary={'Organizaciones'}/>
-            </ListItem>
-          </List>
-          <Divider />
-        <List>
+          {value === 'admin' &&
+            <div>
+              <List>
             <ListItem button key={'programa'} onClick={() => moveRoute('/program')}>
               <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <BeenhereIcon />}</ListItemIcon>
-              <ListItemText primary={'Programas'}/>
+              <ListItemText primary={'Laboratorios'}/>
             </ListItem>
           </List>
           <Divider />
           <List>
             <ListItem button key={'proyecto'} onClick={() => moveRoute('/project/')}>
               <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <EcoIcon />}</ListItemIcon>
-              <ListItemText primary={'Proyectos'}/>
+              <ListItemText primary={'Servicios'}/>
             </ListItem>
           </List>
           <Divider />
           <List>
             <ListItem button key={'report'} onClick={() => moveRoute('/report/')}>
               <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <SummarizeIcon/>}</ListItemIcon>
-              <ListItemText primary={'Reportes'}/>
+              <ListItemText primary={'Gestionar espacios'}/>
             </ListItem>
           </List>
           <Divider />
           <List>
             <ListItem button key={'evidence'} onClick={() => moveRoute('/evidence')}>
               <ListItemIcon><VisibilityIcon /></ListItemIcon>
-              <ListItemText primary={'Evidencias'}/>
+              <ListItemText primary={'Ver Citas'}/>
             </ListItem>
           </List>
-          <Divider />
-          <List>
-            <ListItem button key={'resource'} onClick={() => moveRoute('/resource')}>
-              <ListItemIcon><LinkIcon /></ListItemIcon>
-              <ListItemText primary={'Recursos Externos'}/>
-            </ListItem>
-          </List>
-          <Divider />
-          {value === 'admin' &&
-            <div> 
+          <Divider /> 
               <List>
             <ListItem button key={'register'} onClick={() => moveRoute('/register')}>
               <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <PersonAddIcon />}</ListItemIcon>
@@ -159,30 +145,25 @@ export default function SideMenu() {
           <Divider />
             </div>
           }
-          <List>
+          {value !== 'admin' &&
+          <div>
+            <List>
             <ListItem button key={'blog'} onClick={() => moveRoute('/blog')}>
               <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <NoteAddIcon/>}</ListItemIcon>
-              <ListItemText primary={'Blog'}/>
+              <ListItemText primary={'Agendar servicio'}/>
             </ListItem>
           </List>
           <Divider />
-          <List>
-            <ListItem button component="a" href="https://iq-kanban-ui.herokuapp.com/">
-              <ListItemIcon><ViewKanbanIcon /> </ListItemIcon>
-              <ListItemText primary={'Kanban Board'}/>
-            </ListItem>
-          </List>
-          <Divider />
-
-
           <List>
             <ListItem button key={'notice'} onClick={() => moveRoute('/notice')}>
               <ListItemIcon><NewspaperIcon /></ListItemIcon>
-              <ListItemText primary={'Noticias'}/>
+              <ListItemText primary={'Gestionar mis citas'}/>
             </ListItem>
           </List>
           <Divider />
-        </div>
+          </div>}
+
+          </div>
         
       </Drawer>
       

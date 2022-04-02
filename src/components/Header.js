@@ -78,7 +78,7 @@ export default function Header() {
                             color="inherit"    
                         >
                             <Typography variant="h6" noWrap >
-                                Gestor de proyectos de investigación
+                                Scyto: Gestor de servicios de laboratorios
                             </Typography>
                         </IconButton>
                         

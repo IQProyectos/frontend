@@ -11,7 +11,7 @@ const Home = ({ history }) => {
                 justifyContent="center"
                 alignItems="center"
             >
-                <h1>Gestor de proyectos de investigación</h1>
+                <h1>Scyto: Gestor de servicios de laboratorios</h1>
             </Grid>
             <Grid
                 container
@@ -19,7 +19,7 @@ const Home = ({ history }) => {
                 justifyContent="center"
                 alignItems="center"
             >
-                <h2>Prototipo: Sprint 3</h2>
+                <h2>El mejor lugar para sacar citas para sus servicios de laboratorio.</h2>
             </Grid>
         </div>
     )
