@@ -25,6 +25,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import Modal from '@mui/material/Modal';
 import AssignPermission from './AssignPermission';
 import Test from './Test';
+import { resolveCname } from 'dns';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -169,6 +170,12 @@ export default function ViewUsers() {
 
     }
 
+    function roleName(role) {
+      if(role === 'admin') return "Administrador";
+      if(role === 'user') return "Usuario";
+      if(role === 'gestor') return "Gestor de Laboratorio";
+    }
+
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -259,7 +266,7 @@ export default function ViewUsers() {
                                 <TableRow hover className={classes.row} key={user.id}>
                                     <TableCell>{user.username}</TableCell>
                                     <TableCell>{user.email}</TableCell>
-                                    <TableCell>{user.type === 'user' ? 'Usuario' : 'Administrador'}</TableCell>
+                                    <TableCell>{roleName(user.type)}</TableCell>
                                     <TableCell>
                                         <Grid
                                             container
@@ -267,11 +274,6 @@ export default function ViewUsers() {
                                             justifyContent="center"
                                             alignItems="center"
                                         >
-                                            <div hidden = {user.type === 'admin' ? true : false}>
-                                                <Tooltip title="Asignar permiso">
-                                                    <Button color="primary" variant="contained" style={{ marginRight: 10 }} onClick={() => {setUserId(user._id); handleOpenUser()}}><ModeEditIcon /></Button>
-                                                </Tooltip>
-                                            </div>
                                             <Tooltip title="Información">
                                                 <Button className={classes.button} variant="contained" style={{ marginRight: 10 }} component={Link} to={`/profile/${user._id}`}><InfoIcon /></Button>
                                             </Tooltip>

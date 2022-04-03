@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SideMenu() {
 
   const [value, setValue] = useState(localStorage.getItem("type"));
+  console.log(localStorage);
 
   useEffect(() => {
     console.log(value);
@@ -132,7 +133,7 @@ export default function SideMenu() {
           <List>
             <ListItem button key={'assignRole'} onClick={() => moveRoute('/assignRole')}>
               <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <AssignmentIndIcon />}</ListItemIcon>
-              <ListItemText primary={'Asignar rol'}/>
+              <ListItemText primary={'Asignar gestores de laboratorio'}/>
             </ListItem>
           </List>
           <Divider />

@@ -59,10 +59,11 @@ const AssignRole = ({ }) => {
             setLoading(true);
             setSelectedUser(false);
             const projects = await axios.get(
-                `${process.env.REACT_APP_API_URL}/api/private/filteredproject/${userValue.id}`,
+                `${process.env.REACT_APP_API_URL}/api/private/filteredprogram/${userValue.id}`,
                 config
             );
-            wrapProjects(projects.data.projects);
+            console.log(projects);
+            wrapProjects(projects.data.programs);
 
 
         } catch (error) {
@@ -79,7 +80,7 @@ const AssignRole = ({ }) => {
         async function getUsers() {
             try {
                 const users = await axios.get(
-                    process.env.REACT_APP_API_URL + "/api/private/users/",
+                    process.env.REACT_APP_API_URL + "/api/private/gestores/",
                     config
                 );
                 wrapUsers(users.data.users);
@@ -198,11 +199,11 @@ const AssignRole = ({ }) => {
                             </IconButton>
                         }
                     >
-                        {error ? error : 'Se ha asociado el rol!'}
+                        {error ? error : 'Se ha asociado el laboratorio!'}
                     </Alert>
                 </Collapse>
 
-                <h3 className="register-screen__title">Asignar rol a usuario existente</h3>
+                <h3 className="register-screen__title">Asignar laboratorio a usuario existente</h3>
                 {error && <span className="error-message">{error}</span>}
                 <br />
                 <div >
@@ -219,7 +220,7 @@ const AssignRole = ({ }) => {
                         options={users}
                         getOptionLabel={(option) => option.username}
                         style={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="Usuarios" variant="outlined" />}
+                        renderInput={(params) => <TextField {...params} label="Gestor" variant="outlined" />}
                         disabled={loading}
                         disableClearable
                         inputValue={inputUser}
@@ -238,7 +239,7 @@ const AssignRole = ({ }) => {
                         options={projects}
                         getOptionLabel={(option) => option.name}
                         style={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="Proyectos" variant="outlined" />}
+                        renderInput={(params) => <TextField {...params} label="Laboratorios" variant="outlined" />}
                         disabled={!selectedUser}
                         disableClearable
                         inputValue={inputProject}
@@ -247,17 +248,10 @@ const AssignRole = ({ }) => {
                         }}
                     />
                     <br />
-                    <Controls.RadioGroup
-                        name="role"
-                        label="Tipo de rol"
-                        value={roleType}
-                        onChange={(e) => { setRole(e.target.value); }}
-                        items={roleItems}
-                    />
                 </div>
                 <br />
                 <button type="submit" className="btn btn-primary">
-                    Asignar rol
+                    Asignar laboratorio
                 </button>
             </form>
         </div>

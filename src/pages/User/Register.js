@@ -86,6 +86,7 @@ const Register = ({ }) => {
   const typeItems = [
     { id: 'user', title: 'Usuario' },
     { id: 'admin', title: 'Administrador' },
+    { id: 'gestor', title: 'Gestor' },
   ]
 
   const registerHandler = async (e) => {
