@@ -193,7 +193,8 @@ export default function ProgramServices() {
             let valuesToWrap = [];
 
             projects.data.projects.forEach(element => {
-                    valuesToWrap.push(element);
+                    if (currentProgram.data.program.name === element.laboratorio)
+                        valuesToWrap.push(element);
                 
             });
 
@@ -287,6 +288,30 @@ export default function ProgramServices() {
             <br />
             <br />
             <br />
+            <Grid
+                container
+                direction="row"
+                justifyContent="left"
+                alignItems="left"
+                style={{ width: "100%" }}
+                xs={12}
+            >
+                <Card className={classes.cardContainer} >
+
+                    <CardContent >
+                        <h3>Servicios Disponibles en este Laboratorio:</h3>
+                   
+
+                    </CardContent>
+
+
+                </Card>
+            </Grid>
+
+            <br />
+            <br />
+            <br />
+            
             <Grid container spacing={2}>
                 {projects.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((project) => (
                     <><Grid xs={4} className={classes.row} key={project.id}>
