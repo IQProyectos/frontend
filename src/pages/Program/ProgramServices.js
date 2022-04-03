@@ -17,6 +17,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Fade from '@material-ui/core/Fade';
 import axios from "axios";
 import defaultImg from '../../assets/img/defaultImg.jpeg'
+import defaultImgService from '../../assets/img/defaultImgService.jpeg'
 import { CSVDownloader } from 'react-papaparse'
 import DownloadIcon from '@mui/icons-material/Download';
 import Tooltip from '@mui/material/Tooltip';
@@ -286,34 +287,34 @@ export default function ProgramServices() {
             <br />
             <br />
             <br />
-            <Grid container spacing={3}>
+            <Grid container spacing={2}>
                 {projects.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((project) => (
-
-                    <Grid xs={4} className={classes.row} key={project.id}>
+                    <><Grid xs={4} className={classes.row} key={project.id}>
                         <Card sx={{ maxWidth: 345 }}>
-                            <CardMedia
-                                component="img"
-                                alt="green iguana"
-                                height="140"
-                                image={project.image ? project.image : defaultImg}
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    {project.name}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Descripción: {project.description}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Precio: {project.objectives ? project.objectives : 0}
-                                </Typography>
-                            </CardContent>
+                                <CardMedia
+                                    component="img"
+                                    alt="green iguana"
+                                    height="140"
+                                    image={project.image ? project.image : defaultImgService} />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {project.name}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        Descripción: {project.description}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        Precio: {project.objectives ? project.objectives : 0}
+                                    </Typography>
+                                </CardContent>
 
-                            <CardActions>
-                                <Button className={classes.button} variant="contained" style={{ marginRight: 10 }} component={Link} to={`/project/book/${project._id}`}><ModeEditIcon/>Agendar</Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
+                                <CardActions>
+                                    <Button className={classes.button} variant="contained" style={{ marginRight: 10 }} component={Link} to={`/project/book/${project._id}`}><ModeEditIcon />Agendar</Button>
+                                </CardActions>
+                            </Card>
+                    </Grid><Grid  item xs={2} >
+                            <h1></h1>
+                        </Grid></>
                 ))}
 
             </Grid>
