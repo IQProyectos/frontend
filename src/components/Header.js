@@ -72,7 +72,7 @@ export default function Header() {
         <div className={classes.root}>
             <CssBaseline />
             <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar>
+                <Toolbar style={{backgroundColor: '#465771'}}>
                     <div onClick={home}>
                         <IconButton 
                             color="inherit"    
