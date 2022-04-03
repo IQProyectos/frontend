@@ -21,7 +21,8 @@ const initialBValues = {
     isTimeSeries: false,
     image: '',
     programs: [],
-    factors: []
+    factors: [],
+    laboratorio: '',
 }
 
 const useStyles = makeStyles(theme => ({
@@ -55,11 +56,7 @@ export default function ProjectForm() {
     const message = id ? "Se ha actualizado el proyecto!" : "Se ha guardado el proyecto!"
     const title = id ? "Actualizar proyecto" : "Añadir nuevo proyecto";
     const type = id ? "actualizar" : "agregar";
-    const options = [
-        { value: "Costa Rica", label: "Costa Rica" },
-        { value: "Panamá", label: "Panamá" },
-        { value: "Nicaragua", label: "Nicaragua" }
-        ]
+
     const validate = (fieldValues = values) => {
         let temp = { ...errors }        
         if ('name' in fieldValues)
@@ -149,7 +146,6 @@ export default function ProjectForm() {
         if (validate()) {
             setLoading(true);
             try {
-                console.log(values);
                 if (id) {
                     await axios
                         .patch(`${process.env.REACT_APP_API_URL}/api/private/project/${id}`, values, config)
@@ -212,7 +208,12 @@ export default function ProjectForm() {
                                 onChange={handleInputChange}
                                 error={errors.objetives}
                             />
-
+                            <Controls.Input
+                                label="Laboratorio"
+                                name="laboratorio"
+                                value={values.laboratorio}
+                                onChange={handleInputChange}
+                            />
 
 
                         </Grid>

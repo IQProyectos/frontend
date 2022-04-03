@@ -103,20 +103,6 @@ export default function SideMenu() {
           </List>
           <Divider />
           <List>
-            <ListItem button key={'proyecto'} onClick={() => moveRoute('/project/')}>
-              <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <EcoIcon />}</ListItemIcon>
-              <ListItemText primary={'Servicios'}/>
-            </ListItem>
-          </List>
-          <Divider />
-          <List>
-            <ListItem button key={'report'} onClick={() => moveRoute('/report/')}>
-              <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <SummarizeIcon/>}</ListItemIcon>
-              <ListItemText primary={'Gestionar espacios'}/>
-            </ListItem>
-          </List>
-          <Divider />
-          <List>
             <ListItem button key={'evidence'} onClick={() => moveRoute('/evidence')}>
               <ListItemIcon><VisibilityIcon /></ListItemIcon>
               <ListItemText primary={'Ver Citas'}/>
@@ -146,7 +132,7 @@ export default function SideMenu() {
           <Divider />
             </div>
           }
-          {value !== 'admin' &&
+          {value === 'user' &&
           <div>
             <List>
             <ListItem button key={'blog'} onClick={() => moveRoute('/blog')}>
@@ -159,6 +145,23 @@ export default function SideMenu() {
             <ListItem button key={'notice'} onClick={() => moveRoute('/notice')}>
               <ListItemIcon><NewspaperIcon /></ListItemIcon>
               <ListItemText primary={'Gestionar mis citas'}/>
+            </ListItem>
+          </List>
+          <Divider />
+          </div>}
+          {value === 'gestor' &&
+          <div>
+          <List>
+            <ListItem button key={'proyecto'} onClick={() => moveRoute('/project/')}>
+              <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <EcoIcon />}</ListItemIcon>
+              <ListItemText primary={'Servicios'}/>
+            </ListItem>
+          </List>
+          <Divider />
+          <List>
+            <ListItem button key={'report'} onClick={() => moveRoute('/report/')}>
+              <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <SummarizeIcon/>}</ListItemIcon>
+              <ListItemText primary={'Gestionar espacios'}/>
             </ListItem>
           </List>
           <Divider />
