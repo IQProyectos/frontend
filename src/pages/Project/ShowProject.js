@@ -453,20 +453,20 @@ export default function ShowProjects() {
       <div className={classes.root}>
         <Snackbar open={open} autoHideDuration={3000}>
           <Alert severity={error ? "error" : "success"}>
-            {error ? "Error!" : "Se ha asociado el programa!"}
+            {error ? "Error!" : "Se ha asociado el laboratorio!"}
           </Alert>
         </Snackbar>
       </div>
 
       <Grid item>
         <Controls.Button variant="text" text="Información de programas" className={classes.textLeft} href="#programas" />
-        <Controls.Button variant="text" text="Asociar programa" className={classes.textLeft} href="#asociar" />
+        <Controls.Button variant="text" text="Asociar laboratorio" className={classes.textLeft} href="#asociar" />
       </Grid>
       <Grid
         container
         direction="row"
       >
-        <Tooltip title="Exportar proyecto">
+        <Tooltip title="Exportar servicio">
           <div className={classes.iconContainer} hidden={role? !role.export : false}>
             <CSVDownloader
               data={toExport}
@@ -479,7 +479,7 @@ export default function ShowProjects() {
         </Tooltip>
       </Grid>
       <PageHeader
-        title="Información detallada sobre un proyecto"
+        title="Información detallada sobre un servicio"
         subTitle="Se mostrará también los programas y factores asociados"
         icon={<InfoIcon fontSize="large"
         />}
@@ -508,29 +508,15 @@ export default function ShowProjects() {
               Descripción: {description ? description : 'Descripción'}
             </Typography>
             <Typography variant="subtitle1" color="textSecondary" component="p">
-              Objetivos: {objetives ? objetives: 'Sin objetivos'}
+              Precio: {objetives ? objetives: 'Sin objetivos'}
             </Typography>
-            <Typography variant="subtitle1" color="textSecondary" component="p">
-              Justificación: {justification ? justification: 'Sin justificación'}
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary" component="p">
-              País: {country ? country: 'País no ingresado.'}
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary" component="p">
-              Departamento: {department ? department: 'Departamento no ingresado.'}
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary" component="p">
-              Distrito: {district ? district: 'Distrito no ingresado.'}
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary" component="p">
-              Definición general: {definition ? definition: 'Definición general no ingresada.'}
-            </Typography>
+            
             
           </CardContent>
 
           <CardActions disableSpacing>
             <Typography variant="subtitle1" color="textSecondary" component="p">
-              ¿Proyecto activo?
+              ¿Servicio activo?
             </Typography>
             <Controls.Checkbox
               name="isTimeSeries"
@@ -544,53 +530,11 @@ export default function ShowProjects() {
 
       <br />
 
-      <br id="Estadisticas" />
-
-      <Grid
-        container
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-        style={{ width: "90%" }}
-      >
-        <Card className={classes.cardContainer}>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2" align='center'>
-              Estadísticas del proyecto
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary" component="p">
-            <b>Días necesarios:</b> {totalDays ? totalDays : 'Días totales'}
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary" component="p">
-            <b>Días trabajados:</b> {nowDays ? nowDays: 'Días trabajados'}
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary" component="p">
-            <b>Diferencia de días:</b> {totalDays - nowDays}
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary" component="p">
-            <b>Presupuesto ocupado hasta el momento:</b> {((100/totalDays)*nowDays).toFixed(2)}%
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary" component="p">
-              <b>Porcentaje de tareas completadas:</b> {percentage} %
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary" component="p">
-              <b>Número de tareas asociadas a este proyecto:</b> {totalTasks}
-            </Typography>
-
-          </CardContent>
-        </Card>
-      </Grid>
 
 
-
-
-
-
-
-      <br />
       <PageHeader
-        title="Programas asociados al proyecto"
-        subTitle="Se muestran todos los programas asociados a este proyecto"
+        title="Laboratorios asociados al servicio"
+        subTitle="Se muestran todos los programas asociados a este servicio"
         icon={<ProgramIcon fontSize="large"
 
         />}
@@ -617,7 +561,7 @@ export default function ShowProjects() {
                 <TableHead>
                   <TableRow className={classes.thead}>
                     <TableCell>Nombre</TableCell>
-                    <TableCell>Objetivos</TableCell>
+                    <TableCell>Precio</TableCell>
                     <TableCell>Definición principal</TableCell>
                     <TableCell className={classes.programholder}>Acciones</TableCell>
                   </TableRow>
@@ -692,8 +636,8 @@ export default function ShowProjects() {
 
       
       <PageHeader
-        title="Asociar programa a proyecto"
-        subTitle="Seleccione un programa para asociarlo a este proyecto"
+        title="Asociar laboratorio a servicio"
+        subTitle="Seleccione un laboratorio para asociarlo a este servicio"
         icon={<InfoIcon fontSize="large"
         />}
       />
@@ -728,7 +672,7 @@ export default function ShowProjects() {
             options={filteredPrograms}
             getOptionLabel={(option) => option.name}
             style={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Programas" variant="outlined" />}
+            renderInput={(params) => <TextField {...params} label="Laboratorios" variant="outlined" />}
             disabled={loadingAso}
             inputValue={inputValue}
             onInputChange={(event, newInputValue) => {
@@ -756,7 +700,7 @@ export default function ShowProjects() {
               alignItems="center"
             >
               <Typography variant="h5" color="primary" component="p" >
-                Agregar programa
+                Agregar laboratorio
               </Typography>
             </Grid>
 
@@ -787,7 +731,7 @@ export default function ShowProjects() {
               <Grid item xs={6}>
                 <Controls.Input
                   name="objetivesProgram"
-                  label="Objetivos"
+                  label="Precio"
                   value={values.objetivesProgram}
                   onChange={handleInputChange}
                   error={errors.name}
@@ -844,7 +788,7 @@ export default function ShowProjects() {
 
               <CardActions>
                 <Typography variant="subtitle1" color="primary" component="p">
-                  <span >Objetivos: </span>
+                  <span >Precio: </span>
                   {programValue ? programValue.objetivesProgram : ''}
                 </Typography>
                 <Typography variant="subtitle1" color="primary" component="p">
@@ -862,7 +806,7 @@ export default function ShowProjects() {
             alignItems="center"
           >
             <Controls.Button
-              text="Asociar programa"
+              text="Asociar laboratorio"
               color="primary"
               onClick={associateProgram} />
           </Grid>

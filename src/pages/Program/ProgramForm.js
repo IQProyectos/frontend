@@ -47,9 +47,9 @@ export default function ProgramForm() {
     const [loading, setLoading] = React.useState(false);
     const [open, setOpen] = React.useState(false);
     const [error, setError] = useState('');
-    const message = id ? "Se ha actualizado el programa!" : "Se ha guardado el programa!"
-    const title = id ? "Actualizar Programa" : "Añadir nuevo Programa";
-    const description = id ? "Formulario para actualizar Programa" : "Formulario para añadir Programa";
+    const message = id ? "Se ha actualizado el laboratorio!" : "Se ha guardado el laboratorio!"
+    const title = id ? "Actualizar Laboratorio" : "Añadir nuevo Laboratorio";
+    const description = id ? "Formulario para actualizar Laboratorio" : "Formulario para añadir Laboratorio";
     const [progress, setProgress] = useState(0);
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
@@ -203,13 +203,13 @@ export default function ProgramForm() {
                         <Grid item xs={6}>
                             <Controls.Input
                                 name="objetivesProgram"
-                                label="Objetivos"
+                                label="Teléfono"
                                 value={values.objetivesProgram}
                                 onChange={handleInputChange}
                                 error={errors.objetivesProgram}
                             />
                             <Controls.Input
-                                label="Definición principal"
+                                label="Correo electrónico"
                                 name="definitionProgram"
                                 value={values.definitionProgram}
                                 onChange={handleInputChange}

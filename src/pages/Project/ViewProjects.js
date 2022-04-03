@@ -151,7 +151,7 @@ export default function ViewProject() {
     const headers = [
         { label: 'id', key: 'id' },
         { label: 'Descripción', key: 'description' },
-        { label: 'Objetivos', key: 'objetives' },
+        { label: 'Precio', key: 'objetives' },
         { label: 'Justificación', key: 'justification' },
         { label: 'País', key: 'country' },
         { label: 'Departamento', key:'department' },
@@ -276,7 +276,7 @@ export default function ViewProject() {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">{"¿Desea borrar este proyecto?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-slide-title">{"¿Desea borrar este servicio?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         Esta decisión no es reversible.
@@ -300,7 +300,7 @@ export default function ViewProject() {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">{"¿Desea abandonar este proyecto?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-slide-title">{"¿Desea abandonar este servicio?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         Esta decisión no es reversible.
@@ -318,8 +318,8 @@ export default function ViewProject() {
 
 
             <PageHeader
-                title="Información sobre los proyectos"
-                subTitle="Acá se muestran todos los proyectos en el sistema"
+                title="Información sobre los servicios"
+                subTitle="Acá se muestran todos los servicios en el sistema"
                 icon={<InfoIcon fontSize="large"
                 />}
             />
@@ -334,10 +334,10 @@ export default function ViewProject() {
             >
                 <Paper className={classes.paper} elevation={3}>
                     <Box sx={{ width: 'auto' }} padding>
-                        <Typography variant="h6" align="center">¿Se necesita un nuevo proyecto?</Typography>
+                        <Typography variant="h6" align="center">¿Se necesita un nuevo servicio?</Typography>
                     </Box>
                     <Box textAlign='center'>
-                        <Controls.Button color="primary" variant="contained" component={Link} to={`/project/create/`} text="Crear proyecto" />
+                        <Controls.Button color="primary" variant="contained" component={Link} to={`/project/create/`} text="Crear servicio" />
                     </Box>
 
                 </Paper>
@@ -373,7 +373,7 @@ export default function ViewProject() {
                         direction="row"
                         className={classes.csvContainer}
                     >
-                        <Tooltip title="Exportar proyectos">
+                        <Tooltip title="Exportar servicios">
                             <div className={classes.iconContainer}>
                                 <CSVLink {...csvReport} style={{color:'white', marginLeft: '10px'}}> 
                                     <DownloadIcon fontSize={'large'} />
@@ -386,10 +386,8 @@ export default function ViewProject() {
                         <TableHead>
                             <TableRow className={classes.thead}>
                                 <TableCell className={classes.cell}>Nombre</TableCell>
-                                <TableCell className={classes.cell}>¿Activo?</TableCell>
-                                <TableCell className={classes.cell}>Avance</TableCell>
-                                <TableCell className={classes.cell}>Tareas</TableCell>
-                                <TableCell className={classes.cell}>Reportes</TableCell>
+                                <TableCell className={classes.cell}>Descripción</TableCell>
+                                <TableCell className={classes.cell}>Precio</TableCell>
                                 <TableCell className={classes.programholder} style={{paddingTop: '0px'}}>Acciones</TableCell>
                             </TableRow>
                         </TableHead>
@@ -398,39 +396,9 @@ export default function ViewProject() {
                                 <TableRow hover className={classes.row} key={project.id}>
                                     <TableCell>{project.name}</TableCell>
                                     
-                                    <TableCell>
-                                        <Controls.Checkbox
-                                            name="isTimeSeries"
-                                            label=""
-                                            value={project.isTimeSeries}
-                                            disabled={true}
-                                        />
-                                    </TableCell>
-                                    <TableCell>{project.percentage}%</TableCell>
-                                    <TableCell>
-                                        <Grid
-                                            container
-                                            direction="row"
-                                            justifyContent="center"
-                                            alignItems="center"
-                                        >
-                                            <Tooltip title="Tareas">
-                                                <Button color="tertiary" variant="contained" style={{ marginRight: 10 }} component={Link} to={`/task/${project._id}`}><AddIcon /></Button>
-                                            </Tooltip>
-                                        </Grid>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Grid
-                                            container
-                                            direction="row"
-                                            justifyContent="center"
-                                            alignItems="center"
-                                        >
-                                            <Tooltip title="Reportes">
-                                                <Button color="tertiary" variant="contained" style={{ marginRight: 10 }} component={Link} to={`/report/${project._id}`}><AddIcon /></Button>
-                                            </Tooltip>
-                                        </Grid>
-                                    </TableCell>
+                                    <TableCell>{project.description}</TableCell>
+                                    <TableCell>{project.objectives}</TableCell>
+                                   
 
                                     <TableCell>
                                         <Grid
@@ -451,7 +419,7 @@ export default function ViewProject() {
                                                 }}><DeleteIcon /></Button>
                                             </Tooltip>
                                             {!isAdmin &&
-                                                <Tooltip title="Abandonar proyecto">
+                                                <Tooltip title="Abandonar servicio">
                                                     <Button color="warning" variant="contained" onClick={() => {
                                                         setOpenDialogAbandon(true); setProjectId(project._id);
                                                     }}><LogoutIcon /></Button>

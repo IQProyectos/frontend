@@ -133,7 +133,7 @@ export default function ViewOrganization() {
         { label: 'id', key: 'id' },
         { label: 'Nombre', key: 'name' },
         { label: 'Telefono', key: 'objetivesOrganization' },
-        { label: 'Descripcion', key: 'description' },
+        { label: 'Correo electronico', key: 'description' },
     ]
 
     const csvReport = {
@@ -215,8 +215,8 @@ export default function ViewOrganization() {
 
 
             <PageHeader
-                title="Información sobre las organizaciones"
-                subTitle="Acá se mostrarán todas las organizaciones del sistema"
+                title="Información sobre los laboratorios"
+                subTitle="Acá se mostrarán todas los laboratorios del sistema"
                 icon={<InfoIcon fontSize="large"
                 />}
             />
@@ -231,7 +231,7 @@ export default function ViewOrganization() {
             >
                 <Paper className={classes.paper} elevation={3}>
                     <Box sx={{ width: 'auto' }} padding>
-                        <Typography variant="h6" align="center">¿Se necesita una nueva organización?</Typography>
+                        <Typography variant="h6" align="center">¿Se necesita un nuevo laboratorio?</Typography>
 
                     </Box>
                     <Box textAlign='center'>

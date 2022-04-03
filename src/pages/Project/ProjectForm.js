@@ -18,11 +18,6 @@ const initialBValues = {
     name: '',
     description: '',
     objetives: '',
-    justification: '',
-    country: '',
-    department: '',
-    district: '',
-    definition: '',
     isTimeSeries: false,
     image: '',
     programs: [],
@@ -73,16 +68,7 @@ export default function ProjectForm() {
             temp.description = fieldValues.description ? "" : "Este campo es obligatorio."
         if ('objetives' in fieldValues)
             temp.objetives = fieldValues.objetives ? "" : "Este campo es obligatorio."
-        if ('justification' in fieldValues)
-            temp.justification = fieldValues.justification ? "" : "Este campo es obligatorio."
-        if ('country' in fieldValues)
-            temp.country = fieldValues.country ? "" : "Este campo es obligatorio."
-        if ('department' in fieldValues)
-            temp.department = fieldValues.department ? "" : "Este campo es obligatorio."
-        if ('district' in fieldValues)
-            temp.district = fieldValues.district ? "" : "Este campo es obligatorio." 
-        if ('definition' in fieldValues)
-            temp.definition = fieldValues.definition ? "" : "Este campo es obligatorio."    
+
            
             
         setErrors({
@@ -212,64 +198,21 @@ export default function ProjectForm() {
                                 onChange={handleInputChange}
                                 error={errors.name}
                             />
-                            <Controls.Input
+                            <Controls.TextArea
                                 label="Descripción"
                                 name="description"
                                 value={values.description}
                                 onChange={handleInputChange}
                                 error={errors.description}
                             />
-                            <Controls.TextArea
-                                label="Objetivos"
+                            <Controls.Input
+                                label="Precio"
                                 name="objetives"
                                 value={values.objetives}
                                 onChange={handleInputChange}
                                 error={errors.objetives}
                             />
 
-                            <Controls.TextArea
-                                label="Justificación"
-                                name="justification"
-                                value={values.justification}
-                                onChange={handleInputChange}
-                                error={errors.justification}
-                            />
-                            <Controls.Input
-                                label="País"
-                                //options={options}
-                                name="country"
-                                //value={options}
-                                value={values.country}
-                                onChange={handleInputChange}
-                                //error={errors.country}
-                                //closeMenuOnSelect={false}
-                                //defaultValue={options[0]}
-                                
-                            />
-                            
-
-                            <Controls.Input
-                                label="Departamento"
-                                name="department"
-                                value={values.department}
-                                onChange={handleInputChange}
-                                error={errors.department}
-                            />
-
-                            <Controls.Input
-                                label="Distrito"
-                                name="district"
-                                value={values.district}
-                                onChange={handleInputChange}
-                                error={errors.district}
-                            />
-                            <Controls.TextArea
-                                label="Definición general"
-                                name="definition"
-                                value={values.definition}
-                                onChange={handleInputChange}
-                                error={errors.definition}
-                            />
 
 
                         </Grid>

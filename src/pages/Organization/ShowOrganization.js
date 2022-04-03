@@ -146,7 +146,7 @@ export default function ShowOrganizations() {
             </div>
 
             <PageHeader
-                title="Información detallada sobre una organización"
+                title="Información detallada sobre un laboratorio"
                 icon={<InfoIcon fontSize="large"
                 />}
             />
@@ -182,7 +182,7 @@ export default function ShowOrganizations() {
                     </CardActions>
                     <CardActions>
                         <Typography variant="subtitle1" color="primary" component="p">
-                            <span>Notas: </span>
+                            <span>Correo Electrónico: </span>
                             {definitionOrganization ? definitionOrganization : ''}
                         </Typography>
                     </CardActions>

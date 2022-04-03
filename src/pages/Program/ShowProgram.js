@@ -147,7 +147,7 @@ export default function ShowProjects() {
             </div>
 
             <PageHeader
-                title="Información detallada sobre un programa"
+                title="Información detallada sobre un laboratorio"
                 icon={<InfoIcon fontSize="large"
                 />}
             />
@@ -177,16 +177,16 @@ export default function ShowProjects() {
 
                     <CardActions>
                         <Typography variant="subtitle1" color="primary" component="p">
-                            <span>Objetivos:</span>
+                            <span>Teléfono:</span>
                             {objetivesProgram ? objetivesProgram : ''}
                         </Typography>
                     </CardActions>
                     <CardActions>
                         <Typography variant="subtitle1" color="primary" component="p">
-                            <span>Definición principal:</span>
+                            <span>Correo Electrónico:</span>
                             {definitionProgram ? definitionProgram : ''}
                         </Typography>
-                        {/* <Tooltip title="Exportar programa">
+                        {/* <Tooltip title="Exportar laboratorio">
                             <div className={classes.iconContainer}>
                                 <CSVDownloader
                                     data={toExport}

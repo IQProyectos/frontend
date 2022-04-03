@@ -215,8 +215,8 @@ export default function ViewProgram() {
 
 
             <PageHeader
-                title="Información sobre los programas"
-                subTitle="Acá se mostrarán todos los programas del sistema"
+                title="Información sobre los laboratorios"
+                subTitle="Acá se mostrarán todos los laboratorios del sistema"
                 icon={<InfoIcon fontSize="large"
                 />}
             />
@@ -231,11 +231,11 @@ export default function ViewProgram() {
             >
                 <Paper className={classes.paper} elevation={3}>
                     <Box sx={{ width: 'auto' }} padding>
-                        <Typography variant="h6" align="center">¿Se necesita un nuevo programa?</Typography>
+                        <Typography variant="h6" align="center">¿Se necesita un nuevo laboratorio?</Typography>
 
                     </Box>
                     <Box textAlign='center'>
-                        <Controls.Button color="primary" variant="contained" component={Link} to={`/program/create/`} text="Crear programa" />
+                        <Controls.Button color="primary" variant="contained" component={Link} to={`/program/create/`} text="Crear laboratorio" />
                     </Box>
                 </Paper>
 
@@ -281,7 +281,7 @@ export default function ViewProgram() {
                         direction="row"
                         className={classes.csvContainer}
                     >
-                        <Tooltip title="Exportar programas">
+                        <Tooltip title="Exportar laboratorios">
                             <div className={classes.iconContainer}>
                                 <CSVLink {...csvReport} style={{ color: 'white', marginLeft: '10px' }}>
                                     <DownloadIcon fontSize={'large'} />
@@ -293,8 +293,8 @@ export default function ViewProgram() {
                         <TableHead>
                             <TableRow className={classes.thead}>
                                 <TableCell>Nombre</TableCell>
-                                <TableCell>Objetivos</TableCell>
-                                <TableCell>Definición principal</TableCell>
+                                <TableCell>Teléfono</TableCell>
+                                <TableCell>Descripción</TableCell>
                                 <TableCell className={classes.programholder}>Acciones</TableCell>
                             </TableRow>
                         </TableHead>

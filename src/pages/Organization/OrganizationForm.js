@@ -213,7 +213,7 @@ export default function OrganizationForm() {
                         </Grid>
                         <Grid item xs={12}>
                             <Controls.Input
-                                label="Notas"
+                                label="Correo electrónico"
                                 name="definitionOrganization"
                                 value={values.definitionOrganization}
                                 onChange={handleInputChange}
