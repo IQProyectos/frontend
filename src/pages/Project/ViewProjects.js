@@ -180,35 +180,7 @@ export default function ViewProject() {
                 process.env.REACT_APP_API_URL + "/api/private/project",
                 config
             );
-            
-            const currentUser = await getUsers(localStorage.getItem("uid"));
-            if(currentUser.data.user.type === "admin"){
-                wrapValues(projects.data.projects);
-                setIsAdmin(true);
-
-            }else{
-                setCurrentUserRoles(currentUser.data.user.roles);
-                let permittedProjects = [];
-
-                currentUser.data.user.roles.forEach(element => {
-                    permittedProjects.push(element.projectId);
-                });
-
-                console.log(permittedProjects);
-
-                let valuesToWrap = [];
-
-                projects.data.projects.forEach(element => {
-                    if(permittedProjects.includes(element._id)){
-                        valuesToWrap.push(element);
-                    }
-                });
-
-                wrapValues(valuesToWrap);
-            }
-            
-            
-
+            wrapValues(projects.data.projects);
 
         } catch (error) {
             setTimeout(() => {
@@ -388,6 +360,7 @@ export default function ViewProject() {
                                 <TableCell className={classes.cell}>Nombre</TableCell>
                                 <TableCell className={classes.cell}>Descripción</TableCell>
                                 <TableCell className={classes.cell}>Precio</TableCell>
+                                <TableCell className={classes.cell}>Laboratorio</TableCell>
                                 <TableCell className={classes.programholder} style={{paddingTop: '0px'}}>Acciones</TableCell>
                             </TableRow>
                         </TableHead>
@@ -397,8 +370,8 @@ export default function ViewProject() {
                                     <TableCell>{project.name}</TableCell>
                                     
                                     <TableCell>{project.description}</TableCell>
-                                    <TableCell>{project.objectives}</TableCell>
-                                   
+                                    <TableCell>{project.objetives}</TableCell>
+                                    <TableCell>{project.laboratorio}</TableCell>
 
                                     <TableCell>
                                         <Grid
@@ -418,13 +391,6 @@ export default function ViewProject() {
                                                     setOpenDialog(true); setProjectId(project._id);
                                                 }}><DeleteIcon /></Button>
                                             </Tooltip>
-                                            {!isAdmin &&
-                                                <Tooltip title="Abandonar servicio">
-                                                    <Button color="warning" variant="contained" onClick={() => {
-                                                        setOpenDialogAbandon(true); setProjectId(project._id);
-                                                    }}><LogoutIcon /></Button>
-                                                </Tooltip>
-                                            }
                                             
                                         </Grid>
                                     </TableCell>
