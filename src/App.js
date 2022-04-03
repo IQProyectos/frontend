@@ -12,6 +12,7 @@ import AssignRole from './pages/User/AssignRole';
 import UpdateFactor from './pages/Factors/UpdateFactor';
 import CreateFactor from './pages/Factors/CreateFactor';
 import ShowProgram from './pages/Program/ShowProgram';
+import ProgramServices from './pages/Program/ProgramServices';
 import ProgramForm from './pages/Program/ProgramForm';
 import ViewProgram from './pages/Program/ViewProgram';
 import ShowOrganization from './pages/Organization/ShowOrganization';
@@ -228,6 +229,12 @@ function App() {
               <Header />
               <SideMenu />
               <ShowProgram />
+            </RequireAuth>
+
+            <RequireAuth exact path='/program/services/:id'>
+              <Header />
+              <SideMenu />
+              <ProgramServices/>
             </RequireAuth>
 
             <RequireAuth exact path='/organization/show/:id'>

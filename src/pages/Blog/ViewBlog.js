@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Table, TableHead, TableCell, Paper, TableRow, TableBody, Button, makeStyles, CssBaseline, Grid } from '@material-ui/core'
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 import { Link } from 'react-router-dom';
 import { Alert, AlertTitle } from '@material-ui/lab/';
 import IconButton from '@material-ui/core/IconButton';
@@ -27,6 +31,7 @@ import { deleteBlog } from '../../services/blogService';
 import Controls from "../../components/controls/Controls";
 import { CSVLink } from "react-csv"
 import DownloadIcon from '@mui/icons-material/Download';
+import defaultImg from '../../assets/img/defaultImg.jpeg';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -106,7 +111,7 @@ export default function ViewBlog() {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-    const [blogs, setBlogs] = useState([]);
+    const [programs, setBlogs] = useState([]);
     const [open, setOpen] = React.useState(false);
     const [openDialog, setOpenDialog] = React.useState(false);
     const [error, setError] = useState('');
@@ -115,8 +120,8 @@ export default function ViewBlog() {
 
     const classes = useStyles();
 
-    function wrapValues(blogs) {
-        setBlogs(blogs);
+    function wrapValues(programs) {
+        setBlogs(programs);
         setLoading(false);
     }
 
@@ -136,9 +141,9 @@ export default function ViewBlog() {
     ]
 
     const csvReport = {
-        filename: 'Blogs.csv',
+        filename: 'Programs.csv',
         headers: headers,
-        data: blogs
+        data: programs
     }
 
     const config = {
@@ -150,11 +155,11 @@ export default function ViewBlog() {
 
     async function getAllBlogs() {
         try {
-            const blogs = await axios.get(
-                process.env.REACT_APP_API_URL + "/api/private/blog",
+            const programs = await axios.get(
+                process.env.REACT_APP_API_URL + "/api/private/program",
                 config
             );
-            wrapValues(blogs.data.blogs);
+            wrapValues(programs.data.programs);
         } catch (error) {
             setTimeout(() => {
                 setTimeout(() => {
@@ -214,31 +219,13 @@ export default function ViewBlog() {
 
 
             <PageHeader
-                title="Información sobre los blogs"
-                subTitle="Acá se mostrarán todos los blogs del sistema"
+                title="Información sobre los laboratorios"
+                subTitle="Acá se mostrarán todos los laboratorios  del sistema"
                 icon={<InfoIcon fontSize="large"
                 />}
             />
 
 
-            <Grid
-                container
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                className={classes.table}
-            >
-                <Paper className={classes.paper} elevation={3}>
-                    <Box sx={{ width: 'auto' }} padding>
-                        <Typography variant="h6" align="center">¿Se necesita un nuevo blog?</Typography>
-
-                    </Box>
-                    <Box textAlign='center'>
-                        <Controls.Button color="primary" variant="contained" component={Link} to={`/blog/create/`} text="Crear blog" />
-                    </Box>
-                </Paper>
-
-            </Grid>
 
             <div className={classes.blogholderLoading} hidden={!loading}>
                 <Fade
@@ -273,69 +260,43 @@ export default function ViewBlog() {
                     {error}
                 </Alert>
             </Collapse>
-            <Paper className={classes.table}>
-                <TableContainer >
-                    <Grid
-                        container
-                        direction="row"
-                        className={classes.csvContainer}
-                    >
-                        <Tooltip title="Exportar blogs">
-                            <div className={classes.iconContainer}>
-                                <CSVLink {...csvReport} style={{ color: 'white', marginLeft: '10px' }}>
-                                    <DownloadIcon fontSize={'large'} />
-                                </CSVLink>
-                            </div>
-                        </Tooltip>
+            <br></br>
+            <br></br>
+
+            <Grid container spacing={3}>
+                {programs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((program) => (
+
+                    <Grid xs={4} className={classes.row} key={program.id}>
+                        <Card sx={{ maxWidth: 345 }}>
+                            <CardMedia
+                                component="img"
+                                alt="green iguana"
+                                height="140"
+                                image={program.image ? program.image : defaultImg}
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    {program.name}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    {program.description}
+                                </Typography>
+                            </CardContent>
+
+                            <CardActions>
+                                <Button className={classes.button} variant="contained" style={{ marginRight: 10 }} component={Link} to={`/program/services/${program._id}`}><InfoIcon />Ver más</Button>
+                            </CardActions>
+                        </Card>
                     </Grid>
-                    <Table stickyHeader aria-label="sticky table" className={classes.container}>
-                        <TableHead>
-                            <TableRow className={classes.thead}>
-                                <TableCell>Nombre del blog</TableCell>
-                                <TableCell>Fecha</TableCell>
-                                <TableCell className={classes.blogholder}>Acciones</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {blogs.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((blog) => (
-                                <TableRow hover className={classes.row} key={blog.id}>
-                                    <TableCell>{blog.name}</TableCell>
-                                    <TableCell>{blog.date}</TableCell>
-                                    <TableCell>
-                                        <Grid
-                                            container
-                                            direction="row"
-                                            justifyContent="center"
-                                            alignItems="center"
-                                        >
-                                            <Tooltip title="Editar">
-                                                <Button color="primary" variant="contained" style={{ marginRight: 10 }} component={Link} to={`/blog/update/${blog._id}`}><ModeEditIcon /></Button>
-                                            </Tooltip>
-                                            <Tooltip title="Información">
-                                                <Button className={classes.button} variant="contained" style={{ marginRight: 10 }} component={Link} to={`/blog/show/${blog._id}`}><InfoIcon /></Button>
-                                            </Tooltip>
-                                            <Tooltip title="Eliminar">
-                                                <Button color="secondary" variant="contained" onClick={() => {
-                                                    setOpenDialog(true); setBlogId(blog._id);
-                                                }}><DeleteIcon /></Button>
-                                            </Tooltip>
-                                        </Grid>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[10, 25, 100]}
-                    component="div"
-                    count={blogs.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-            </Paper>
+                ))}
+
+            </Grid>
+
+
+
+
+
+
         </div>
     )
 }
