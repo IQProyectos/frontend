@@ -37,6 +37,7 @@ import { esES } from '@mui/material/locale';
 import ProjectForm from './pages/Project/ProjectForm';
 import ViewProjects from './pages/Project/ViewProjects'
 import ShowProject from './pages/Project/ShowProject';
+import ProjectBook from './pages/Project/ProjectBook';
 import ReportForm from './pages/Report/ReportForm';
 import ViewReports from './pages/Report/ViewReports'
 import ShowReport from './pages/Report/ShowReport';
@@ -151,6 +152,12 @@ function App() {
               <Header />
               <SideMenu />
               <ShowProject />
+            </RequireAuth>
+
+            <RequireAuth exact path='/project/book/:id'>
+              <Header />
+              <SideMenu />
+              <ProjectBook />
             </RequireAuth>
 
             <RequireAuth exact path='/project/update/:id'>

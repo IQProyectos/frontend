@@ -1,5 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -7,6 +9,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid'
 import InfoIcon from '@material-ui/icons/Info';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import PageHeader from "../../components/PageHeader";
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -17,6 +20,7 @@ import defaultImg from '../../assets/img/defaultImg.jpeg'
 import { CSVDownloader } from 'react-papaparse'
 import DownloadIcon from '@mui/icons-material/Download';
 import Tooltip from '@mui/material/Tooltip';
+import { getPrograms } from '../../services/programService';
 
 const useStyles = makeStyles(theme => ({
     cardContainer: {
@@ -76,6 +80,22 @@ const initialValue = {
     projects: [],
 }
 
+const initialProyectValues = {
+    name: '',
+    description: '',
+    objetives: '',
+    justification: '',
+    country: '',
+    department: '',
+    district: '',
+    definition: '',
+    isTimeSeries: true,
+    image: '',
+    programs: [],
+    factors: []
+}
+
+
 
 export default function ProgramServices() {
     const [program, setProgram] = useState(initialValue);
@@ -85,6 +105,11 @@ export default function ProgramServices() {
     const [open, setOpen] = React.useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = React.useState(true);
+
+    const [projects, setProjects] = useState([]);
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
 
     const classes = useStyles();
     const { id } = useParams();
@@ -108,13 +133,14 @@ export default function ProgramServices() {
             setProgram(response.data.program);
             let data = response.data.program;
             setExport([
-                {id: data.id,
-                name: data.name,
-                description: data.description,
-                objetivesProgram: data.objetivesProgram,
-                definitionProgram: data.definitionProgram,
-            }])
-            
+                {
+                    id: data.id,
+                    name: data.name,
+                    description: data.description,
+                    objetivesProgram: data.objetivesProgram,
+                    definitionProgram: data.definitionProgram,
+                }])
+
             setLoading(false);
         } catch (error) {
             setTimeout(() => {
@@ -129,6 +155,73 @@ export default function ProgramServices() {
             return setError("Authentication failed!");
         }
     }
+
+    function wrapValues(projects) {
+        setProjects(projects);
+        setLoading(false);
+    }
+
+    const headers = [
+        { label: 'id', key: 'id' },
+        { label: 'Descripción', key: 'description' },
+        { label: 'Precio', key: 'objetives' },
+        { label: 'Justificación', key: 'justification' },
+        { label: 'País', key: 'country' },
+        { label: 'Departamento', key: 'department' },
+        { label: 'Distrito', key: 'district' },
+        { label: 'Definición', key: 'definition' },
+        { label: 'Nombre', key: 'name' },
+        { label: 'Percentage', key: 'percentage' }
+    ]
+
+    const csvReport = {
+        filename: 'Projects.csv',
+        headers: headers,
+        data: projects
+    }
+
+    async function getAllProjects() {
+        try {
+            const projects = await axios.get(
+                process.env.REACT_APP_API_URL + "/api/private/project",
+                config
+            );
+
+            const currentProgram = await getPrograms(id);
+
+            let valuesToWrap = [];
+
+            projects.data.projects.forEach(element => {
+                    valuesToWrap.push(element);
+                
+            });
+
+            wrapValues(valuesToWrap);
+
+        } catch (error) {
+            setTimeout(() => {
+                setTimeout(() => {
+                    setError("");
+                }, 2000);
+            }, 5000);
+            return setError("Authenticatin failed!");
+        }
+
+
+
+
+    }
+
+    useEffect(() => {
+        let unmounted = false;
+        getAllProjects();
+        
+        
+        
+        return () => { unmounted = true; };
+        
+
+    }, []);
 
     return (
 
@@ -186,11 +279,46 @@ export default function ProgramServices() {
                             <span>Correo Electrónico:</span>
                             {definitionProgram ? definitionProgram : ''}
                         </Typography>
+                        
                     </CardActions>
                 </Card>
             </Grid>
             <br />
-            
+            <br />
+            <br />
+            <Grid container spacing={3}>
+                {projects.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((project) => (
+
+                    <Grid xs={4} className={classes.row} key={project.id}>
+                        <Card sx={{ maxWidth: 345 }}>
+                            <CardMedia
+                                component="img"
+                                alt="green iguana"
+                                height="140"
+                                image={project.image ? project.image : defaultImg}
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    {project.name}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Descripción: {project.description}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Precio: {project.objectives ? project.objectives : 0}
+                                </Typography>
+                            </CardContent>
+
+                            <CardActions>
+                                <Button className={classes.button} variant="contained" style={{ marginRight: 10 }} component={Link} to={`/project/book/${project._id}`}><ModeEditIcon/>Agendar</Button>
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                ))}
+
+            </Grid>
+
+
         </div>
     );
 }

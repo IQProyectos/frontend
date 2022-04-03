@@ -284,7 +284,7 @@ export default function ViewBlog() {
                             </CardContent>
 
                             <CardActions>
-                                <Button className={classes.button} variant="contained" style={{ marginRight: 10 }} component={Link} to={`/program/services/${program._id}`}><InfoIcon />Ver más</Button>
+                                <Button className={classes.button} variant="contained" style={{ marginRight: 10 }} component={Link} to={`/program/services/${program._id}`}><InfoIcon />Ver servicios ofrecidos</Button>
                             </CardActions>
                         </Card>
                     </Grid>
