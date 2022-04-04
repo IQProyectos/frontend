@@ -176,11 +176,13 @@ export default function ViewProject() {
 
     async function getAllProjects() {
         try {
+
             const projects = await axios.get(
                 process.env.REACT_APP_API_URL + "/api/private/project",
                 config
             );
             wrapValues(projects.data.projects);
+            
 
         } catch (error) {
             setTimeout(() => {
@@ -333,13 +335,6 @@ export default function ViewProject() {
             <Paper className={classes.table}>
                 <AlertMessage errorMessage={error} successMessage={""} openMessage={open} />
                 <TableContainer >
-                    {/* <div className={classes.test}>
-                    <CSVDownloader
-                        data= {projects}
-                        filename={'projects'}
-                        config={{}}
-                    > Download</CSVDownloader>
-                    </div> */}
                     <Grid
                         container
                         direction="row"
@@ -360,7 +355,6 @@ export default function ViewProject() {
                                 <TableCell className={classes.cell}>Nombre</TableCell>
                                 <TableCell className={classes.cell}>Descripción</TableCell>
                                 <TableCell className={classes.cell}>Precio</TableCell>
-                                <TableCell className={classes.cell}>Laboratorio</TableCell>
                                 <TableCell className={classes.programholder} style={{paddingTop: '0px'}}>Acciones</TableCell>
                             </TableRow>
                         </TableHead>
@@ -371,7 +365,6 @@ export default function ViewProject() {
                                     
                                     <TableCell>{project.description}</TableCell>
                                     <TableCell>{project.objetives}</TableCell>
-                                    <TableCell>{project.laboratorio}</TableCell>
 
                                     <TableCell>
                                         <Grid

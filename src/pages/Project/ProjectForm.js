@@ -47,6 +47,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function ProjectForm() {
+    const [labName, setLabName] = useState('');
     const { id } = useParams();
     const classes = useStyles();
     const [loading, setLoading] = React.useState(false);
@@ -118,6 +119,27 @@ export default function ProjectForm() {
             setLoading(false);
             return setError("Authentication failed!");
         }
+    }
+
+    useEffect(async () => {
+        let unmounted = false;
+        await getLabName();
+        return () => {unmounted = true};
+    }, []);
+
+    const getLabName = async () => {
+        try {
+            const uid = localStorage.getItem("uid");
+            let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/users/${uid}`, config);
+            console.log("WENAAAS");
+            console.log(response);
+            values.laboratorio = response.data.user.roles[0].projectName;
+            setLabName(response.data.user.roles[0].projectName);
+        }
+        catch(error){
+            console.log("Wenuuuski");
+        }
+    
     }
 
     const {
@@ -209,9 +231,10 @@ export default function ProjectForm() {
                                 error={errors.objetives}
                             />
                             <Controls.Input
+                                disabled="true"
                                 label="Laboratorio"
                                 name="laboratorio"
-                                value={values.laboratorio}
+                                value={labName}
                                 onChange={handleInputChange}
                             />
 

@@ -9,6 +9,8 @@ import IconButton from "@material-ui/core/IconButton";
 import { useHistory } from "react-router-dom";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Avatar from '@material-ui/core/Avatar';
+import axios from "axios";
+import {useState, useEffect} from 'react';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -43,8 +45,39 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
     const history = useHistory();
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [header, setHeader] = useState('');
     const open = Boolean(anchorEl);
     const image = localStorage.getItem("image");
+
+    useEffect(async () => {
+        let unmounted = false;
+        await headerName();
+        return () => {unmounted = true};
+    }, []);
+
+    const headerName = async () => {
+        try {
+            const uid = localStorage.getItem("uid");
+            let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/users/${uid}`, config);
+            console.log("WENAAAS");
+            console.log(response);
+            setHeader(response.data.user.roles[0].projectName);
+        }
+        catch(error){
+            console.log("Wenuuuski");
+        }
+    
+    }
+
+    function setName(){
+        console.log(header);
+        let name = "Scyto: Gestor de servicios de laboratorios";
+        if(header !== ''){
+            name = "Scyto: Gestor de servicios de " + header;
+        }
+        return name;
+    }
+
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -68,6 +101,15 @@ export default function Header() {
         history.push("/")
     }
 
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+    };
+
+
+
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -78,7 +120,7 @@ export default function Header() {
                             color="inherit"    
                         >
                             <Typography variant="h6" noWrap >
-                                Scyto: Gestor de servicios de laboratorios
+                                {setName()}
                             </Typography>
                         </IconButton>
                         
