@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom';
 import AlertMessage from '../../components/AlertMessage';
 import ImageComponent from '../../components/ImageComponent';
 import MenuItem from '@mui/material/MenuItem';
-
+import CalendarTemplate from './Calendar';
 
 
 const initialBValues = {
@@ -47,6 +47,9 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function ProjectForm() {
+    const [availability, setAvailability] = useState([])
+
+
     const [labName, setLabName] = useState('');
     const { id } = useParams();
     const classes = useStyles();
@@ -58,8 +61,28 @@ export default function ProjectForm() {
     const title = id ? "Actualizar proyecto" : "Añadir nuevo proyecto";
     const type = id ? "actualizar" : "agregar";
 
+
+    const Calendar = CalendarTemplate({
+        availability,
+        setAvailability: update => {
+            setAvailability(update)
+            printAvailability(update)
+            console.log("CRAYOLA")
+            console.log(availability)
+        },
+
+
+
+    });
+
+
+    function printAvailability(update) {
+        console.log("OLIS")
+        console.log(update)
+    }
+
     const validate = (fieldValues = values) => {
-        let temp = { ...errors }        
+        let temp = { ...errors }
         if ('name' in fieldValues)
             temp.name = fieldValues.name ? "" : "Este campo es obligatorio."
         if ('description' in fieldValues)
@@ -67,11 +90,11 @@ export default function ProjectForm() {
         if ('objetives' in fieldValues)
             temp.objetives = fieldValues.objetives ? "" : "Este campo es obligatorio."
 
-           
-            
+
+
         setErrors({
             ...temp
-        })        
+        })
         if (fieldValues === values)
             return Object.values(temp).every(x => x === "")
     }
@@ -124,7 +147,7 @@ export default function ProjectForm() {
     useEffect(async () => {
         let unmounted = false;
         await getLabName();
-        return () => {unmounted = true};
+        return () => { unmounted = true };
     }, []);
 
     const getLabName = async () => {
@@ -136,10 +159,10 @@ export default function ProjectForm() {
             values.laboratorio = response.data.user.roles[0].projectName;
             setLabName(response.data.user.roles[0].projectName);
         }
-        catch(error){
+        catch (error) {
             console.log("Wenuuuski");
         }
-    
+
     }
 
     const {
@@ -154,7 +177,7 @@ export default function ProjectForm() {
     const confirmPost = () => {
         setOpen(true);
         setLoading(false);
-        if(!id){
+        if (!id) {
             resetForm({
             })
         }
@@ -191,10 +214,10 @@ export default function ProjectForm() {
 
         }
 
-        
+
     }
     return (
-        
+
         <div>
             <PageHeader
                 title={title}
@@ -203,10 +226,10 @@ export default function ProjectForm() {
                 />}
             />
             <CircularStatic progress={progress} hidden={!loading} />
-            <Paper className={classes.pageContent}>                
-                <ImageComponent initialValues={values} onChange={handleInputChange}/>
+            <Paper className={classes.pageContent}>
+                <ImageComponent initialValues={values} onChange={handleInputChange} />
                 <Form onSubmit={handleSubmit}>
-                    <AlertMessage errorMessage={error} successMessage={message} openMessage={open}/>
+                    <AlertMessage errorMessage={error} successMessage={message} openMessage={open} />
                     <Grid container>
                         <Grid item xs={6}>
                             <Controls.Input
@@ -248,8 +271,21 @@ export default function ProjectForm() {
                                 onChange={handleInputChange}
                                 title="Se presentará como proyecto activo al marcar la casilla, de lo contrario se presentará como proyecto inactivo."
                             />
-                            
+
                         </Grid>
+
+                        <Grid
+                            container
+                            direction="row"
+                            justifyContent="center"
+                            alignItems="center"
+                            style={{ marginTop: '20px' }}
+                        >
+                            <div>
+                                <Calendar />
+                            </div>
+                        </Grid>
+
                         <Grid
                             container
                             direction="row"
