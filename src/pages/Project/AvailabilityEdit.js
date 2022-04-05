@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-export default function ProjectForm() {
+export default function AvailabilityEdit() {
 
     let [availability, setAvailability] = useState([])
 
@@ -71,6 +71,7 @@ export default function ProjectForm() {
             saveAvailability(update)
             console.log("CRAYOLA")
             console.log(availability)
+            updateProjectAvailability(availability)
         },
 
 
@@ -184,49 +185,27 @@ export default function ProjectForm() {
         }, 6000);
 
     }
-    const handleSubmit = async e => {
-        e.preventDefault()
-        if (validate()) {
-            setLoading(true);
-            try {
-                if (id) {
-                    await axios
-                        .patch(`${process.env.REACT_APP_API_URL}/api/private/project/${id}`, values, config)
-                        .then(confirmPost)
-                console.log("if")
-                } else {
-                    await axios
-                        .post(process.env.REACT_APP_API_URL + "/api/private/project/", values, config)
-                        .patch(`${process.env.REACT_APP_API_URL}/api/private/availability`, values, config)
-                        .then(confirmPost)
-                console.log("else")
-                }
-                console.log("en handle submit")
-                createAvailability();
-            }
 
-            catch (error) {
-                setLoading(false);
-                setTimeout(() => {
-                    setTimeout(() => {
-                        setError("");
-                    }, 2000);
-                }, 5000);
-                return setError("Authentication failed!");
-            }
 
+    function updateProjectAvailability(availabilityParam) {
+        console.log("UPDATE")
+        console.log(availabilityParam)
+        const value= {
+            availability: availabilityParam
         }
-
-
+        
+        axios.patch(`${process.env.REACT_APP_API_URL}/api/private/project/availability/${id}`, value, config);
+        
+        console.log("AFTER")
+        
     }
 
-    
-
-    function saveAvailability(update){
+    function saveAvailability(update) {
         console.log("LOGGING")
         console.log(update)
         availability = update
-        
+        createAvailability()
+
     }
 
     const createAvailability = async e => {
@@ -234,38 +213,39 @@ export default function ProjectForm() {
         console.log(availability)
         if (validate()) {
             setLoading(true);
-        
-            availability.forEach(element => {
-            const avaValue = {
-                service: id,
-                start: element.start,
-                end: element.end,
-                timeSlot: 30
-    
-            }
-            try {
-                if (id) {
-                     axios
-                        .post(`${process.env.REACT_APP_API_URL}/api/private/availability/${id}`, avaValue, config)
-                        .then(confirmPost)
-                } else {
-                     axios
-                        .patch(`${process.env.REACT_APP_API_URL}/api/private/availability`, avaValue, config)
-                        .then(confirmPost)
-                }
-            }
 
-            catch (error) {
-                setLoading(false);
-                setTimeout(() => {
+            availability.forEach(element => {
+                const avaValue = {
+                    service: id,
+                    start: element.start,
+                    end: element.end,
+                    timeSlot: 60
+
+                }
+                try {
+                    if (id) {
+                        axios
+                            .post(`${process.env.REACT_APP_API_URL}/api/private/availability/${id}`, avaValue, config)
+                            .then(confirmPost)
+                    } else {
+                        axios
+                            .patch(`${process.env.REACT_APP_API_URL}/api/private/availability`, avaValue, config)
+                            .then(confirmPost)
+                    }
+                    console.log("CREADO")
+
+
+                } catch (error) {
+                    setLoading(false);
                     setTimeout(() => {
-                        setError("");
-                    }, 2000);
-                }, 5000);
-                return setError("Authentication failed!");
-            }
-        });
-    }
+                        setTimeout(() => {
+                            setError("");
+                        }, 2000);
+                    }, 5000);
+                    return setError("Authentication failed!");
+                }
+            });
+        }
     }
     return (
 
@@ -279,74 +259,19 @@ export default function ProjectForm() {
             <CircularStatic progress={progress} hidden={!loading} />
             <Paper className={classes.pageContent}>
                 <ImageComponent initialValues={values} onChange={handleInputChange} />
-                <Form onSubmit={handleSubmit}>
-                    <AlertMessage errorMessage={error} successMessage={message} openMessage={open} />
-                    <Grid container>
-                        <Grid item xs={6}>
-                            <Controls.Input
-                                name="name"
-                                label="Nombre"
-                                value={values.name}
-                                onChange={handleInputChange}
-                                error={errors.name}
-                            />
-                            <Controls.TextArea
-                                label="Descripción"
-                                name="description"
-                                value={values.description}
-                                onChange={handleInputChange}
-                                error={errors.description}
-                            />
-                            <Controls.Input
-                                label="Precio"
-                                name="objetives"
-                                value={values.objetives}
-                                onChange={handleInputChange}
-                                error={errors.objetives}
-                            />
-                            <Controls.Input
-                                disabled="true"
-                                label="Laboratorio"
-                                name="laboratorio"
-                                value={labName}
-                                onChange={handleInputChange}
-                            />
 
-
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Controls.Checkbox
-                                name="isTimeSeries"
-                                label="Activar servicio"
-                                value={values.isTimeSeries}
-                                onChange={handleInputChange}
-                                title="Se presentará como servicio activo al marcar la casilla, de lo contrario se presentará como servicio inactivo."
-                            />
-
-                        </Grid>
-
-                        <Grid
-                            container
-                            direction="row"
-                            justifyContent="center"
-                            alignItems="center"
-                            style={{ marginTop: '20px' }}
-                        >
-                            <div>
-                                <Controls.Button
-                                    type="submit"
-                                    text="Guardar"
-                                />
-
-                                <Controls.Button
-                                    text="Limpiar"
-                                    color="inherit"
-                                    onClick={resetForm} />
-                            </div>
-                        </Grid>
-                    </Grid>
-                </Form>
             </Paper>
+            <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                style={{ marginTop: '20px' }}
+            >
+                <div>
+                    <Calendar />
+                </div>
+            </Grid>
         </div>
     )
 }

@@ -102,12 +102,12 @@ export default function SideMenu() {
             </ListItem>
           </List>
           <Divider />
-          <List>
+          {/* <List>
             <ListItem button key={'evidence'} onClick={() => moveRoute('/evidence')}>
               <ListItemIcon><VisibilityIcon /></ListItemIcon>
               <ListItemText primary={'Ver Citas'}/>
             </ListItem>
-          </List>
+          </List> */}
           <Divider /> 
               <List>
             <ListItem button key={'register'} onClick={() => moveRoute('/register')}>
@@ -141,12 +141,12 @@ export default function SideMenu() {
             </ListItem>
           </List>
           <Divider />
-          <List>
+          {/* <List>
             <ListItem button key={'notice'} onClick={() => moveRoute('/notice')}>
               <ListItemIcon><NewspaperIcon /></ListItemIcon>
               <ListItemText primary={'Gestionar mis citas'}/>
             </ListItem>
-          </List>
+          </List> */}
           <Divider />
           </div>}
           {value === 'gestor' &&
@@ -159,7 +159,7 @@ export default function SideMenu() {
           </List>
           <Divider />
           <List>
-            <ListItem button key={'report'} onClick={() => moveRoute('/report/')}>
+            <ListItem button key={'report'} onClick={() => moveRoute('/availability/')}>
               <ListItemIcon>{1 % 2 === 0 ? <InboxIcon /> : <SummarizeIcon/>}</ListItemIcon>
               <ListItemText primary={'Gestionar espacios'}/>
             </ListItem>

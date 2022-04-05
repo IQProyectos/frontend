@@ -13,6 +13,8 @@ import UpdateFactor from './pages/Factors/UpdateFactor';
 import CreateFactor from './pages/Factors/CreateFactor';
 import ShowProgram from './pages/Program/ShowProgram';
 import ProgramServices from './pages/Program/ProgramServices';
+import AvailabilityView from './pages/Project/AvailabilityView';
+import AvailabilityEdit from './pages/Project/AvailabilityEdit';
 import ProgramForm from './pages/Program/ProgramForm';
 import ViewProgram from './pages/Program/ViewProgram';
 import ShowOrganization from './pages/Organization/ShowOrganization';
@@ -139,6 +141,18 @@ function App() {
               <Header />
               <SideMenu />
               <ViewReportsDeadlines/>
+            </RequireAuth>
+
+            <RequireAuth exact path='/availability/:id'>
+              <Header />
+              <SideMenu />
+              <AvailabilityEdit/>
+            </RequireAuth>
+
+            <RequireAuth exact path='/availability/'>
+              <Header />
+              <SideMenu />
+              <AvailabilityView/>
             </RequireAuth>
 
 
