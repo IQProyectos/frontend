@@ -77,32 +77,33 @@ const initialValue = {
 
 export default function ProjectBook() {
   const [project, setProject] = useState(initialValue);
+  const [url, setURL] = useState('');
 
-  let email='';
-  let name= '';
-  
+  let email = '';
+  let name = '';
+
   const projectId = useParams();
   const config = {
     headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
     },
-};
+  };
 
   const prefilInfo = async () => {
     try {
       const uid = localStorage.getItem("uid");
       let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/users/${uid}`, config);
-      email= response.data.user.roles[0].projectName;
+      email = response.data.user.roles[0].projectName;
       name = response.data.user.name;
-    
+
     }
-    catch(error){
-        console.log("Wenuuuski");
+    catch (error) {
+      console.log("Wenuuuski");
     }
 
   }
-  
+
   const prefill = {
     email: email,
     name: name
@@ -110,12 +111,23 @@ export default function ProjectBook() {
 
   const getProject = async () => {
     try {
-      
-      let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/project/${projectId}`, config);
+      console.log("PROJECT")
+      console.log(projectId['id'])
+      let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/project/${projectId['id']}`, config);
       console.log("LABOR NA");
       console.log(response.data.project.laboratorio);
       setProject(response.data.project);
-      
+      //console.log('PROJECT')
+      console.log(project.name)
+      //console.log("BOOK")
+      //console.log(project)
+      const labName = (response.data.project.laboratorio.toLowerCase()).replace(/\s/g, '-');
+      const projectName = (response.data.project.name.toLowerCase()).replace(/\s/g, '-');
+      const url2 = "https://calendly.com/" + labName + "/" + projectName;
+      console.log('URL')
+      console.log(url2)
+      setURL(url2)
+
     } catch (error) {
       setTimeout(() => {
         setTimeout(() => {
@@ -127,21 +139,28 @@ export default function ProjectBook() {
     }
   }
 
-  useEffect( async() => {
+  useEffect(async () => {
 
     let unmounted = false;
     await prefilInfo();
     await getProject();
     return () => { unmounted = true; };
   }, []);
-  const labName = (project.laboratorio.toLowerCase()).replace(/\s/g,'-');
-  const url = "https://calendly.com/" + labName + "/" + project.name.toLowerCase();
+
+  // console.log("BOOK")
+  // console.log(project)
+  // const labName = (project.laboratorio.toLowerCase()).replace(/\s/g,'-');
+  // const projectName = (project.name.toLowerCase()).replace(/\s/g,'-');
+  // const url2 = "https://calendly.com/" + labName + "/" + projectName;
+  // console.log('URL')
+  // console.log(url)
+  // //https://calendly.com/test-laboratorio-1/service-1
 
 
   return (
     <div className="App">
       <InlineWidget
-        url= {url}
+        url={url}
         prefill={prefill}
       />
     </div>

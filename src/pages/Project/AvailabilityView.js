@@ -28,7 +28,7 @@ import { CSVLink } from "react-csv"
 import DownloadIcon from '@mui/icons-material/Download';
 import Download from '@mui/icons-material/Download';
 import { jsonToCSV, CSVDownloader } from 'react-papaparse';
-import {getUsers, editRoles} from '../../services/userService';
+import { getUsers, editRoles } from '../../services/userService';
 import { version } from 'react-dom/cjs/react-dom.development';
 import { render } from "react-dom";
 
@@ -154,9 +154,9 @@ export default function AvailabilityView() {
         { label: 'Precio', key: 'objetives' },
         { label: 'Justificación', key: 'justification' },
         { label: 'País', key: 'country' },
-        { label: 'Departamento', key:'department' },
-        { label: 'Distrito', key:'district' },
-        { label: 'Definición', key:'definition' },
+        { label: 'Departamento', key: 'department' },
+        { label: 'Distrito', key: 'district' },
+        { label: 'Definición', key: 'definition' },
         { label: 'Nombre', key: 'name' },
         { label: 'Percentage', key: 'percentage' }
     ]
@@ -191,9 +191,9 @@ export default function AvailabilityView() {
             let valuesToWrap = [];
 
             projects.data.projects.forEach(element => {
-                    if (currentProgram === element.laboratorio)
-                        valuesToWrap.push(element);
-                
+                if (currentProgram === element.laboratorio)
+                    valuesToWrap.push(element);
+
             });
 
             wrapValues(valuesToWrap);
@@ -207,17 +207,17 @@ export default function AvailabilityView() {
             return setError("Authenticatin failed!");
         }
 
-        
+
 
     }
     useEffect(() => {
         let unmounted = false;
         getAllProjects();
-        
-        
-        
+
+
+
         return () => { unmounted = true; };
-        
+
 
     }, []);
 
@@ -240,7 +240,7 @@ export default function AvailabilityView() {
     const abandonProject = async () => {
         let newRoles = []
         currentUserRoles.forEach(element => {
-            if(element.projectId !== projectId){
+            if (element.projectId !== projectId) {
                 newRoles.push(element);
             }
         });
@@ -249,25 +249,46 @@ export default function AvailabilityView() {
         getAllProjects();
     }
 
-    function objToString (obj) {
-        let str = '';
-        obj.forEach( function funct (item){
-            for (const [p, val] of Object.entries(item)) {
-                str += `${p}:${val}`;
-                str += "-"
-                if(p == 'end'){
-                    str += "\,";
-                    
-                }
-            }
-        })
+    function objToString(obj) {
+        let arr=obj
+        console.log("OBJETO")
         
-        return str;
+        console.log(obj !== ['No hay espacios disponibles'])
+        if (obj!== null && obj !== undefined && obj[0] !== 'No hay espacios disponibles' ){
+            let str = '';
+            arr = [];
+            obj.forEach(function funct(item) {
+                str += "Día: "
+                str += item['start'].slice(8, 10)
+                str +='/'
+                str += item['start'].slice(5, 7);
+                str += " , hora: "
+                str += item['start'].slice(11, -8);
+                str += '-';
+                str += item['end'].slice(11, -8);
+                arr.push(str);
+                str = '';
+            })
+        }
+        return arr;
+
     }
-    
-    
+
+    function displayList(arr) {
+        console.log("disp items")
+        console.log(arr)
+        const updatedList = arr.map((listItems) => {
+            console.log(listItems);
+            return <li>{listItems}</li>;
+        });
+
+        return (
+            <ul>{updatedList}</ul>
+        );
+    }
+
     return (
-        
+
         <div className={classes.root}>
             <CssBaseline />
             <Dialog
@@ -320,8 +341,8 @@ export default function AvailabilityView() {
 
 
             <PageHeader
-                title="Información sobre los servicios"
-                subTitle="Acá se muestran todos los servicios en el sistema"
+                title="Información sobre los horarios"
+                subTitle="Acá se muestran todos los horarios de los servicios en el sistema"
                 icon={<InfoIcon fontSize="large"
                 />}
             />
@@ -336,7 +357,7 @@ export default function AvailabilityView() {
             >
                 <Paper className={classes.paper} elevation={3}>
                     <Box sx={{ width: 'auto' }} padding>
-                        <Typography variant="h6" align="center">Espacios disponibles</Typography>
+                        <Typography variant="h6" align="center">Horarios para el servicio</Typography>
                     </Box>
 
                 </Paper>
@@ -367,7 +388,7 @@ export default function AvailabilityView() {
                     >
                         <Tooltip title="Exportar servicios">
                             <div className={classes.iconContainer}>
-                                <CSVLink {...csvReport} style={{color:'white', marginLeft: '10px'}}> 
+                                <CSVLink {...csvReport} style={{ color: 'white', marginLeft: '10px' }}>
                                     <DownloadIcon fontSize={'large'} />
                                 </CSVLink>
                             </div>
@@ -378,18 +399,22 @@ export default function AvailabilityView() {
                         <TableHead>
                             <TableRow className={classes.thead}>
                                 <TableCell className={classes.cell}>Nombre</TableCell>
-                                <TableCell className={classes.cell}>Citas Disponibles</TableCell>
-                                
-                                <TableCell className={classes.programholder} style={{paddingTop: '0px'}}>Acciones</TableCell>
+                                <TableCell className={classes.cell}>Horarios para este servicio</TableCell>
+
+                                <TableCell className={classes.programholder} style={{ paddingTop: '0px' }}>Acciones</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {projects.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((project) => (
                                 <TableRow hover className={classes.row} key={project.id}>
                                     <TableCell>{project.name}</TableCell>
-                                    
-                                    <TableCell>{objToString(project.availability)}</TableCell>
-                                  
+
+                                    <TableCell>
+                                        <ul>
+                                            {displayList(objToString(project.availability))}
+                                        </ul>
+                                    </TableCell>
+
 
                                     <TableCell>
                                         <Grid
@@ -401,8 +426,8 @@ export default function AvailabilityView() {
                                             <Tooltip title="Agregar Espacios">
                                                 <Button color="primary" variant="contained" style={{ marginRight: 10 }} component={Link} to={`/availability/${project._id}`}><ModeEditIcon />Agregar Espacios</Button>
                                             </Tooltip>
-                                        
-                                            
+
+
                                         </Grid>
                                     </TableCell>
                                 </TableRow>

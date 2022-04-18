@@ -50,9 +50,10 @@ const useStyles = makeStyles(theme => ({
 export default function AvailabilityEdit() {
 
     let [availability, setAvailability] = useState([])
-
+    
 
     const [labName, setLabName] = useState('');
+    const [project, setProject] = useState('');
     const { id } = useParams();
     const classes = useStyles();
     const [loading, setLoading] = React.useState(false);
@@ -113,7 +114,10 @@ export default function AvailabilityEdit() {
             setProgress(Math.round((100 * data.loaded) / data.total));
         },
     };
+
+
     const getProject = async () => {
+        console.log("EN GET PROJECT")
         setLoading(true);
         try {
             let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/project/${id}`, {
@@ -126,6 +130,9 @@ export default function AvailabilityEdit() {
                     setProgress(Math.round((100 * data.loaded) / data.total));
                 },
             });
+            setProject(response.data.project);
+            console.log("PROYECTO")
+            console.log(project)
             setValues(response.data.project);
             setLoading(false);
         } catch (error) {
@@ -187,11 +194,32 @@ export default function AvailabilityEdit() {
     }
 
 
+    function getProjectForAvailability (availabilityParam) {
+        
+        console.log("HOLIWISKKK")
+        console.log(project)
+    }
+
+
     function updateProjectAvailability(availabilityParam) {
-        console.log("UPDATE")
-        console.log(availabilityParam)
+        getProjectForAvailability(availabilityParam);
+        let ava;
+        if(project.availability[0] !== 'No hay espacios disponibles')
+            ava = project.availability;
+        else
+            ava = [];
+        console.log(ava[0])
+        availabilityParam.forEach(element => {
+            console.log("ELEMENTO");
+            console.log(element)
+            ava.push(element);
+        })
+        //ava.push(availabilityParam);
+        console.log("AVA")
+        console.log(ava);
+        
         const value= {
-            availability: availabilityParam
+            availability: ava
         }
         
         axios.patch(`${process.env.REACT_APP_API_URL}/api/private/project/availability/${id}`, value, config);
@@ -219,7 +247,7 @@ export default function AvailabilityEdit() {
                     service: id,
                     start: element.start,
                     end: element.end,
-                    timeSlot: 60
+                    timeSlot: 30
 
                 }
                 try {
