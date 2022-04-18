@@ -111,21 +111,11 @@ export default function ProjectBook() {
 
   const getProject = async () => {
     try {
-      console.log("PROJECT")
-      console.log(projectId['id'])
       let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/project/${projectId['id']}`, config);
-      console.log("LABOR NA");
-      console.log(response.data.project.laboratorio);
       setProject(response.data.project);
-      //console.log('PROJECT')
-      console.log(project.name)
-      //console.log("BOOK")
-      //console.log(project)
       const labName = (response.data.project.laboratorio.toLowerCase()).replace(/\s/g, '-');
       const projectName = (response.data.project.name.toLowerCase()).replace(/\s/g, '-');
       const url2 = "https://calendly.com/" + labName + "/" + projectName;
-      console.log('URL')
-      console.log(url2)
       setURL(url2)
 
     } catch (error) {
@@ -147,14 +137,6 @@ export default function ProjectBook() {
     return () => { unmounted = true; };
   }, []);
 
-  // console.log("BOOK")
-  // console.log(project)
-  // const labName = (project.laboratorio.toLowerCase()).replace(/\s/g,'-');
-  // const projectName = (project.name.toLowerCase()).replace(/\s/g,'-');
-  // const url2 = "https://calendly.com/" + labName + "/" + projectName;
-  // console.log('URL')
-  // console.log(url)
-  // //https://calendly.com/test-laboratorio-1/service-1
 
 
   return (
